@@ -1,0 +1,109 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #ffe6c9;
+}
+
+/*------------ADMIN MENU--------------*/
+.adminMenu {
+  background-color: #ffad4c;
+  padding: 0;
+  height: 100vh;
+}
+
+/*------------HOME BUTTON--------------*/
+.homeBtn {
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: block;
+  height: 60px;
+  font-size: 1.4em;
+  font-weight: 600;
+  padding: 4px;
+  position: relative;
+  text-decoration: none;
+  width: auto;
+}
+.homeBtn:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.homeBtn .homeBtnText {
+  align-items: center;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  padding-left: 20px;
+  height: 100%;
+  transition: background 0.5s ease;
+  width: 100%;
+}
+.homeBtn:hover .homeBtnText {
+  background: #e27a00;
+}
+/*----------LINE SPACE---------*/
+.line {
+  color: #fff;
+  margin: 0 30px 0 30px;
+  border-top: 1px solid #fff;
+}
+/*-------LIST BUTTON----------*/
+.listBtn {
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: block;
+  height: 50px;
+  font-size: 20px;
+  font-weight: 600;
+  padding: 0;
+  position: relative;
+  text-decoration: none;
+  width: auto;
+}
+.listBtn:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.listBtn .listBtnText {
+  padding-left: 80px;
+  align-items: center;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  height: 100%;
+  transition: background 0.5s ease;
+  width: 100%;
+}
+.listBtn:hover .listBtnText {
+  background: #e27a00;
+}
+/*----USER BUTTON------*/
+.userBtn {
+  padding-bottom: 0;
+  cursor: no-drop;
+  pointer-events: none;
+}
+.userBtn:hover {
+  color: #fff;
+  text-decoration: none;
+  /* pointer-events: none; */
+}
+.userBtn .homeBtnText {
+  align-items: center;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  padding-left: 20px;
+  height: 100%;
+  /* transition: background 0.5s ease; */
+  width: 100%;
+}
+.userBtn:hover .homeBtnText {
+  /* background: #e27a00; */
+  background-color: transparent;
+}
