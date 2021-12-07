@@ -9,12 +9,12 @@
 </head>
 
 <body>
-  {{!-- <div class="container-fluid adminContainer"> --}}
-    <div id="adminRow">
-        <div id="adminMenu">  {{> adminMenu}}</div>
-        <div id="adminContent">{{{ body }}}</div>
+  <div class="container-fluid adminContainer">
+    <div id="adminRow" class="row">
+        <div id="adminMenu" class="col-md-3">  {{> adminMenu}}</div>
+        <div id="adminContent" class="col-md-9">{{{ body }}}</div>
     </div>
-  {{!-- </div> --}}
+  </div>
     
 
   <script src="../../public/js/admin.js"></script>

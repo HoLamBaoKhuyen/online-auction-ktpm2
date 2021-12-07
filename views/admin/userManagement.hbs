@@ -1,3 +1,54 @@
 <a name="" id="menuBtn" class="" onclick="displayMenu()" href="#" role="button">
   <i class="fa fa-list fa-2x" aria-hidden="true"></i>
 </a>
+<h3>QUẢN LÝ NGƯỜI DÙNG</h3>
+
+<div class="form">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6">
+      <div class="input-container ic1">
+        <input id="name" class="input" type="text" placeholder=" " />
+        <div class="cut"></div>
+        <label for="name" class="placeholder">Họ tên</label>
+      </div>
+      <div class="input-container ic1">
+        <input id="username" class="input" type="text" placeholder=" " />
+        <div class="cut"></div>
+        <label for="username" class="placeholder">Tên tài khoản</label>
+      </div>
+      <div class="input-container ic1">
+        <input id="password" class="input" type="password" placeholder=" " />
+        <div class="cut"></div>
+        <label for="password" class="placeholder">Mật khẩu</label>
+      </div>
+
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+      <div class="input-container ic2">
+        <input id="email" class="input" type="text" placeholder=" " />
+        <div class="cut"></div>
+        <label for="email" class="placeholder">Email</label>
+      </div>
+      <div class="input-container ic2">
+        <input id="dob" class="input" type="text" placeholder=" " />
+        <div class="cut"></div>
+        <label for="dob" class="placeholder">Ngày sinh</label>
+
+      </div>
+      <div class="input-container ic2">
+        {{! <input id="lastname" class="input" type="text" placeholder=" " /> }}
+        <div class="cut"></div>
+        {{! <label for="type" class="placeholder">Loại tài khoản</label> }}
+        <select id="type" class="typeUser">
+          <option value="0">Loại tài khoản</option>
+          <option value="1">Admin</option>
+          <option value="2">Bidder</option>
+          <option value="3">Seller</option></select>
+      </div></div></div>
+  <button type="text" class="submit">THÊM</button>
+</div>
+
+<script type="text/javascript">
+  $(function () { $('#datetimepicker1').datetimepicker(); });
+</script>
