@@ -8,102 +8,133 @@ body {
 }
 
 /*------------ADMIN MENU--------------*/
-.adminMenu {
+#adminMenu {
   background-color: #ffad4c;
   padding: 0;
   height: 100vh;
 }
 
 /*------------HOME BUTTON--------------*/
-.homeBtn {
+.adminBtn {
   border-radius: 6px;
   box-sizing: border-box;
   color: #ffffff;
   display: block;
-  height: 60px;
-  font-size: 1.4em;
+  font-size: 1.6vw;
   font-weight: 600;
   padding: 4px;
   position: relative;
   text-decoration: none;
   width: auto;
+  text-align: left;
 }
-.homeBtn:hover {
+.adminBtn:hover {
   color: #fff;
   text-decoration: none;
 }
-.homeBtn .homeBtnText {
+.adminBtn .adminBtnText {
   align-items: center;
   background: transparent;
   border-radius: 6px;
   display: flex;
-  padding-left: 20px;
+  padding: 0.3em 0 0.3em 0;
   height: 100%;
   transition: background 0.5s ease;
   width: 100%;
 }
-.homeBtn:hover .homeBtnText {
+.adminBtn:hover .adminBtnText {
   background: #e27a00;
 }
+
 /*----------LINE SPACE---------*/
 .line {
   color: #fff;
-  margin: 0 30px 0 30px;
+  margin: 0 1.8em 0 1.8em;
   border-top: 1px solid #fff;
 }
 /*-------LIST BUTTON----------*/
 .listBtn {
-  border-radius: 6px;
-  box-sizing: border-box;
-  color: #ffffff;
-  display: block;
-  height: 50px;
-  font-size: 20px;
-  font-weight: 600;
-  padding: 0;
-  position: relative;
-  text-decoration: none;
-  width: auto;
+  font-size: 1.4vw;
+  padding: 2px;
 }
-.listBtn:hover {
-  color: #fff;
-  text-decoration: none;
-}
+
 .listBtn .listBtnText {
-  padding-left: 80px;
-  align-items: center;
-  background: transparent;
-  border-radius: 6px;
-  display: flex;
-  height: 100%;
-  transition: background 0.5s ease;
-  width: 100%;
-}
-.listBtn:hover .listBtnText {
-  background: #e27a00;
+  padding: 0.3em 1em 0.3em 2.8em;
 }
 /*----USER BUTTON------*/
 .userBtn {
-  padding-bottom: 0;
   cursor: no-drop;
   pointer-events: none;
 }
 .userBtn:hover {
   color: #fff;
   text-decoration: none;
-  /* pointer-events: none; */
 }
-.userBtn .homeBtnText {
-  align-items: center;
-  background: transparent;
-  border-radius: 6px;
+/*----------ACTIVE-------------*/
+.active .listBtnText {
+  background: #e27a00;
+  /* display: none; */
+}
+/*----------ADMIN ROW-------------*/
+#adminRow {
   display: flex;
-  padding-left: 20px;
-  height: 100%;
-  /* transition: background 0.5s ease; */
-  width: 100%;
 }
-.userBtn:hover .homeBtnText {
-  /* background: #e27a00; */
+#menuBtn {
+  display: none;
+  border: none;
+  /* position: absolute;
+  top: 0;
+  right: 0; */
+  color: #e27a00;
   background-color: transparent;
+}
+/*----------MENU ROW-------------*/
+.menu_row {
+  position: relative;
+}
+#menuBtnOnMenu {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: none;
+  border: none;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 10px;
+}
+
+/*Responsive*/
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (max-width: 1200px) {
+  .adminBtn {
+    font-size: 2vw;
+  }
+  .listBtn {
+    font-size: 1.9vw;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 992px) {
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+  #adminMenu {
+    display: none;
+    width: 100%;
+    position: fixed;
+  }
+  #adminRow {
+    display: block;
+  }
+  #menuBtn {
+    display: block;
+  }
+  #menuBtnOnMenu {
+    display: block;
+  }
+  .adminBtn {
+    font-size: 20px;
+  }
+}
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
 }
