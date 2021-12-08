@@ -7,5 +7,3 @@ function displayMenu() {
     x.style.display = "none";
   }
 }
-
-$(".datepicker").datepicker();

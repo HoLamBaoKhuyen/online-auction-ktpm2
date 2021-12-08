@@ -117,7 +117,7 @@ body {
   background-color: transparent;
   border-radius: 20px;
   box-sizing: border-box;
-  padding: 20px;
+  /* padding: 20px; */
   margin: auto;
 }
 .form label {
@@ -131,11 +131,11 @@ body {
 }
 
 .ic1 {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 
 .ic2 {
-  margin-top: 30px;
+  margin-top: 20px;
 }
 .typeUser {
   background-color: transparent;
@@ -162,6 +162,12 @@ body {
   width: 100%;
 }
 
+#dob {
+  background-color: transparent;
+}
+#dob::placeholder {
+  color: #e27a00;
+}
 .cut {
   background-color: transparent;
   border-radius: 10px;
