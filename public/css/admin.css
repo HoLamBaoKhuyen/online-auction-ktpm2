@@ -85,9 +85,9 @@ body {
 #menuBtn {
   display: none;
   border: none;
-  /* position: absolute;
+  position: absolute;
   top: 0;
-  right: 0; */
+  right: 0;
   color: #e27a00;
   background-color: transparent;
 }
@@ -277,10 +277,18 @@ form.form-search::after {
   clear: both;
   display: table;
 }
-
+/*--------------ADMIN TITLE----------------------------*/
+h3.adminTitle {
+  font-size: 2em;
+}
 /*--------------ADMIN TABLE----------------------------*/
+.adminTable_scroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
 .adminTable {
   border: 1px solid #000;
+  border-radius: 6px;
   margin-top: 10px;
 }
 .adminTable_header {
@@ -295,12 +303,27 @@ form.form-search::after {
 .adminTable_updateBtn {
   transition: 0.3s;
   border: none;
-  padding: 0.2rem 0.5rem;
+  /* border-radius: 50%; */
+  font-size: 1.3em;
+  padding: 0.1rem 0.4rem;
+  color: rgb(0, 128, 43);
+  background-color: transparent;
+}
+.adminTable_updateBtn:hover {
+  background-color: #cabfa180;
+  color: rgb(0, 128, 43);
 }
 .adminTable_deleteBtn {
   transition: 0.3s;
   border: none;
-  padding: 0.2rem 0.5rem;
+  padding: 0.1rem 0.4rem;
+  font-size: 1.3em;
+  color: red;
+  background-color: transparent;
+}
+.adminTable_deleteBtn:hover {
+  background-color: #cabfa180;
+  color: red;
 }
 /*Responsive*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
@@ -316,7 +339,7 @@ form.form-search::after {
 @media only screen and (max-width: 992px) {
 }
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 767px) {
   #adminMenu {
     display: none;
     width: 100%;
@@ -336,6 +359,9 @@ form.form-search::after {
   }
   form.form-search {
     width: 100%;
+  }
+  h3.adminTitle {
+    font-size: 1.5em;
   }
 }
 /* Extra small devices (phones, 600px and down) */

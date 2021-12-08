@@ -1,0 +1,61 @@
+<a
+  class="mx-4"
+  id="menuBtn"
+  class=""
+  onclick="displayMenu()"
+  href="#"
+  role="button"
+>
+  <i class="fa fa-list fa-2x" aria-hidden="true"></i>
+</a>
+<h3 class="my-4 adminTitle">DANH SÁCH BIDDER XIN NÂNG CẤP TÀI KHOẢN</h3>
+
+{{! search }}
+<form class="form-search" action="action_page.php">
+  <input type="text" placeholder="Tìm theo tên" name="search" />
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+{{! table  }}
+<div class="table-responsive">
+  <table class="table table-striped adminTable">
+    <thead class="adminTable_header">
+      <tr>
+        <th scope="col">Tên tài khoản</th>
+        <th scope="col">Họ Tên</th>
+        <th scope="col">Email</th>
+        <th scope="col">Ngày sinh</th>
+        <th scope="col">Thời gian</th>
+        <th scope="col">Xét duyệt</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {{! <th scope="row">1</th> }}
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>Mark</td>
+        <td>
+          <div class="d-inline-flex">
+            <a
+              name=""
+              id=""
+              class="btn btn-success adminTable_updateBtn mx-1"
+              href="#"
+              role="button"
+            >
+              <i class="fa fa-check" aria-hidden="true"></i></a>
+            <a
+              name=""
+              id=""
+              class="btn btn-danger adminTable_deleteBtn mx-1"
+              href="#"
+              role="button"
+            >
+              <i class="fa fa-window-close" aria-hidden="true"></i></a></div>
+        </td>
+      </tr>
+
+    </tbody>
+  </table></div>

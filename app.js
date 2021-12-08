@@ -45,6 +45,12 @@ app.get("/detail", function (req, res) {
 app.get("/admin", function (req, res) {
   res.render("admin/userManagement", { layout: "admin" });
 });
+app.get("/admin/userNeedUpdate", function (req, res) {
+  res.render("admin/userNeedUpdate", { layout: "admin" });
+});
+app.get("/admin/products", function (req, res) {
+  res.render("admin/productManagement", { layout: "admin" });
+});
 
 const port = 3000;
 app.listen(port, function () {

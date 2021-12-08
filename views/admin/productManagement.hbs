@@ -1,0 +1,114 @@
+<a
+  class="mx-4"
+  id="menuBtn"
+  class=""
+  onclick="displayMenu()"
+  href="#"
+  role="button"
+>
+  <i class="fa fa-list fa-2x" aria-hidden="true"></i>
+</a>
+<h3 class="my-4 adminTitle">QUẢN LÝ SẢN PHẨM</h3>
+
+{{! search }}
+<form class="form-search" action="action_page.php">
+  <input type="text" placeholder="Tìm theo tên" name="search" />
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+{{! table  }}
+<div class="table-responsive">
+  <table class="table table-striped adminTable">
+    <thead class="adminTable_header">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Danh mục</th>
+        <th scope="col">Tên sản phẩm</th>
+        <th scope="col">Người đấu giá</th>
+        <th scope="col">Xem chi tiết</th>
+        <th scope="col">Xóa</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        {{! <th scope="row">1</th> }}
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>
+          <a
+            name=""
+            id=""
+            class="btn btn-success adminTable_updateBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
+        <td>
+
+          <a
+            name=""
+            id=""
+            class="btn btn-danger adminTable_deleteBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+      <tr>
+        {{! <th scope="row">1</th> }}
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>
+          <a
+            name=""
+            id=""
+            class="btn btn-success adminTable_updateBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
+        <td>
+
+          <a
+            name=""
+            id=""
+            class="btn btn-danger adminTable_deleteBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+      <tr>
+        {{! <th scope="row">1</th> }}
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+        <td>Mark</td>
+        <td>
+          <a
+            name=""
+            id=""
+            class="btn btn-success adminTable_updateBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
+        <td>
+
+          <a
+            name=""
+            id=""
+            class="btn btn-danger adminTable_deleteBtn mx-1"
+            href="#"
+            role="button"
+          >
+            <i class="fa fa-trash" aria-hidden="true"></i></a>
+        </td>
+      </tr>
+    </tbody>
+  </table></div>
