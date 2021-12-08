@@ -215,7 +215,7 @@ body {
 }
 
 .submit {
-  background-color: #ffad4c;
+  background-color: #ff8a00;
   border-radius: 6px;
   border: 0;
   box-sizing: border-box;
@@ -237,6 +237,71 @@ body {
   background-color: #e27a00;
 }
 
+/*--------------FORM SEARCH----------------------------*/
+form.form-search {
+  position: relative;
+  width: 50%;
+  margin-top: 5em;
+}
+/* Style the search field */
+form.form-search input[type="text"] {
+  padding: 10px;
+  /* font-size: 17px; */
+  border: 1px solid grey;
+  border-radius: 6px;
+  float: left;
+  width: 100%;
+  background: #ebebebab;
+  display: flex;
+}
+
+/* Style the submit button */
+form.form-search button {
+  /* float: left; */
+  /* width: 20%; */
+  position: absolute;
+  right: 0;
+  padding: 10px;
+  margin-right: 10px;
+  background: transparent;
+  color: #e27a00;
+  font-size: 17px;
+  border: none;
+  border-left: none; /* Prevent double borders */
+  cursor: pointer;
+}
+
+/* Clear floats */
+form.form-search::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+/*--------------ADMIN TABLE----------------------------*/
+.adminTable {
+  border: 1px solid #000;
+  margin-top: 10px;
+}
+.adminTable_header {
+  background-color: #ff8a00;
+}
+.adminTable_header th {
+  border: none;
+}
+.adminTable_header td {
+  border: none;
+}
+.adminTable_updateBtn {
+  transition: 0.3s;
+  border: none;
+  padding: 0.2rem 0.5rem;
+}
+.adminTable_deleteBtn {
+  transition: 0.3s;
+  border: none;
+  padding: 0.2rem 0.5rem;
+}
 /*Responsive*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
@@ -268,6 +333,9 @@ body {
   }
   .adminBtn {
     font-size: 20px;
+  }
+  form.form-search {
+    width: 100%;
   }
 }
 /* Extra small devices (phones, 600px and down) */

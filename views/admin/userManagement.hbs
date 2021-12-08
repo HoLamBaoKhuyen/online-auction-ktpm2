@@ -58,3 +58,53 @@
       </div></div></div>
   <button type="text" class="submit">THÊM</button>
 </div>
+
+{{! search }}
+<form class="form-search" action="action_page.php">
+  <input type="text" placeholder="Tìm theo tên" name="search" />
+  <button type="submit"><i class="fa fa-search"></i></button>
+</form>
+{{! table  }}
+<table class="table adminTable">
+  <thead class="adminTable_header">
+    <tr>
+      <th scope="col">Tên tài khoản</th>
+      <th scope="col">Họ Tên</th>
+      <th scope="col">Email</th>
+      <th scope="col">Ngày sinh</th>
+      <th scope="col">Loại tài khoản</th>
+      <th scope="col"></th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      {{! <th scope="row">1</th> }}
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>Mark</td>
+      <td>Mark</td>
+      <td>
+        <a
+          name=""
+          id=""
+          class="btn btn-success adminTable_updateBtn mx-1"
+          href="#"
+          role="button"
+        >
+          <i class="fa fa-pencil" aria-hidden="true"></i></a>
+        <a
+          name=""
+          id=""
+          class="btn btn-danger adminTable_deleteBtn mx-1"
+          href="#"
+          role="button"
+        >
+          <i class="fa fa-trash" aria-hidden="true"></i></a>
+      </td>
+
+    </tr>
+
+  </tbody>
+</table>
