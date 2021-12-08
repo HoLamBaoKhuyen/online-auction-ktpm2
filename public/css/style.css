@@ -2,6 +2,15 @@
 body{
   background-color: #F5C28F;
 } 
+.responsive-img{
+  width: 100%;
+  max-width: 200px;
+  max-height: 200px;
+}
+.button-responsive{
+  width:100%;
+  max-width: 110px;
+}
 
 button.input-group-addon {
   position: absolute;
@@ -12,6 +21,8 @@ button.input-group-addon {
   height: 34px;
   width: 38px;
 }
+
+
 
 .dropdown-submenu {
     position: relative;
@@ -116,6 +127,8 @@ button.input-group-addon {
     margin-bottom: 35px;
     margin-top: 0;
     padding: 0;
+    width: 100%;
+    min-width: 120px;
   }
   .ibox.collapsed .ibox-content {
     display: none;
@@ -133,6 +146,8 @@ button.input-group-addon {
   }
  
   .ibox-content {
+    width: 100%;
+    min-width: 120px;
     background-color: #ffffff;
     color: inherit;
     padding: 10px 0px 0px 10px;
@@ -140,8 +155,10 @@ button.input-group-addon {
     border-image: none;
     border-style: solid solid none;
     border-width: 1px 0;
+    
   }
   .ibox-footer {
+    max-width: 100%;
     color: inherit;
     border-top: 1px solid #e7eaec;
     font-size: 90%;
@@ -173,9 +190,6 @@ button.input-group-addon {
 
 
   /* ------====-------Detail css --------------===-- */
-.detail-bidder-desc{
-  font-size: 13px;
-}
 
 .carousel-control-prev-icon {
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23f00' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
