@@ -51,6 +51,9 @@ app.get("/admin/userNeedUpdate", function (req, res) {
 app.get("/admin/products", function (req, res) {
   res.render("admin/productManagement", { layout: "admin" });
 });
+app.get("/admin/categories", function (req, res) {
+  res.render("admin/categories", { layout: "admin" });
+});
 
 const port = 3000;
 app.listen(port, function () {

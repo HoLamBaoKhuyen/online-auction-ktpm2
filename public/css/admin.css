@@ -325,6 +325,62 @@ h3.adminTitle {
   background-color: #cabfa180;
   color: red;
 }
+/*--------------------------QUẢN LÝ DANH MỤC------------------------------*/
+.admin_addBtn {
+  border-radius: 6px;
+  box-sizing: border-box;
+  color: #ffffff;
+  display: block;
+  font-size: 1.6vw;
+  font-weight: 600;
+  padding: 4px;
+  position: relative;
+  text-decoration: none;
+  width: auto;
+  text-align: left;
+}
+.admin_addBtn:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.admin_addBtn .adminBtnText {
+  align-items: center;
+  background: transparent;
+  border-radius: 6px;
+  display: flex;
+  padding: 0.3em 0 0.3em 0;
+  height: 100%;
+  transition: background 0.5s ease;
+  width: 100%;
+}
+.admin_addBtn:hover .adminBtnText,
+.addCategory_btnSave {
+  background: #e27a00 !important;
+}
+
+.admin_addBtn {
+  background-color: #ff8a00;
+  padding: 0;
+  font-size: 1em;
+  width: fit-content;
+  box-shadow: 0px 1px 5px #5a5a5a;
+}
+
+.admin_addBtn .adminBtnText {
+  padding: 4px 10px;
+}
+.adminCategory_btn {
+  color: #fff;
+}
+.adminCategory_btn:hover {
+  color: rgb(230, 230, 230);
+}
+.adminSmallCategory_btn {
+  color: #ff8a00;
+}
+.adminSmallCategory_btn:hover {
+  color: #e27a00;
+}
 /*Responsive*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
