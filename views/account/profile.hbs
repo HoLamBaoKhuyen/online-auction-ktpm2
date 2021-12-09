@@ -1,0 +1,407 @@
+<div class="container my-5">
+    <a class="btn" onclick="showInforTable()">
+        <h4>Thông tin cá nhân
+            <span><i class="fa fa-chevron-right" id="chevron-sight"></i></span>
+        </h4>
+    </a>
+
+{{!--------------------------Khung thông tin cá nhân ---------------------}}
+    <div class="container mt-3" style="width:90%; display: none;" id="InforTable">
+        <table class="table table-hover table-borderless">
+            <tbody>
+                <tr>
+                    <th scope="row">Họ và tên</th>
+                    <td colspan="2">Nguyen Van Jee</td>
+                    <td><a href="javascript:/" data-toggle="modal" data-target="#namemodal">Chỉnh sửa</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">Email</th>
+                    <td colspan="2">Jeeghetcovid@gmail.com</td>
+                    <td><a href="javascript:/" data-toggle="modal" data-target="#emailmodal">Chỉnh sửa</a></td>
+                </tr>
+                <tr>
+                    <th scope="row">Ngày sinh</th>
+                    <td colspan="2">30/02/1989</td>
+                    <td><a href="javascript:/" data-toggle="modal" data-target="#dobmodal">Chỉnh sửa</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{{!-- -------------------------- Modal chỉnh sửu thông tin--------------- --}}
+<div class="modal fade" id="namemodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa tên</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-left-0" name="newname"
+                                placeholder="Nhập tên mới" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
+                                placeholder="Nhập mật khẩu" autofocus>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="emailmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa email</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-left-0" name="newmail"
+                                placeholder="Nhập email mới" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
+                                placeholder="Nhập mật khẩu" autofocus>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="dobmodal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Sửa ngày sinh</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-left-0" name="newdob"
+                                placeholder="Nhập ngày sinh mới" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
+                                placeholder="Nhập mật khẩu" autofocus>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                <button type="button" class="btn btn-primary">Lưu</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{!-- ------------------------------Khung đổi mật khẩu------------------------------ --}}
+<div class="container my-5">
+    <a class="btn" onclick="showInforTable1()">
+        <h4>Đổi mật khẩu
+            <span><i class="fa fa-chevron-right" id="chevron-sight-2"></i></span>
+        </h4>
+    </a>
+
+    <div class="container-fluid h-100" style="display: none" id="changePass">
+        <div class="row justify-content-center align-items-center ">
+            <div class="col-sm-6">
+                <form action="" method="post">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="text" class="form-control form-control-lg border-left-0" name="newpass"
+                                placeholder="Mật khẩu mới" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg border-left-0" name="oldpass"
+                                placeholder="Mật khẩu cũ" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-append">
+                                <span class="input-group-text border-right-0">
+                                    <i class="fa fa-lock" aria-hidden="true"></i>
+                                </span>
+                            </div>
+                            <input type="password" class="form-control form-control-lg border-left-0" name="confirmpass"
+                                placeholder="Xác nhận mật khẩu cũ" autofocus>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div>
+                            <a class="btn btn-lg btn-block text-white" href="javascript:/" role="button"
+                                style="background-color: #FF8A00;">
+                                LƯU LẠI
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{{!-- ----------------------------------Khung xem hoạt động-----------------------------------}}
+<div class="container mt-3 mb-5 navbar-custom">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item font-weight-bold bg-transparent border rounded-0">
+            <a class="nav-link" data-toggle="tab" href="#productlike">Sản phẩm yêu thích</a>
+        </li>
+        <li class="nav-item font-weight-bold bg-transparent border rounded-0 border-right-0 border-left-0">
+            <a class="nav-link " data-toggle="tab" href="#productjoin">Sản phẩm đang tham gia</a>
+        </li>
+        <li class="nav-item font-weight-bold bg-transparent border">
+            <a class="nav-link " data-toggle="tab" href="#productwin">Sản phẩm đã thắng</a>
+        </li>
+    </ul>
+
+    {{!-- ----------------------------Tab panes cho sản phẩm yêu thích nhất ------------------------- --}}
+    <div class="tab-content">
+        <div id="productlike" class="container tab-pane"><br>
+            <div class="container ">
+                <div class="row justify-content-between">
+                    <div class="col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+
+                                <div class="product-imitation">
+                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
+                                        class="responsive-img">
+                                </div>
+                                <div class="product-desc">
+                                    <span class="product-label">
+                                        HOT
+                                    </span>
+                                    <small class="text-muted">Bids: 10</small>
+                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+
+                                    <div class="price">
+                                        <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                    </div>
+                                    <div class="text-warning">
+                                        <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                                    class="fa fa-info"></i>
+                                                Thông Tin
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-outline-success mr-1 btn-block"><i
+                                                    class="fa fa-buysellads" aria-hidden="true"></i>
+                                                Wish List
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-right mt-3">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            21/10/2021
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+
+                                <div class="product-imitation">
+                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
+                                        class="responsive-img">
+                                </div>
+                                <div class="product-desc">
+                                    <span class="product-label">
+                                        HOT
+                                    </span>
+                                    <small class="text-muted">Bids: 10</small>
+                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+
+                                    <div class="price">
+                                        <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                    </div>
+                                    <div class="text-warning">
+                                        <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                                    class="fa fa-info"></i>
+                                                Thông Tin
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-outline-success btn-block"><i
+                                                    class="fa fa-buysellads" aria-hidden="true"></i>
+                                                Wish List
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-right mt-3">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            21/10/2021
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+
+                                <div class="product-imitation">
+                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
+                                        class="responsive-img">
+                                </div>
+                                <div class="product-desc">
+                                    <span class="product-label">
+                                        HOT
+                                    </span>
+                                    <small class="text-muted">Bids: 10</small>
+                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+
+                                    <div class="price">
+                                        <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                    </div>
+                                    <div class="text-warning">
+                                        <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                    </div>
+
+                                    <br>
+
+                                    <div class="row">
+                                        <div class="col">
+                                            <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                                    class="fa fa-info"></i>
+                                                Thông Tin
+                                            </a>
+                                        </div>
+                                        <div class="col">
+                                            <a href="#" class="btn btn-outline-success btn-block"><i
+                                                    class="fa fa-buysellads" aria-hidden="true"></i>
+                                                Wish List
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="text-right mt-3">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            21/10/2021
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="productjoin" class="container tab-pane fade"><br>
+
+        </div>
+
+        <div id="productwin" class="container tab-pane fade"><br>
+
+        </div>
+    </div>
+</div>

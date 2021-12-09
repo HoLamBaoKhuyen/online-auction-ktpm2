@@ -35,6 +35,10 @@ app.get('/detail', function (req, res) {
     res.render('ProductView/detail');
 });
 
+app.get('/profile', function (req, res) {
+    res.render('account/profile.hbs');
+});
+
 const port = 3000;
 app.listen(port, function () {
     console.log(`Example app listening at http://localhost:${port}`);

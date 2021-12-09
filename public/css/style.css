@@ -12,6 +12,11 @@ body{
   max-width: 110px;
 }
 
+
+.nav-link > .active >a{
+  background-color: #f44336;
+}
+
 button.input-group-addon {
   position: absolute;
   right: -38px;
@@ -228,4 +233,22 @@ button.input-group-addon {
 
 .carousel-item img {
   width: 80%
+}
+
+/* --------------------profile------------------- */
+.nav-link{
+  color: black;
+}
+
+.navbar-custom .nav-item .nav-link{
+  background-color: #fff;
+}
+.navbar-custom .nav-item:hover .nav-link {
+  
+  background-color:#FF8A00;
+}
+
+.navbar-custom .nav-item .active{
+  background-color:#FF8A00;
+
 }
