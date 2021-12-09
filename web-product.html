@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Bootstrap 4 Example</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+
+    <!-- Header section start -->
+    <header class="p-3 bg-light text-white">
+        <div class="container-fluid">
+            <div class="d-flex flex-wrap align-items-center justify-content-between">
+
+                <h4 class="nav col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <img src="public/images/icondaugia.png" alt="icondaugia" class="logo" height="45">
+                    <a href="#" class="nav-link px-2 text-secondary">AUCTION ONLINE</a>
+                </h4>
+                
+                <div class="nav-item dropdown m-3">
+                    <button class="btn btn-outline-secondary dropdown-toggle border-0" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Category
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+                        <li class="dropdown-submenu my-3" >
+                            <a  class="dropdown-item" tabindex="-1"  href="#">Đồ điện tử</a>
+                            <ul class="dropdown-menu">
+                              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện thoại</a></li>
+                              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Máy tính</a></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown-submenu my-3">
+                            <a  class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
+                            <ul class="dropdown-menu ">
+                              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a></li>
+                              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a></li>
+                              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                
+
+                <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3">
+                    <div class="nav-item dropdown">
+                        <button     class="btn btn-outline-secondary dropdown-toggle border-right-0 rounded-0 active" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Category
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton3">
+                            <li class="dropdown-submenu my-3" >
+                                <a  class="dropdown-item" tabindex="-1"  href="#">Đồ điện tử</a>
+                                <ul class="dropdown-menu">
+                                  <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện thoại</a></li>
+                                  <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Máy tính</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown-submenu my-3">
+                                <a  class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
+                                <ul class="dropdown-menu ">
+                                  <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a></li>
+                                  <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a></li>
+                                  <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <input type="search"  class="form-control form-control-dark"  placeholder="Search..." aria-label="Search">
+                    <button type="button" class="btn btn-outline-warning rounded-0 border-left-0" >
+                        <i class="fa fa-search"></i>
+                    </button>
+                </form>
+    
+
+                <div class="m-3">
+                    <button type="button" class="btn btn-outline-dark me-2"><i class="fa fa-sign-in mx-1"></i>Login</button>
+                    <button type="button" class="btn btn-outline-warning"><i class="fa fa-user mx-1"></i>Sign-up</button>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Header section end -->
+
+
+   
+
+    <!-- main content -->;
+<!-- -------------------------------------------------------------------TOP 5 sản phẩm------------------------------------------------------------------ -->
+
+<div class="container-fluid ">
+    <div class="mx-5 d-flex justify-content-between">
+        <h4>Top 5 nhiều lượt đấu giá nhất</h4>
+        <div class="dropdown show">
+            <a class="btn btn-outline-light bg-transparent border-0 dropdown-toggle" href="#" role="button" id="dropdownSort" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Sorting
+            </a>
+          
+            <div class="dropdown-menu" aria-labelledby="dropdownSort">
+              <a class="dropdown-item" href="#">By Date</a>
+              <a class="dropdown-item" href="#">By Name</a>
+            </div>
+          </div>
+    </div>
+    <div class="row ">
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-2">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    
+                    <div class="product-imitation" >
+                        <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"  class="responsive-img">
+                    </div>
+                    <div class="product-desc">
+                        <span class="product-label">
+                            HOT
+                        </span>
+                        <small class="text-muted">Bids: 10</small>
+                        <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+    
+                        <div class="price">
+                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                        </div>
+                        <div class="text-warning">
+                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                        </div>
+
+                        <br>
+                        
+                        <div class="row">
+                            <div class="col">
+                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i class="fa fa-info"></i>
+                                    Thông Tin
+                                </a>
+                            </div>
+                            <div class="col">
+                                <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"  aria-hidden="true"></i>
+                                    Wish List  
+                                </a>
+                            </div>
+                        </div>
+                        <div class="text-right mt-3">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i> 
+                                21/10/2021
+                            </small>
+                        </div>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+
+    
+</div>
+<!-- --------------------------------------------------------------------TOP 5 sản phẩm---------------------------------------------------------------- -->
+   
+
+
+
+
+
+
+
+    <!-- Footer section -->
+    <!-- Footer -->
+    <footer class="p-3 page-footer font-small unique-color-dark bg-light">
+        
+        <!-- Footer Links -->
+        <div class="container text-center text-md-left ">
+            <!-- Grid row -->
+            <div class="row mt-3">
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
+                    <!-- Content -->
+                    <h6 class="text-uppercase font-weight-bold">Company name</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet,
+                        consectetur
+                        adipisicing elit.</p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Products</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="#!">MDBootstrap</a>
+                    </p>
+                    <p>
+                        <a href="#!">MDWordPress</a>
+                    </p>
+                    <p>
+                        <a href="#!">BrandFlow</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+
+                <!-- Grid column -->
+                <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Useful links</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <a href="#!">Your Account</a>
+                    </p>
+                    <p>
+                        <a href="#!">Shipping Rates</a>
+                    </p>
+                    <p>
+                        <a href="#!">Help</a>
+                    </p>
+                </div>
+                <!-- Grid column -->
+                <!-- Grid column -->
+                <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
+                    <!-- Links -->
+                    <h6 class="text-uppercase font-weight-bold">Contact</h6>
+                    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+                    <p>
+                        <i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+                    <p>
+                        <i class="fa fa-envelope-o mr-3"></i> info@example.com</p>
+                    <p>
+                        <i class="fa fa-phone mr-3"></i> + 01 234 567 89</p>
+                </div>
+                <!-- Grid column -->
+            </div>
+            <!-- Grid row -->
+        </div>
+        <!-- Footer Links -->
+        <div  class="ml-2 mr-2">
+            <div class="container" >
+
+                <!-- Grid row-->
+                <div class="row py-4 d-flex align-items-center">
+                    <div class="col-md-6 col-lg-7 text-center text-md-right">
+                        <!-- Facebook -->
+                        <a class="fb-ic" role="button" href="#">
+                            <i class="fa fa-facebook white-text mr-4"></i>
+                        </a>
+                        <!-- Twitter -->
+                        <a class="tw-ic" href="#">
+                            <i class="fa fa-twitter white-text mr-4"> </i>
+                        </a>
+                        <!-- Google +-->
+                        <a class="gplus-ic" href="#">
+                            <i class="fa fa-google-plus white-text mr-4"> </i>
+                        </a>
+                        <!--Linkedin -->
+                        <a class="li-ic" href="#">
+                            <i class="fa fa-linkedin white-text mr-4"> </i>
+                        </a>
+                        <!--Instagram-->
+                        <a class="ins-ic" href="#">
+                            <i class="fa fa-instagram white-text "> </i>
+                        </a>
+                    </div>
+                    <!-- Grid column -->
+                </div>
+                <!-- Grid row-->
+
+            </div>
+        </div>
+        <!-- Copyright -->
+        <div class="footer-copyright text-center py-3">© 2021 Copyright:
+            <a href="https://mdbootstrap.com/"> somewebhere.com</a>
+        </div>
+        <!-- Copyright -->
+
+    </footer>
+<!-- Footer -->
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.min.js" integrity="sha384-VHvPCCyXqtD5DqJeNxl2dtTyhF78xXNXdkwX1CZeRusQfRKp+tA7hAShOK/B/fQ2" crossorigin="anonymous"></script>
+</body>
+</html>
