@@ -42,6 +42,13 @@ app.get("/detail", function (req, res) {
   res.render("ProductView/detail");
 });
 
+app.get("/login", function (req, res) {
+  res.render("Authentication/login", { layout: "authentication" });
+});
+app.get("/signup", function (req, res) {
+  res.render("Authentication/signup", { layout: "authentication" });
+});
+
 app.get("/admin", function (req, res) {
   res.render("admin/userManagement", { layout: "admin" });
 });
