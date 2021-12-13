@@ -45,7 +45,7 @@ body {
   color: #ff8a00;
 }
 .form .option:hover {
-  color: #000;
+  color: #b86200;
   text-decoration: none;
   transition: 0.3s;
 }
@@ -88,10 +88,10 @@ body {
   width: 100%;
 }
 
-#dob {
+.dob {
   background-color: transparent;
 }
-#dob::placeholder {
+.dob::placeholder {
   color: #e27a00;
 }
 .cut {
