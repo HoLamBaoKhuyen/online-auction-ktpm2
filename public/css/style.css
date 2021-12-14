@@ -1,6 +1,19 @@
 body {
   background-color: #f5c28f;
 }
+.responsive-img {
+  width: 100%;
+  max-width: 200px;
+  max-height: 200px;
+}
+.button-responsive {
+  width: 100%;
+  max-width: 110px;
+}
+
+.nav-link > .active > a {
+  background-color: #f44336;
+}
 
 button.input-group-addon {
   position: absolute;
@@ -63,6 +76,99 @@ button.input-group-addon {
 .product-box {
   padding: 0;
   border: 1px solid #e7eaec;
+  padding: 0;
+  border: 1px solid #e7eaec;
+}
+.product-box:hover,
+.product-box.active {
+  border: 3px solid black;
+  -webkit-box-shadow: 0 3px 7px 0 #a8a8a8;
+  -moz-box-shadow: 0 3px 7px 0 #a8a8a8;
+  box-shadow: 0 3px 7px 0 #a8a8a8;
+}
+.product-imitation {
+  text-align: center;
+  padding: 30px 0;
+  color: #bebec3;
+  font-weight: 600;
+}
+
+.product-desc {
+  padding: 5px;
+  top: 0px;
+  position: relative;
+}
+
+.product-name {
+  font-size: 16px;
+  font-weight: 600;
+  color: #676a6c;
+  display: block;
+  margin: 2px 0 5px 0;
+}
+.product-name:hover,
+.product-name:focus {
+  color: #1ab394;
+}
+.product-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: red;
+  padding: 6px 12px;
+  position: absolute;
+  top: 0px;
+  right: 0;
+}
+.product-detail .ibox-content {
+  padding: 30px 30px 50px 30px;
+}
+
+.ibox {
+  clear: both;
+  margin-bottom: 35px;
+  margin-top: 0;
+  padding: 0;
+  width: 100%;
+  min-width: 120px;
+}
+.ibox.collapsed .ibox-content {
+  display: none;
+}
+.ibox.collapsed .fa.fa-chevron-up:before {
+  content: "\f078";
+}
+.ibox.collapsed .fa.fa-chevron-down:before {
+  content: "\f077";
+}
+.ibox:after,
+.ibox:before {
+  display: table;
+}
+
+.ibox-content {
+  width: 100%;
+  min-width: 120px;
+  background-color: #ffffff;
+  color: inherit;
+  padding: 10px 0px 0px 10px;
+  border-color: #e7eaec;
+  border-image: none;
+  border-style: solid solid none;
+  border-width: 1px 0;
+}
+.ibox-footer {
+  max-width: 100%;
+  color: inherit;
+  border-top: 1px solid #e7eaec;
+  font-size: 90%;
+  background: #ffffff;
+  padding: 10px 15px;
+}
+
+.price {
+  margin-bottom: 5px;
+  color: #f44336;
 }
 .product-box:hover,
 .product-box.active {
@@ -209,4 +315,20 @@ button.input-group-addon {
 
 .carousel-item img {
   width: 80%;
+}
+
+/* --------------------profile------------------- */
+.nav-link {
+  color: black;
+}
+
+.navbar-custom .nav-item .nav-link {
+  background-color: #fff;
+}
+.navbar-custom .nav-item:hover .nav-link {
+  background-color: #ff8a00;
+}
+
+.navbar-custom .nav-item .active {
+  background-color: #ff8a00;
 }

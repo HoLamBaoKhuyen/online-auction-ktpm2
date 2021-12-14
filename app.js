@@ -62,6 +62,10 @@ app.get("/admin/categories", function (req, res) {
   res.render("admin/categories", { layout: "admin" });
 });
 
+app.get('/profile', function (req, res) {
+    res.render('account/profile.hbs');
+});
+
 const port = 3000;
 app.listen(port, function () {
   console.log(`Example app listening at http://localhost:${port}`);

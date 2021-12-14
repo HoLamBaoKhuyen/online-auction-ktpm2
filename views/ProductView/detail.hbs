@@ -1,6 +1,8 @@
 <div class="container my-5">
     <div class="row">
         <div class="col-md-6">
+
+            {{!-- ----------------------------------Carousel các ảnh---------------------------------- --}}
             <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
                 <!-- slides -->
                 <div class="carousel-inner">
@@ -55,6 +57,8 @@
             </small>
 
             <hr>
+
+            {{!-- ---------------------------------Thông tin đấu giá------------------------------------- --}}
             <div class="table-responsive">
                 <table class="table table-sm table-borderless mb-0 "
                     style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
@@ -97,6 +101,7 @@
     </div>
 
 
+    {{!-- --------------------------------------Thông tin sản phẩm + Đánh giá-------------------------------------- --}}
     <div class="container mt-3 border-bottom">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-justified">
@@ -109,7 +114,7 @@
             </li>
         </ul>
 
-        <!-- Tab panes -->
+        {{!----------------------------------- Tab panes cho THÔNG TIN ---------------------------}}
         <div class="tab-content">
             <div id="description" class="container tab-pane active"><br>
                 <div class="table-responsive">
@@ -152,10 +157,14 @@
                     </table>
                 </div>
             </div>
+
+
+
+            {{!---------------------------- Tab panes cho ĐÁNH GIÁ ---------------------------}}
             <div id="review" class="container tab-pane fade"><br>
-                <h5><span>1</span> review cho <span>Samsung Galaxy M52</span></h5>
+                <h5><span>1</span> review(s) cho <span>Samsung Galaxy M52</span></h5>
                 <div class="media mt-3 mb-4">
-                    <img class="d-flex mr-3 z-depth-1" src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+                    <img class="d-flex mr-3 z-depth-1 " src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
                         width="62" alt="Generic placeholder image">
                     <div class="media-body">
                         <div class="d-sm-flex justify-content-between">
@@ -189,19 +198,66 @@
     </div>
 
 
+    {{!-- ----------------------------------------Khung cho giá đấu------------------------------------------ --}}
+    <div class="container mb-5 " style="width: 90%;">
+        <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post">
+            <h4 class="m-3">
+                Ra giá
+            </h4>
+
+            <div class="form-group">
+                <label for="AuctionExecute" class="sr-only">Giá đấu</label>
+                <input type="text" class="form-control" id="AuctionExecute" placeholder="Nhập giá đấu">
+            </div>
+
+            <button type="submit" class="btn btn-warning border" style="width: 110px;">Đấu giá</button>
+        </form>
+
+
+    {{!-- ------------------------------------Lịch sử đấu giá------------------------------------- --}}
+        <h4 class="text-center mt-5">Lịch sử đấu giá</h4>
+        <table class="table table-hover table-bordered text-center">
+            <thead class="bg-warning">
+                <tr>
+                    <th scope="col">Thời điểm</th>
+                    <th scope="col" colspan="2">Người mua</th>
+                    <th scope="col">Giá</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td scope="row">27/02/2021</td>
+                    <th colspan="2">Nguyen Van Jee</th>
+                    <td>1.000.000</td>
+                </tr>
+                <tr>
+                    <td scope="row">27/02/2021</td>
+                    <th colspan="2">Hoang Van P</th>
+                    <td>3.500.000</td>
+                </tr>
+                <tr>
+                    <td scope="row">29/02/2021</td>
+                    <th colspan="2">Perry the Platypus</th>
+                    <td>4.000.000</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+    {{!-- ---------------------------------------Sản phẩm tương tự------------------------------------ --}}
     <div class="p-3">
         <h4>Sản phẩm tương tự</h4>
     </div>
 
-
     <div class="container ">
         <div class="row justify-content-between">
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="ibox">
                     <div class="ibox-content product-box">
 
                         <div class="product-imitation">
-                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" width="200" height="200">
+                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img">
                         </div>
                         <div class="product-desc">
                             <span class="product-label">
@@ -222,14 +278,19 @@
 
                             <br>
 
-                            <div class="d-flex justify-content-between mx-3">
-                                <a href="#" class="btn btn btn-outline-primary"> <i class="fa fa-info"></i>
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads"
-                                        aria-hidden="true"></i>
-                                    Buy
-                                </a>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                            class="fa fa-info"></i>
+                                        Thông Tin
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-outline-success mr-1 btn-block"><i
+                                            class="fa fa-buysellads" aria-hidden="true"></i>
+                                        Wish List
+                                    </a>
+                                </div>
                             </div>
                             <div class="text-right mt-3">
                                 <small class="text-muted text-right"><i class="fa fa-calendar"></i>
@@ -241,13 +302,12 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="ibox">
                     <div class="ibox-content product-box">
 
                         <div class="product-imitation">
-                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" width="200" height="200">
+                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img">
                         </div>
                         <div class="product-desc">
                             <span class="product-label">
@@ -268,14 +328,19 @@
 
                             <br>
 
-                            <div class="d-flex justify-content-between mx-3">
-                                <a href="#" class="btn btn btn-outline-primary"> <i class="fa fa-info"></i>
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads"
-                                        aria-hidden="true"></i>
-                                    Buy
-                                </a>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                            class="fa fa-info"></i>
+                                        Thông Tin
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"
+                                            aria-hidden="true"></i>
+                                        Wish List
+                                    </a>
+                                </div>
                             </div>
                             <div class="text-right mt-3">
                                 <small class="text-muted text-right"><i class="fa fa-calendar"></i>
@@ -287,13 +352,12 @@
                     </div>
                 </div>
             </div>
-
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="ibox">
                     <div class="ibox-content product-box">
 
                         <div class="product-imitation">
-                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" width="200" height="200">
+                            <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img">
                         </div>
                         <div class="product-desc">
                             <span class="product-label">
@@ -314,14 +378,19 @@
 
                             <br>
 
-                            <div class="d-flex justify-content-between mx-3">
-                                <a href="#" class="btn btn btn-outline-primary"> <i class="fa fa-info"></i>
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads"
-                                        aria-hidden="true"></i>
-                                    Buy
-                                </a>
+                            <div class="row">
+                                <div class="col">
+                                    <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
+                                            class="fa fa-info"></i>
+                                        Thông Tin
+                                    </a>
+                                </div>
+                                <div class="col">
+                                    <a href="#" class="btn btn-outline-success btn-block"><i class="fa fa-buysellads"
+                                            aria-hidden="true"></i>
+                                        Wish List
+                                    </a>
+                                </div>
                             </div>
                             <div class="text-right mt-3">
                                 <small class="text-muted text-right"><i class="fa fa-calendar"></i>
