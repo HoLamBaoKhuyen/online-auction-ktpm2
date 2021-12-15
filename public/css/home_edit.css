@@ -45,3 +45,38 @@
   text-decoration: none;
   color: #676a6c;
 }
+.textPrice {
+  color: #ff8a00;
+}
+/*-----dropdown show sorting-----------*/
+.dropdown.show {
+  display: none;
+}
+
+@media only screen and (max-width: 1200px) {
+  .price,
+  .product-name,
+  .remain-time,
+  .textPrice {
+    font-size: 13px;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 991.5px) {
+  .containItem {
+    padding: 0 10vw;
+  }
+  .price,
+  .product-name,
+  .remain-time,
+  .textPrice {
+    font-size: 15px;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+}
