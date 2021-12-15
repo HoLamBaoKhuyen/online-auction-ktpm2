@@ -43,3 +43,25 @@ header {
 .categorySearchIconBtn:focus {
   box-shadow: none;
 }
+/*-------------Login Button------------------------------*/
+.loginBtn {
+  font-weight: 500;
+  font-size: 18px;
+  border: none;
+}
+.loginBtn:hover {
+  font-weight: 500;
+  background-color: #757575;
+  transition: 0.4s;
+}
+.signupBtn {
+  font-weight: 500;
+  font-size: 18px;
+  border: none;
+  color: #ff8a00;
+}
+.signupBtn:hover {
+  font-weight: 500;
+  background-color: #ff8a00;
+  transition: 0.4s;
+}
