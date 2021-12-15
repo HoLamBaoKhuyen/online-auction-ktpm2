@@ -1,0 +1,47 @@
+.ibox {
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+.addFavoriteBtn {
+  position: absolute;
+  top: 10;
+  left: 5;
+  display: none;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #676a6c;
+}
+.ibox .ibox-content {
+  border-radius: 10px;
+  cursor: pointer;
+}
+.addFavoriteBtn .textFavorite {
+  font-weight: 500;
+  display: none;
+}
+.addFavoriteBtn:hover {
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  transition: 0.3s;
+}
+.addFavoriteBtn:hover .textFavorite {
+  display: inline-block;
+  transition: 0.3s;
+}
+.ibox .ibox-content:hover {
+  border: none;
+  box-shadow: 0 1px 10px 5px #aa5b00;
+  transition: 0.3s;
+}
+.ibox .ibox-content:hover .addFavoriteBtn {
+  display: block;
+  transition: 0.1s;
+}
+.product-imitation {
+  padding: 10% 0;
+}
+.product-name:hover {
+  text-decoration: none;
+  color: #676a6c;
+}
