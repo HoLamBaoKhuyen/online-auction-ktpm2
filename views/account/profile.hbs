@@ -5,7 +5,6 @@
         </h4>
     </a>
 
-{{!--------------------------Khung thông tin cá nhân ---------------------}}
     <div class="container mt-3" style="width:90%; display: none;" id="InforTable">
         <table class="table table-hover table-borderless">
             <tbody>
@@ -29,7 +28,7 @@
     </div>
 </div>
 
-{{!-- -------------------------- Modal chỉnh sửu thông tin--------------- --}}
+<!-- Modal -->
 <div class="modal fade" id="namemodal" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -159,7 +158,6 @@
     </div>
 </div>
 
-{{!-- ------------------------------Khung đổi mật khẩu------------------------------ --}}
 <div class="container my-5">
     <a class="btn" onclick="showInforTable1()">
         <h4>Đổi mật khẩu
@@ -218,13 +216,11 @@
     </div>
 </div>
 
-
-{{!-- ----------------------------------Khung xem hoạt động-----------------------------------}}
 <div class="container mt-3 mb-5 navbar-custom">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs nav-justified">
-        <li class="nav-item font-weight-bold bg-transparent border rounded-0">
-            <a class="nav-link" data-toggle="tab" href="#productlike">Sản phẩm yêu thích</a>
+        <li class="nav-item font-weight-bold bg-transparent border rounded-0 ">
+            <a class="nav-link active" data-toggle="tab" href="#productlike">Sản phẩm yêu thích</a>
         </li>
         <li class="nav-item font-weight-bold bg-transparent border rounded-0 border-right-0 border-left-0">
             <a class="nav-link " data-toggle="tab" href="#productjoin">Sản phẩm đang tham gia</a>
@@ -234,9 +230,9 @@
         </li>
     </ul>
 
-    {{!-- ----------------------------Tab panes cho sản phẩm yêu thích nhất ------------------------- --}}
+    <!-- Tab panes -->
     <div class="tab-content">
-        <div id="productlike" class="container tab-pane"><br>
+        <div id="productlike" class="container tab-pane active"><br>
             <div class="container ">
                 <div class="row justify-content-between">
                     <div class="col-md-4">
