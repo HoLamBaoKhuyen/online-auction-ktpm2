@@ -49,6 +49,10 @@ app.get("/signup", function (req, res) {
   res.render("Authentication/signup", { layout: "authentication" });
 });
 
+app.get("/seller/postProduct", function (req, res) {
+  res.render("seller/postProduct", { layout: "authentication" });
+});
+
 app.get("/admin", function (req, res) {
   res.render("admin/userManagement", { layout: "admin" });
 });
@@ -62,8 +66,8 @@ app.get("/admin/categories", function (req, res) {
   res.render("admin/categories", { layout: "admin" });
 });
 
-app.get('/profile', function (req, res) {
-    res.render('account/profile.hbs');
+app.get("/profile", function (req, res) {
+  res.render("account/profile.hbs");
 });
 
 const port = 3000;
