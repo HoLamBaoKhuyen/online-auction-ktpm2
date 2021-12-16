@@ -44,8 +44,12 @@ app.get("/detail", function (req, res) {
   res.render("ProductView/detail");
 });
 
-app.get("/detail", function (req, res) {
-  res.render("ProductView/detail");
+app.get("/profile-comment", function (req, res) {
+  res.render("account/profile-comment.hbs");
+});
+
+app.get('/profile', function (req, res) {
+  res.render('account/profile.hbs');
 });
 
 app.get("/login", function (req, res) {
@@ -68,9 +72,7 @@ app.get("/admin/categories", function (req, res) {
   res.render("admin/categories", { layout: "admin" });
 });
 
-app.get('/profile', function (req, res) {
-    res.render('account/profile.hbs');
-});
+
 
 const port = 3000;
 app.listen(port, function () {

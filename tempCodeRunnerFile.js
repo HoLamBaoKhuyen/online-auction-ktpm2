@@ -1,0 +1,2 @@
+
+    extname: ".hbs",
