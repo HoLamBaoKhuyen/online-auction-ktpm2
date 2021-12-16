@@ -131,6 +131,7 @@ button.input-group-addon {
   padding: 0;
   width: 100%;
   min-width: 120px;
+  position: relative;
 }
 .ibox.collapsed .ibox-content {
   display: none;

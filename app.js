@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import numeral from "numeral";
 import * as path from "path";
 import { create } from "express-handlebars";
 
@@ -22,7 +23,12 @@ app.engine(
     defaultLayout: "bs4.hbs",
     partialsDir: "views/partials/",
     extname: ".hbs",
-  })
+    helpers:{
+      format_price(val){
+        return numeral(val).format('0,0');
+      }
+    }
+  }),
 );
 
 app.use("/public", express.static("public"));
