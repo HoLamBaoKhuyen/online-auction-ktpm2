@@ -3,6 +3,7 @@ import morgan from "morgan";
 import { engine } from "express-handlebars";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import numeral from "numeral";
 import * as path from "path";
 import { create } from "express-handlebars";
 
@@ -22,7 +23,12 @@ app.engine(
     defaultLayout: "bs4.hbs",
     partialsDir: "views/partials/",
     extname: ".hbs",
-  })
+    helpers:{
+      format_price(val){
+        return numeral(val).format('0,0');
+      }
+    }
+  }),
 );
 
 app.use("/public", express.static("public"));
@@ -38,8 +44,12 @@ app.get("/detail", function (req, res) {
   res.render("ProductView/detail");
 });
 
-app.get("/detail", function (req, res) {
-  res.render("ProductView/detail");
+app.get("/profile-comment", function (req, res) {
+  res.render("account/profile-comment.hbs");
+});
+
+app.get('/profile', function (req, res) {
+  res.render('account/profile.hbs');
 });
 
 app.get("/login", function (req, res) {
@@ -62,9 +72,7 @@ app.get("/admin/categories", function (req, res) {
   res.render("admin/categories", { layout: "admin" });
 });
 
-app.get('/profile', function (req, res) {
-    res.render('account/profile.hbs');
-});
+
 
 const port = 3000;
 app.listen(port, function () {
