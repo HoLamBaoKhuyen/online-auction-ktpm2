@@ -91,8 +91,84 @@
                 <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
             </small>
             <div class="p-5"></div>
-
         </div>
+        <div class="col-md-6 ml-5">
+            <h3>
+                Giá hiện tại: <span>{{format_price 10000000}}</span>
+            </h3>
+        </div>
+        <div class="col-md-6 ml-5 mt-3">
+            <button class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào
+                    Watch List</i></button>
+        </div>
+
+        <!--
+        <div class="col-md-6">
+            <p class="mb-2 text-muted text-uppercase small">{{this.product.typeName}}</p>
+
+            <h2><span class="mr-1"><strong>{{this.product.nameofSeller}}</strong></span></h2>
+            <p class="pt-2">Người bán:
+                <a class="font-weight-bold text-muted pl-5">{{this.seller.nameofUser}}</a>
+            </p>
+            <small class="pt-0">Điểm đánh giá:
+                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+            </small>
+
+            <hr>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0 "
+                    style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
+                    <tbody>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Giá khởi điểm:</strong></th>
+                            <td>{{this.product.cur}}</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Giá mua ngay:</strong></th>
+                            <td>
+                                {{#if this.product.buyNowPrice}}
+                                    {{this.product.buyNowPrice}}
+                                {{else}}
+                                    Không có
+                                {{/if}}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Bước giá:</strong></th>
+                            <td>{{this.product.step}}</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Đăng ngày:</strong></th>
+                            <td>{{this.product.datePosted}}</td>
+                        </tr>
+                        <tr>
+                            <th class="pl-0 w-25" scope="row"><strong>Kết thúc:</strong></th>
+                            <td>{{this.product.timeEnd}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <hr>
+            <p class="pt-2">Đặt giá cao nhất:
+                <a class="font-weight-bold text-danger pl-5">{{this.product.nameofUser}}</a>
+            </p>
+            <small class="pt-0">Điểm đánh giá: &nbsp &nbsp &nbsp &nbsp &nbsp
+                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+            </small>
+            <div class="p-5"></div>
+        </div>
+        <div class="col-md-6 ml-5">
+            <h3>
+                Giá hiện tại: <span>{{format_price this.product.curPrice}}</span>
+            </h3>
+        </div>
+        <div class="col-md-6 ml-5 mt-3">
+            <button class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào
+                    Watch List</i></button>
+        </div>
+        -->
         <div class="p-2"></div>
     </div>
 
@@ -187,6 +263,58 @@
                 </div>
             </div>
         </div>
+
+        <!--
+        <div class="tab-content">
+            <div id="description" class="container tab-pane active"><br>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0 "
+                        style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
+                        <tbody>
+                            {{#each this.description}}
+                            <tr>
+                                <th class="pl-0 w-25" scope="row"><strong>{{time}}</strong></th>
+                                <td>{{description}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="review" class="container tab-pane fade"><br>
+                <h5><span>1</span> review(s) cho <span>Samsung Galaxy M52</span></h5>
+                <div class="media mt-3 mb-4">
+                    <img class="d-flex mr-3 z-depth-1 " src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+                        width="62" alt="Generic placeholder image">
+                    <div class="media-body">
+                        <div class="d-sm-flex justify-content-between">
+                            <p class="mt-1 mb-2">
+                                <strong>Hoàng Tử Gió</strong>
+                                <span>– </span><span>January 28, 2020</span>
+                            </p>
+                        </div>
+                        <p class="mb-0">Nice one, love it!</p>
+                    </div>
+                </div>
+                <hr>
+                <h5 class="mt-4">Bình luận</h5>
+                <div class="my-3">
+                </div>
+                <div>
+                    <div class="md-form md-outline">
+                        <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
+                        <label for="form76">Comment</label>
+                    </div>
+                    <div class="container">
+                        <span id="rateMe2" class="empty-stars"></span>
+                    </div>
+                    <div class="text-right pb-2">
+                        <button type="button" class="btn btn-primary">Gửi</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
     </div>
 
     <div class="container mb-5 " style="width: 90%;">
@@ -261,9 +389,9 @@
 
     <div class="container ">
         <div class="row justify-content-between">
-            <div class="col-4 col-lg-4" >
+            <div class="col-4 col-lg-4">
                 <div class="ibox">
-                    <div class="ibox-content product-box" >
+                    <div class="ibox-content product-box">
                         <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
                             <span class="textFavorite"> Yêu thích</span>
                         </button>
@@ -294,16 +422,6 @@
 
                             <br />
 
-                            {{! <div class="d-flex justify-content-between mx-3">
-                                <a href="#" class="btn btn btn-outline-primary">
-                                    <i class="fa fa-info"></i>
-                                    Info
-                                </a>
-                                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads"
-                                        aria-hidden="true"></i>
-                                    Buy
-                                </a>
-                            </div> }}
                             <div class="text-right">
                                 <small class="text-muted text-right"><i class="fa fa-calendar"></i>
                                     21/10/2021
@@ -398,6 +516,53 @@
                     </div>
                 </div>
             </div>
+
+            <!--
+            {{#each this.similar}}    
+            <div class="col-4 col-lg-4">
+                <div class="ibox">
+                    <div class="ibox-content product-box">
+                        <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+                            <span class="textFavorite"> Yêu thích</span>
+                        </button>
+                        <div class="product-imitation">
+                            <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                        </div>
+                        <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                            <span class="product-label">
+                                HOT
+                            </span>
+                            <small class="text-muted">Bids: 10</small>
+                            <a href="#" class="product-name">{{prodName}}</a>
+
+                            <div class="price">
+                                <div>{{nameofUser}}:
+                                    <span class="font-weight-bold">{{format_price cur_price}}</span>
+                                </div>
+                            </div>
+                            <div class="textPrice">
+                                <div>Giá mua ngay:
+                                    <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                                </div>
+                            </div>
+                            <div class="remain-time">
+                                <i class="fa fa-clock-o"></i>
+                                Còn lại: {{timeEnd-datePosted}}
+                            </div>
+
+                            <br />
+                            <div class="text-right">
+                                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                    {{datePosted}}
+                                </small>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{/each}}
+            -->
         </div>
     </div>
 </div>

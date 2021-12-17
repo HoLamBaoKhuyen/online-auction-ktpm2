@@ -60,59 +60,6 @@
         </div>
       </div>
 
-     <div class="col-4 col-lg-2">
-        <div class="ibox">
-          <div class="ibox-content product-box">
-            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
-              <span class="textFavorite"> Yêu thích</span>
-            </button>
-            <div class="product-imitation">
-              <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img" />
-            </div>
-            <div class="product-desc" onclick="location.href='/detail'">
-              <span class="product-label">
-                HOT
-              </span>
-              <small class="text-muted">Bids: 10</small>
-              <a href="#" class="product-name"> Samsung Galaxy A52s</a>
-
-              <div class="price">
-                <div>NguoiSaoHoa:
-                  <span class="font-weight-bold">1.000.000</span>
-                </div>
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">20.000.000d</span>
-                </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: 10:30:44
-              </div>
-
-              <br />
-
-              {{! <div class="d-flex justify-content-between mx-3">
-                <a href="#" class="btn btn btn-outline-primary">
-                  <i class="fa fa-info"></i>
-                  Info
-                </a>
-                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads" aria-hidden="true"></i>
-                  Buy
-                </a>
-              </div> }}
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  21/10/2021
-                </small>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
@@ -272,13 +219,111 @@
         </div>
       </div>
 
-      
+      <div class="col-4 col-lg-2">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button>
+            <div class="product-imitation">
+              <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img" />
+            </div>
+            <div class="product-desc" onclick="location.href='/detail'">
+              <span class="product-label">
+                HOT
+              </span>
+              <small class="text-muted">Bids: 10</small>
+              <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+
+              <div class="price">
+                <div>NguoiSaoHoa:
+                  <span class="font-weight-bold">1.000.000</span>
+                </div>
+              </div>
+              <div class="textPrice">
+                <div>Giá mua ngay:
+                  <span class="font-weight-bold">20.000.000d</span>
+                </div>
+              </div>
+              <div class="remain-time">
+                <i class="fa fa-clock-o"></i>
+                Còn lại: 10:30:44
+              </div>
+
+              <br />
+
+              {{! <div class="d-flex justify-content-between mx-3">
+                <a href="#" class="btn btn btn-outline-primary">
+                  <i class="fa fa-info"></i>
+                  Info
+                </a>
+                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads" aria-hidden="true"></i>
+                  Buy
+                </a>
+              </div> }}
+              <div class="text-right">
+                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                  21/10/2021
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!--
+        {{each this.top5Bid}}
+        <div class="col-4 col-lg-2">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button>
+            <div class="product-imitation">
+              <img src="/public/images/{{prodID}}" class="responsive-img" />
+            </div>
+            <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+              <span class="product-label">
+                HOT
+              </span>
+              <small class="text-muted">Bids: {{CountBids}}</small>
+              <a href="#" class="product-name"> {{prodName}}</a>
+
+              <div class="price">
+                <div>{{nameofUser}}:
+                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                </div>
+              </div>
+              <div class="textPrice">
+                <div>Giá mua ngay:
+                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                </div>
+              </div>
+              <div class="remain-time">
+                <i class="fa fa-clock-o"></i>
+                Còn lại: {{timeEnd - datePosted}}
+              </div>
+
+              <br />
+               <div class="text-right">
+                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                  {{datePosted}}
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+        -->
+
     </div>
   </div>
 
   {{! --------------------------------Top 5 sản phẩm mới nhất tương tự--------------------------------- }}
   <div class="mx-5 d-flex justify-content-between my-3">
-    <h4>Top 5 sản phẩm mới nhất</h4>
+    <h4>Top 5 sản phẩm giá cao nhất</h4>
   </div>
 
   <div class="containItem">
@@ -336,59 +381,6 @@
         </div>
       </div>
 
-     <div class="col-4 col-lg-2">
-        <div class="ibox">
-          <div class="ibox-content product-box">
-            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
-              <span class="textFavorite"> Yêu thích</span>
-            </button>
-            <div class="product-imitation">
-              <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img" />
-            </div>
-            <div class="product-desc" onclick="location.href='/detail'">
-              <span class="product-label">
-                HOT
-              </span>
-              <small class="text-muted">Bids: 10</small>
-              <a href="#" class="product-name"> Samsung Galaxy A52s</a>
-
-              <div class="price">
-                <div>NguoiSaoHoa:
-                  <span class="font-weight-bold">1.000.000</span>
-                </div>
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">20.000.000d</span>
-                </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: 10:30:44
-              </div>
-
-              <br />
-
-              {{! <div class="d-flex justify-content-between mx-3">
-                <a href="#" class="btn btn btn-outline-primary">
-                  <i class="fa fa-info"></i>
-                  Info
-                </a>
-                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads" aria-hidden="true"></i>
-                  Buy
-                </a>
-              </div> }}
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  21/10/2021
-                </small>
-              </div>
-
-            </div>
-          </div>
-        </div>
-      </div>
-
       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
@@ -546,8 +538,161 @@
             </div>
           </div>
         </div>
-      
+      </div>
+
+      <div class="col-4 col-lg-2">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button>
+            <div class="product-imitation">
+              <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img" />
+            </div>
+            <div class="product-desc" onclick="location.href='/detail'">
+              <span class="product-label">
+                HOT
+              </span>
+              <small class="text-muted">Bids: 10</small>
+              <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+
+              <div class="price">
+                <div>NguoiSaoHoa:
+                  <span class="font-weight-bold">1.000.000</span>
+                </div>
+              </div>
+              <div class="textPrice">
+                <div>Giá mua ngay:
+                  <span class="font-weight-bold">20.000.000d</span>
+                </div>
+              </div>
+              <div class="remain-time">
+                <i class="fa fa-clock-o"></i>
+                Còn lại: 10:30:44
+              </div>
+
+              <br />
+
+              {{! <div class="d-flex justify-content-between mx-3">
+                <a href="#" class="btn btn btn-outline-primary">
+                  <i class="fa fa-info"></i>
+                  Info
+                </a>
+                <a href="#" class="btn btn-outline-success"><i class="fa fa-buysellads" aria-hidden="true"></i>
+                  Buy
+                </a>
+              </div> }}
+              <div class="text-right">
+                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                  21/10/2021
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+      </div>
+       <!--
+        {{each this.top5Price}}
+        <div class="col-4 col-lg-2">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button>
+            <div class="product-imitation">
+              <img src="/public/images/{{prodID}}" class="responsive-img" />
+            </div>
+            <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+              <span class="product-label">
+                HOT
+              </span>
+              <small class="text-muted">Bids: {{CountBids}}</small>
+              <a href="#" class="product-name"> {{prodName}}</a>
+
+              <div class="price">
+                <div>{{nameofUser}}:
+                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                </div>
+              </div>
+              <div class="textPrice">
+                <div>Giá mua ngay:
+                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                </div>
+              </div>
+              <div class="remain-time">
+                <i class="fa fa-clock-o"></i>
+                Còn lại: {{timeEnd - datePosted}}
+              </div>
+
+              <br />
+               <div class="text-right">
+                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                  {{datePosted}}
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+        -->
     </div>
+
   </div>
 
-</div>
+  <div class="mx-5 d-flex justify-content-between my-3">
+    <h4>Top 5 sản phẩm sắp kết thúc</h4>
+  </div>
+
+  <div class="containItem">
+    <div class="row justify-content-center">
+       <!--
+        {{each this.top5End}}
+        <div class="col-4 col-lg-2">
+        <div class="ibox">
+          <div class="ibox-content product-box">
+            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button>
+            <div class="product-imitation">
+              <img src="/public/images/{{prodID}}" class="responsive-img" />
+            </div>
+            <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+              <span class="product-label">
+                HOT
+              </span>
+              <small class="text-muted">Bids: {{CountBids}}</small>
+              <a href="#" class="product-name"> {{prodName}}</a>
+
+              <div class="price">
+                <div>{{nameofUser}}:
+                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                </div>
+              </div>
+              <div class="textPrice">
+                <div>Giá mua ngay:
+                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                </div>
+              </div>
+              <div class="remain-time">
+                <i class="fa fa-clock-o"></i>
+                Còn lại: {{timeEnd - datePosted}}
+              </div>
+
+              <br />
+               <div class="text-right">
+                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                  {{datePosted}}
+                </small>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+        -->
+    </div>
+
+  </div>
