@@ -7,16 +7,17 @@
         <a href="#" class="nav-link px-2 text-secondary header__title">AUCTION
           ONLINE</a>
       </h4>
-
       <div class="nav-item dropdown m-3">
-        <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Danh mục
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
           <li class="dropdown-submenu">
             <a class="dropdown-item" tabindex="-1" href="#">Đồ điện tử</a>
             <ul class="dropdown-menu">
-              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện thoại</a>
+              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện
+                  thoại</a>
               </li>
               <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Máy tính</a>
               </li>
@@ -33,12 +34,27 @@
               </li>
             </ul>
           </li>
+
+          <!-- {{each lv1Categories}}
+          <li class="dropdown-submenu">
+            <a class="dropdown-item" tabindex="-1" href="#">{{catName}}</a>
+            <ul class="dropdown-menu">
+              {{each lv2Categories}}
+                {{#if catID === category}}
+                  <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="/byCat/{{prodType}}">{{typeName}}</a>
+                  </li>
+                {{/if}}
+              {{/each}}
+            </ul>
+          </li>
+        {{/each}} -->
         </ul>
       </div>
 
       <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3">
         <div class="nav-item dropdown">
-          <button class="dropdown-toggle border-right-0 rounded-0 active categoryBtn categorySearchBtn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="dropdown-toggle border-right-0 rounded-0 active categoryBtn categorySearchBtn" type="button"
+            id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Danh mục
           </button>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton3">
@@ -53,7 +69,8 @@
             <li class="dropdown-submenu">
               <a class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a>
+                <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo
+                    khoác</a>
                 </li>
                 <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a></li>
                 <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a></li>
@@ -67,7 +84,6 @@
           <i class="fa fa-search"></i>
         </button>
       </form>
-
       <div class="m-3">
         <button type="button" class="btn btn-outline-dark me-2 signupBtn"><i
             class="fa fa-sign-in mx-2"></i>Login</button>
@@ -78,4 +94,3 @@
     </div>
   </div>
 </header>
-

@@ -4,7 +4,11 @@ import { engine } from "express-handlebars";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import numeral from "numeral";
+import hbs_sections from 'express-handlebars-sections';
+import session from 'express-session';
+
 import * as path from "path";
+
 import { create } from "express-handlebars";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
