@@ -46,7 +46,7 @@ export default {
         return db('products').where('proType', typeID).orderBy('curPrice', asc).limit(limit).offset(offset);
     },
 
-    findByProdID(prodID){
+    async findByProdID(prodID){
         const sql = `select p.*,d.*,pt.*, concat(u.lastname,' ',u.firstname) AS nameofUser, concat(u2.lastname,' ',u2.firstname) AS nameofSeller
                     from products p
                     left join proddes d on p.prodID = d.prodID
@@ -61,7 +61,7 @@ export default {
         return db('proddes').where('prodID',prodID).orderBy('time',asc);
     },
 
-    getSimilarProduct(prodID){
+    async getSimilarProduct(prodID){
         const sql = `select p.*,d.*,pt.*, concat(u.lastname,' ',u.firstname) AS nameofUser, concat(u2.lastname,' ',u2.firstname) AS nameofSeller
                     from products p
                     left join proddes d on p.prodID = d.prodID
@@ -74,7 +74,7 @@ export default {
     },
 
 
-    getTop5HighestPrice() {
+    async getTop5HighestPrice() {
         const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) as nameofUser, count(par.prodID) as CountBids
                     from products p
                     left join proddes d on p.prodID = d.prodID
@@ -87,7 +87,7 @@ export default {
         return raw[0];
     },
 
-    getTop5HighestBids() {
+    async getTop5HighestBids() {
         const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) AS nameofUser, count(par.prodID) as CountBids
                     from products p
                     left join proddes d on p.prodID = d.prodID
@@ -100,7 +100,7 @@ export default {
         return raw[0];
     },
 
-    getTop5End() {
+    async getTop5End() {
         const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) AS nameofUser, count(par.prodID) as CountBids
                     from products p
                     left join proddes d on p.prodID = d.prodID
