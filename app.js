@@ -56,11 +56,11 @@ app.get("/detail", function (req, res) {
 });
 
 app.get("/profile-comment", function (req, res) {
-  res.render("account/profile-comment.hbs");
+  res.render("account/profile-comment");
 });
 
 app.get('/profile', function (req, res) {
-  res.render('account/profile.hbs');
+  res.render('account/profile');
 });
 
 app.get("/product/search", function (req, res) {
@@ -69,6 +69,9 @@ app.get("/product/search", function (req, res) {
 
 });
 
+app.get('/byCat', function (req, res) {
+  res.render('ProductView/byCat');
+});
 
 
 

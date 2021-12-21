@@ -1,4 +1,4 @@
-import productModel from "../models/product.model";
+import productModel from "../models/product.model.js";
 
 const router = express.Router();
 
@@ -38,7 +38,7 @@ router.get("/allproducts", async function (req, res) {
         });
     }
 
-    res.render('vwProduct/byCat', {
+    res.render('ProductView/byCat', {
         products: list,
         empty: list.length === 0,
         pageNumbers,
