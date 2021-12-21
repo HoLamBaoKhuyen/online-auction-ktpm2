@@ -6,7 +6,7 @@ router.get("/", async function (req, res) {
     const top5Price = await productModel.getTop5HighestPrice();
     const top5End = await productModel.getTop5End();
     const top5Bid = await productModel.getTop5HighestBids();
-    res.render('home',{
+    res.render('home', {
         top5Price,
         top5End,
         top5Bid
@@ -51,7 +51,7 @@ router.get("/allproducts", async function (req, res) {
 
 router.get("/byCat/:catID", async function (req, res) {
     const catID = req.params.catID || 0;
-    
+
     const limit = 10;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
@@ -83,7 +83,7 @@ router.get("/byCat/:catID", async function (req, res) {
 
 router.get("/byCat/:prodType", async function (req, res) {
     const prodType = req.params.prodType || 0;
-    
+
     const limit = 10;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
@@ -115,7 +115,7 @@ router.get("/byCat/:prodType", async function (req, res) {
 
 router.get("/byCat/sortDate/:prodType", async function (req, res) {
     const prodType = req.params.prodType || 0;
-    
+
     const limit = 10;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
@@ -147,7 +147,7 @@ router.get("/byCat/sortDate/:prodType", async function (req, res) {
 
 router.get("/byCat/sortPrice/:prodType", async function (req, res) {
     const prodType = req.params.prodType || 0;
-    
+
     const limit = 10;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
@@ -181,16 +181,25 @@ router.get("/byCat/sortPrice/:prodType", async function (req, res) {
 router.get("/detail/:prodid", async function (req, res) {
     const prodID = req.params.prodid;
     const product = await productModel.findByProdID(prodID);
-    if (product==null){
+    if (product == null) {
         return res.redirect('/');
     }
 
-    const description = await productModel.getDescription(prodID); 
+    const description = await productModel.getDescription(prodID);
     const similar = await productModel.getSimilarProduct(prodID);
-    res.render('ProductView/detail',{
+    res.render('ProductView/detail', {
         product,
         description,
         similar
     });
 });
+
+
+router.post("/product/search", function (req, res) {
+    console.log(req.body.searchbox);
+    res.render('ProductView/',{
+
+    })
+  });
+
 export default router;

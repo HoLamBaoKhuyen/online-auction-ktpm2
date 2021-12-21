@@ -5,7 +5,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 import numeral from "numeral";
 import hbs_sections from 'express-handlebars-sections';
-import session from 'express-session';
+//import session from 'express-session';
 
 import * as path from "path";
 
@@ -30,7 +30,14 @@ app.engine(
     helpers:{
       format_price(val){
         return numeral(val).format('0,0');
+      },
+      ifCond(v1,v2,option){
+        if(v1===v2){
+          return option.fn(this);
+        }
+        return option.inverse(this);
       }
+
     }
   }),
 );
@@ -55,6 +62,15 @@ app.get("/profile-comment", function (req, res) {
 app.get('/profile', function (req, res) {
   res.render('account/profile.hbs');
 });
+
+app.get("/product/search", function (req, res) {
+  console.log(req.query.searchbox);
+  res.render('ProductView/detail');
+
+});
+
+
+
 
 app.get("/login", function (req, res) {
   res.render("Authentication/login", { layout: "authentication" });

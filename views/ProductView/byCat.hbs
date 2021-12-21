@@ -263,11 +263,11 @@
             </div>
         </div>
         <!--
-        {{if this.empty}}
+        {{#if this.empty}}
         <h5 class="card-title">Không có dữ liệu</h5>
         <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-        {{else}}
-        {{each this.products}}
+        {{#else}}
+        {{#each this.products}}
         <div class="col-md-2">
             <div class="ibox" {{#if timeEnd-datePosted < 0}}disabled{{/if}}>
                 <div class="ibox-content product-box">
@@ -333,6 +333,7 @@
                 </li>
             </ul>
         </nav> 
+        {{/each}}
         {{/if}}  -->
     </div>
 </div>
