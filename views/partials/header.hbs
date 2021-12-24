@@ -69,11 +69,19 @@
       </form>
 
       <div class="m-3">
-        <button type="button" class="btn btn-outline-dark me-2 signupBtn"><i
-            class="fa fa-sign-in mx-2"></i>Login</button>
-        <button type="button" class="btn btn-outline-dark signupBtn">
+        <a  class="btn btn-outline-dark me-2 signupBtn" href="/login" role="button">
+        <i class="fa fa-sign-in" aria-hidden="true"></i>
+        Login
+        </a>
+        <a  class="btn btn-outline-dark me-2 signupBtn" href="/signup" role="button">
+        <i class="fa fa-user-plus" aria-hidden="true"></i>
+        Sign-up
+        </a>
+        {{!-- <button type="button" class="btn btn-outline-dark me-2 signupBtn" href="/login"><i
+            class="fa fa-sign-in mx-2"></i>Login</button> --}}
+        {{!-- <button type="button" class="btn btn-outline-dark signupBtn" href="/signup">
           <i class="fa fa-pencil" aria-hidden="true"></i>
-          Sign-up</button>
+          Sign-up</button> --}}
       </div>
     </div>
   </div>
