@@ -1,63 +1,69 @@
 <div class="form_contain">
-  <div class="form" method = "post">
-    <div class="form_textField">
-      <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
-       <div class="input-container ic1 mb-4">
-        <input id="email" class="input" type="text" placeholder=" "  name = "email"/>
-        <div class="cut"></div>
-        <label for="email" class="placeholder">Email</label>
+  <form class="form" method="post">
+    {{!-- <div class="form" method="post"> --}}
+      <div class="form_textField">
+        <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
+        <div class="input-container ic1 mb-4">
+          <input id="email" class="input" type="text" placeholder=" " name="email" />
+          <div class="cut"></div>
+          <label for="email" class="placeholder">Email</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtFirstName" class="input" type="text" placeholder=" " name="firstName" />
+          <div class="cut"></div>
+          <label for="txtFirstName" class="placeholder">First name</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtLastName" class="input" type="text" placeholder=" " name="lastName" />
+          <div class="cut"></div>
+          <label for="txtLastName" class="placeholder">Last Name</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" />
+          <div class="cut"></div>
+          <label for="txtPassword" class="placeholder">Mật khẩu</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtConfirm" class="input" type="password" placeholder=" " />
+          <div class="cut"></div>
+          <label for="txtConfirm" class="placeholder">Nhập lại mật khẩu</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtAddress" class="input" type="text" placeholder=" " name="address" />
+          <div class="cut"></div>
+          <label for="txtAddress" class="placeholder">Địa chỉ</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtHotline" class="input" type="text" placeholder=" " name="hotline" />
+          <div class="cut"></div>
+          <label for="txtHotline" class="placeholder">Hotline</label>
+        </div>
+        <div class="input-container mb-3">
+          <!-- Date input -->
+          <input class="form-control input" id="dob" name="dob" class="dob" type="date" placeholder=" " />
+          <div class="cut"></div>
+          <label for="dob" class="placeholder">Ngày sinh</label>
+        </div>
+        <div class="font-weight-bold ">Bạn là 
+        <div class="custom-control custom-radio custom-control-inline ml-3">
+          <input type="radio" class="custom-control-input" id="rbBidder" name="userType" checked value="bidder">
+          <label class="custom-control-label" for="rbBidder">
+            Người mua
+          </label>
+        </div>
+        <div class="custom-control custom-radio custom-control-inline ml-2">
+          <input type="radio" class="custom-control-input" id="rbSeller" name="userType" value="seller">
+          <label class="custom-control-label" for="rbSeller">Người bán</label>
+        </div>
       </div>
-      <div class="input-container ic1 mb-4">
-        <input id="txtFirstName" class="input" type="text" placeholder=" "name="firstName" />
-        <div class="cut"></div>
-        <label for="txtFirstName" class="placeholder" >First name</label>
+        <div> <button type="text" class="submit mt-3">ĐĂNG KÝ</button></div>
       </div>
-      <div class="input-container ic1 mb-4">
-        <input id="txtLastName" class="input" type="text" placeholder=" " name="lastName"/>
-        <div class="cut"></div>
-        <label for="txtLastName" class="placeholder" >Last Name</label>
+      <div class="text-center mt-4">
+        <a name="" id="" class="option" href="/account/login" role="button">Đã có tài khoản?
+          <span class="text-center font-weight-bold">
+            Đăng nhập</span></a>
       </div>
-      <div class="input-container ic1 mb-4">
-        <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" />
-        <div class="cut"></div>
-        <label for="txtPassword" class="placeholder">Mật khẩu</label>
-      </div>
-      <div class="input-container ic1 mb-4">
-        <input id="txtConfirm" class="input" type="password" placeholder=" " />
-        <div class="cut"></div>
-        <label for="txtConfirm" class="placeholder">Nhập lại mật khẩu</label>
-      </div>
-       <div class="input-container ic1 mb-4">
-        <input id="txtAddress" class="input" type="text" placeholder=" " name="address"/>
-        <div class="cut"></div>
-        <label for="txtAddress" class="placeholder" >Địa chỉ</label>
-      </div>
-       <div class="input-container ic1 mb-4">
-        <input id="name" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="name" class="placeholder">Hotline</label>
-      </div>
-      <div class="input-container ic2 mb-3">
-        <!-- Date input -->
-        <input
-          class="form-control input"
-          id="dob"
-          name="dob"
-          class="dob"
-          type="date"
-          placeholder=" "
-        />
-        <div class="cut"></div>
-        <label for="dob" class="placeholder">Ngày sinh</label>
-      </div>
-      <div> <button type="text" class="submit">ĐĂNG KÝ</button></div>
-
-    </div>
-    <div class="text-center mt-4">
-      <a name="" id="" class="option" href="/login" role="button">Đã có tài khoản?
-        <span class="text-center font-weight-bold">
-          Đăng nhập</span></a>
-
-    </div>
-  </div>
+      {{!--
+    </div> --}}
+  </form>
 </div>

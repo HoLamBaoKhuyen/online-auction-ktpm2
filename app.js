@@ -7,6 +7,7 @@ import numeral from "numeral";
 import * as path from "path";
 import { create } from "express-handlebars";
 
+import accountRouter from "./routes/account.route.js";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const app = express();
@@ -52,12 +53,6 @@ app.get('/profile', function (req, res) {
   res.render('account/profile.hbs');
 });
 
-app.get("/login", function (req, res) {
-  res.render("Authentication/login", { layout: "authentication" });
-});
-app.get("/signup", function (req, res) {
-  res.render("Authentication/signup", { layout: "authentication" });
-});
 
 app.get("/admin", function (req, res) {
   res.render("admin/userManagement", { layout: "admin" });
@@ -72,7 +67,7 @@ app.get("/admin/categories", function (req, res) {
   res.render("admin/categories", { layout: "admin" });
 });
 
-
+app.use('/account',accountRouter);
 
 const port = 3000;
 app.listen(port, function () {
