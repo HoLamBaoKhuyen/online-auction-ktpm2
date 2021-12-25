@@ -1,12 +1,19 @@
-import db from "../utils/db.js"
+import db from "../utils/db.js";
 
 export default {
     findAll() {
         return db('products')
     },
 
-    findPageAll(limit, offset) {
-        return db('products').limit(limit).offset(offset);
+    async findPageAll(limit, offset) {
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join users u on p.highestBidID = u.UID
+                        left join participate par on par.prodID = p.prodID
+                        group by p.prodID
+                        limit `+limit +` offset `+offset;
+        const raw = await db.raw(sql);
+        return raw[0];
     },
 
     async countAll() {
@@ -75,39 +82,34 @@ export default {
 
 
     async getTop5HighestPrice() {
-        const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) as nameofUser, count(par.prodID) as CountBids
-                    from products p
-                    left join proddes d on p.prodID = d.prodID
-                    left join users u on p.highestBID = u.UID
-                    left join participate par on par.prodID = p.prodID
-                    group by par.prodID
-                    order by p.curPrice DESC
-                    limit 5 offset 0`;
+        const sql = `select p.*,d.*, concat('***** ',u.firstname) as nameofUser
+                        from products p
+                        left join proddes d on p.prodID = d.prodID
+                        left join users u on p.highestBidID = u.UID
+                        order by p.curPrice DESC
+                        limit 5 offset 0`;
         const raw = await db.raw(sql);
         return raw[0];
     },
 
     async getTop5HighestBids() {
-        const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) AS nameofUser, count(par.prodID) as CountBids
-                    from products p
-                    left join proddes d on p.prodID = d.prodID
-                    left join users u on p.highestBID = u.UID
-                    left join participate par on par.prodID = p.prodID
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                    from participate par
+                    left join products p on par.prodID = p.prodID
+                    left join users u on p.highestBidID = u.UID
                     group by par.prodID
-                    order by count(p.prodID) DESC
+                    order by count(par.prodID)
                     limit 5 offset 0`;
         const raw = await db.raw(sql);
         return raw[0];
     },
 
     async getTop5End() {
-        const sql = `select p.*,d.*, concat(u.lastname,' ',u.firstname) AS nameofUser, count(par.prodID) as CountBids
+        const sql = `select p.*,d.*, concat('***** ',u.firstname) as nameofUser
                     from products p
                     left join proddes d on p.prodID = d.prodID
-                    left join users u on p.highestBID = u.UID
-                    left join participate par on par.prodID = p.prodID
-                    group by par.prodID
-                    order by getDate()-p.timeEnd ASC
+                    left join users u on p.highestBidID = u.UID
+                    order by p.timeEnd ASC
                     limit 5 offset 0`;
         const raw = await db.raw(sql);
         return raw[0];

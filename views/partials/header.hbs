@@ -13,7 +13,7 @@
           Danh mục
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-          <li class="dropdown-submenu">
+          {{!-- <li class="dropdown-submenu">
             <a class="dropdown-item" tabindex="-1" href="#">Đồ điện tử</a>
             <ul class="dropdown-menu">
               <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện
@@ -33,15 +33,15 @@
               <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
 
-        <!--  
+        
         {{#each lv1Categories}}
           <li class="dropdown-submenu">
             <a class="dropdown-item" tabindex="-1" href="#">{{catName}}</a>
             <ul class="dropdown-menu">
-              {{#each lv2Categories}}
-                {{#ifCond lv2Categories.catID lv1Categories.category}}
+              {{#each ../lv2Categories}}
+                {{#ifCond category ../catID}}
                   <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="/byCat/{{prodType}}">{{typeName}}</a>
                   </li>
                 {{/ifCond}}
@@ -49,7 +49,7 @@
             </ul>
           </li>
         {{/each}} 
-        </ul>-->
+        </ul>
       </div>
 
       <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3" action="/product/search">

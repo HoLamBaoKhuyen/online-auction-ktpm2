@@ -4,14 +4,19 @@ import { engine } from "express-handlebars";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 import numeral from "numeral";
+import moment from 'moment';
+import dateformat from "handlebars-dateformat";
 import hbs_sections from 'express-handlebars-sections';
-//import session from 'express-session';
+import session from 'express-session';
+import activate_locals_middleware from './middlewares/locals.mdw.js';
+
 
 import * as path from "path";
 
 import { create } from "express-handlebars";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+import productRoute from './routes/product.route.js';
 
 const app = express();
 app.use(morgan("dev"));
@@ -31,11 +36,24 @@ app.engine(
       format_price(val){
         return numeral(val).format('0,0');
       },
+
       ifCond(v1,v2,option){
-        if(v1===v2){
+        if(v1 == v2){
           return option.fn(this);
         }
         return option.inverse(this);
+      },
+      
+      dateCond(v1,v2,option){
+        if(v1-v2 < 0){
+          return option.fn(this);
+        }
+        return option.inverse(this);
+      },
+
+      formatTime(date, format){
+        var mmt = moment(date);
+        return mmt.format(format);
       }
 
     }
@@ -44,36 +62,39 @@ app.engine(
 
 app.use("/public", express.static("public"));
 
+activate_locals_middleware(app);
+
+
 app.set("view engine", "hbs");
 app.set("views", "./views");
 
-app.get("/", function (req, res) {
-  res.render("home");
-});
+// app.get("/", function (req, res) {
+//   res.render("home");
+// });
 
-app.get("/detail", function (req, res) {
-  res.render("ProductView/detail");
-});
+// app.get("/detail", function (req, res) {
+//   res.render("ProductView/detail");
+// });
 
-app.get("/profile-comment", function (req, res) {
-  res.render("account/profile-comment");
-});
+// app.get("/profile-comment", function (req, res) {
+//   res.render("account/profile-comment");
+// });
 
-app.get('/profile', function (req, res) {
-  res.render('account/profile');
-});
+// app.get('/profile', function (req, res) {
+//   res.render('account/profile');
+// });
 
-app.get("/product/search", function (req, res) {
-  console.log(req.query.searchbox);
-  res.render('ProductView/detail');
+// app.get("/product/search", function (req, res) {
+//   console.log(req.query.searchbox);
+//   res.render('ProductView/detail');
 
-});
+// });
 
-app.get('/byCat', function (req, res) {
-  res.render('ProductView/byCat');
-});
+// app.get('/byCat', function (req, res) {
+//   res.render('ProductView/byCat');
+// });
 
-
+app.use('/',productRoute);
 
 app.get("/login", function (req, res) {
   res.render("Authentication/login", { layout: "authentication" });
