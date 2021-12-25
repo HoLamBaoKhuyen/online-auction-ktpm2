@@ -81,118 +81,131 @@ router.get("/byCat/:catID", async function (req, res) {
     });
 });
 
-// router.get("/byCat/:prodType", async function (req, res) {
-//     const prodType = req.params.prodType || 0;
+router.get("/byCat2/:typeID", async function (req, res) {
+    const typeID = req.params.typeID || 0;
 
-//     const limit = 10;
-//     const page = req.query.page || 1;
-//     const offset = (page - 1) * limit;
-//     const [list, total] = await Promise.all([
-//         productModel.findPageByProdType(prodType, limit, offset),
-//         productModel.countByProdType(prodType)
-//     ])
-//     let nPages = Math.floor(total / limit);
-//     if (total % limit > 0) nPages++;
+    const limit = 10;
+    const page = req.query.page || 1;
+    const offset = (page - 1) * limit;
+    const [list, total] = await Promise.all([
+        productModel.findPageByTypeID(typeID, limit, offset),
+        productModel.countByTypeID(typeID)
+    ])
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
 
-//     const pageNumbers = [];
-//     for (let i = 1; i <= nPages; i++) {
-//         pageNumbers.push({
-//             value: i,
-//             isCurrent: +page === i
-//         });
-//     }
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+        pageNumbers.push({
+            value: i,
+            isCurrent: +page === i
+        });
+    }
 
-//     res.render('ProductView/byCat', {
-//         products: list,
-//         empty: list.length === 0,
-//         pageNumbers,
-//         prev_page: +page - 1,
-//         next_page: +page + 1,
-//         can_go_next: +page < nPages,
-//         can_go_prev: +page > 1
-//     });
-// });
+    const categoryName = await productModel.getCategoryName(typeID);
 
-// router.get("/byCat/sortDate/:prodType", async function (req, res) {
-//     const prodType = req.params.prodType || 0;
+    res.render('ProductView/byCat', {
+        products: list,
+        empty: list.length === 0,
+        categoryName,
+        pageNumbers,
+        prev_page: +page - 1,
+        next_page: +page + 1,
+        can_go_next: +page < nPages,
+        can_go_prev: +page > 1
+    });
+});
 
-//     const limit = 10;
-//     const page = req.query.page || 1;
-//     const offset = (page - 1) * limit;
-//     const [list, total] = await Promise.all([
-//         productModel.findPageByProdTypeSortDate(prodType, limit, offset),
-//         productModel.countByProdType(prodType)
-//     ])
-//     let nPages = Math.floor(total / limit);
-//     if (total % limit > 0) nPages++;
+router.get("/byCat2/sortDate/:typeID", async function (req, res) {
+    const typeID = req.params.typeID || 0;
 
-//     const pageNumbers = [];
-//     for (let i = 1; i <= nPages; i++) {
-//         pageNumbers.push({
-//             value: i,
-//             isCurrent: +page === i
-//         });
-//     }
+    const limit = 10;
+    const page = req.query.page || 1;
+    const offset = (page - 1) * limit;
+    const [list, total] = await Promise.all([
+        productModel.findPageByTypeIDSortDate(typeID, limit, offset),
+        productModel.countByTypeID(typeID)
+    ])
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
 
-//     res.render('ProductView/byCat', {
-//         products: list,
-//         empty: list.length === 0,
-//         pageNumbers,
-//         prev_page: +page - 1,
-//         next_page: +page + 1,
-//         can_go_next: +page < nPages,
-//         can_go_prev: +page > 1
-//     });
-// });
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+        pageNumbers.push({
+            value: i,
+            isCurrent: +page === i
+        });
+    }
 
-// router.get("/byCat/sortPrice/:prodType", async function (req, res) {
-//     const prodType = req.params.prodType || 0;
+    const categoryName = await productModel.getCategoryName(typeID);
+    categoryName[0].sortDate=1;
 
-//     const limit = 10;
-//     const page = req.query.page || 1;
-//     const offset = (page - 1) * limit;
-//     const [list, total] = await Promise.all([
-//         productModel.findPageByProdTypeSortPrice(prodType, limit, offset),
-//         productModel.countByProdType(prodType)
-//     ])
-//     let nPages = Math.floor(total / limit);
-//     if (total % limit > 0) nPages++;
+    res.render('ProductView/byCat', {
+        products: list,
+        empty: list.length === 0,
+        categoryName,
+        pageNumbers,
+        prev_page: +page - 1,
+        next_page: +page + 1,
+        can_go_next: +page < nPages,
+        can_go_prev: +page > 1
+    });
+});
 
-//     const pageNumbers = [];
-//     for (let i = 1; i <= nPages; i++) {
-//         pageNumbers.push({
-//             value: i,
-//             isCurrent: +page === i
-//         });
-//     }
+router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
+    const typeID = req.params.typeID || 0;
 
-//     res.render('ProductView/byCat', {
-//         products: list,
-//         empty: list.length === 0,
-//         pageNumbers,
-//         prev_page: +page - 1,
-//         next_page: +page + 1,
-//         can_go_next: +page < nPages,
-//         can_go_prev: +page > 1
-//     });
-// });
+    const limit = 10;
+    const page = req.query.page || 1;
+    const offset = (page - 1) * limit;
+    const [list, total] = await Promise.all([
+        productModel.findPageByTypeIDSortPrice(typeID, limit, offset),
+        productModel.countByTypeID(typeID)
+    ])
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
+
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+        pageNumbers.push({
+            value: i,
+            isCurrent: +page === i
+        });
+    }
+
+    const categoryName = await productModel.getCategoryName(typeID);
+
+    categoryName[0].sortPrice=1;
+    console.log(categoryName);
+    res.render('ProductView/byCat', {
+        products: list,
+        empty: list.length === 0,
+        pageNumbers,
+        categoryName,
+        prev_page: +page - 1,
+        next_page: +page + 1,
+        can_go_next: +page < nPages,
+        can_go_prev: +page > 1
+    });
+});
 
 
-// router.get("/detail/:prodid", async function (req, res) {
-//     const prodID = req.params.prodid;
-//     const product = await productModel.findByProdID(prodID);
-//     if (product == null) {
-//         return res.redirect('/');
-//     }
+router.get("/detail/:prodid", async function (req, res) {
+    const prodID = req.params.prodid;
+    const product = await productModel.findByProdID(prodID);
+    console.log(product);
+    if (product == null) {
+        return res.redirect('/');
+    }
 
-//     const description = await productModel.getDescription(prodID);
-//     const similar = await productModel.getSimilarProduct(prodID);
-//     res.render('ProductView/detail', {
-//         product,
-//         description,
-//         similar
-//     });
-// });
+    const description = await productModel.getDescription(prodID);
+    const similar = await productModel.getSimilarProduct(prodID);
+    res.render('ProductView/detail', {
+        product,
+        description,
+        similar
+    });
+});
 
 
 // router.post("/product/search", function (req, res) {
