@@ -2,15 +2,24 @@
 <script>
   $('#frmRegister').on('submit',function(e){
     e.preventDefault();
+    const email = $('#txtEmail').val();
     const password = $('#txtPassword').val();
     const confirm= $('#txtConfirm').val();
-    console.log(password);
-    console.log(confirm);
     if (password!==confirm){
       alert('Passwords are not matching');
       return;
     }
-    $('#frmRegister').off().submit();
+    $.getJSON(`/account/is-available?email=${email}`,function(data){
+      if (data===false){
+        alert('Email is not available');
+        return;
+      }
+      else
+      {
+         $('#frmRegister').off('submit').submit();
+      }
+    });
+    
   });
 </script>
 {{/section}}
@@ -20,9 +29,9 @@
       <div class="form_textField">
         <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
         <div class="input-container ic1 mb-4">
-          <input id="email" class="input" type="text" placeholder=" " name="email" required="true"/>
+          <input id="txtEmail" class="input" type="text" placeholder=" " name="email" required="true"/>
           <div class="cut"></div>
-          <label for="email" class="placeholder">Email</label>
+          <label for="txtEmail" class="placeholder">Email</label>
         </div>
         <div class="input-container ic1 mb-4">
           <input id="txtFirstName" class="input" type="text" placeholder=" " name="firstName" required="true" />
