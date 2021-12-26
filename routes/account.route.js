@@ -26,10 +26,27 @@ router.post('/signup',async function (req,res){
         userType: 'bidder'
        
     }
-    //await userModel.add(user);
+    await userModel.add(user);
     res.render("Authentication/login", { layout: "authentication" });
   });
-  
+  router.post('/login',async function (req,res){
+    const user = await userModel.findByEmail(req.body.email);
+    if (user===null){
+      res.render("Authentication/login", { 
+        layout: "authentication",
+        err_message: 'Invalid email or password.'
+      });
+    }
+    const ret = bcrypt.compareSync(req.body.psword,user.psword);
+    if (ret===false){
+      res.render("Authentication/login", { 
+        layout: "authentication",
+        err_message: 'Invalid email or password.'
+      });
+    }
+    const url='/';
+    res.redirect(url);
+  });
 router.get('/is-available', async function(req,res){
     const user = await userModel.findByEmail(req.query.email);
     if (user === null){

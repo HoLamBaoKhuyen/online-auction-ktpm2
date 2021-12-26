@@ -1,14 +1,22 @@
 <div class="form_contain">
-  <div class="form">
+  <form id="frmLogin" class="form" method="post">
     <div class="form_textField">
       <h4 class="text-center font-weight-bold">ĐĂNG NHẬP</h4>
+      {{#if err_message}}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Login failed!</strong> {{err_message}}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      {{/if}}
       <div class="input-container ic1">
-        <input id="txtEmail" class="input" type="text" placeholder=" " name="email" required/>
+        <input id="txtEmail" class="input" type="text" placeholder=" " name="email" required="true" autofocus />
         <div class="cut"></div>
         <label for="txtEmail" class="placeholder">Email</label>
       </div>
       <div class="input-container ic1">
-        <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" required/>
+        <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" required=="true" />
         <div class="cut"></div>
         <label for="txtPassword" class="placeholder">Mật khẩu</label>
       </div>
@@ -19,5 +27,5 @@
       <a name="" id="" class="option" href="/account/signup" role="button">Chưa có tài khoản</a>
       <a name="" id="" class="option" href="#" role="button">Quên mật khẩu</a>
     </div>
-  </div>
+  </form>
 </div>
