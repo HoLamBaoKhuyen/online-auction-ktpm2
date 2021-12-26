@@ -6,7 +6,7 @@ const knex =fn({
       host : '127.0.0.1',
       port : 3306,
       user : 'root',
-      password : 'admin',
+      password: 'Baokhuyen2001@',
       database : 'onlauction'
     },
     pool: { min: 0, max: 10 }
