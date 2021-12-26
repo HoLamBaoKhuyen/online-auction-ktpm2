@@ -24,7 +24,7 @@ router.get("/signup", function (req, res) {
         dob: req.body.dob,
         hotline: req.body.hotline,
         address: req.body.address,
-        userType: req.body.userType
+        userType: 'bidder'
        
     }
     await userModel.add(user);
