@@ -3,15 +3,7 @@ import { dirname } from "path";
 import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-export default function (app){
-    app.get("/", function (req, res) {
-        res.render("home");
-      });
-      
-      app.get("/detail", function (req, res) {
-        res.render("ProductView/detail");
-      });
-      
+export default function (app){ 
       app.get("/profile-comment", function (req, res) {
         res.render("account/profile-comment.hbs");
       });
