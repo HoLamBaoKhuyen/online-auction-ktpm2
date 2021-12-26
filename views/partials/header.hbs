@@ -3,42 +3,40 @@
     <div class="d-flex flex-wrap align-items-center justify-content-between">
 
       <h4 class="nav col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-        <img src="public/images/icondaugia.png" alt="icondaugia" class="logo" height="45" />
-        <a href="#" class="nav-link px-2 text-secondary header__title">AUCTION
+        <img src="/public/images/icondaugia.png" alt="icondaugia" class="logo" height="45" />
+        <a href="/" class="nav-link px-2 text-secondary header__title">AUCTION
           ONLINE</a>
       </h4>
-
       <div class="nav-item dropdown m-3">
-        <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
           Danh mục
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
+          {{#each lv1Categories}}
           <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Đồ điện tử</a>
+            <a class="dropdown-item" tabindex="-1" href="/byCat/{{catID}}">{{catName}}</a>
             <ul class="dropdown-menu">
-              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện thoại</a>
+              {{#each ../lv2Categories}}
+              {{#ifCond category ../catID}}
+              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none"
+                  href="/byCat2/{{typeID}}">{{typeName}}</a>
               </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Máy tính</a>
-              </li>
+              {{/ifCond}}
+              {{/each}}
             </ul>
           </li>
-          <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a>
-              </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a>
-              </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a>
-              </li>
-            </ul>
+          {{/each}}
+          <li>
+            <a class="dropdown-item" tabindex="-1" href="/allproducts">Tất cả</a>
           </li>
         </ul>
       </div>
 
-      <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3">
+      <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3" action="/product/search">
         <div class="nav-item dropdown">
-          <button class="dropdown-toggle border-right-0 rounded-0 active categoryBtn categorySearchBtn" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <button class="dropdown-toggle border-right-0 rounded-0 active categoryBtn categorySearchBtn" type="button"
+            id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Danh mục
           </button>
           <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton3">
@@ -53,7 +51,8 @@
             <li class="dropdown-submenu">
               <a class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
               <ul class="dropdown-menu">
-                <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a>
+                <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo
+                    khoác</a>
                 </li>
                 <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a></li>
                 <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a></li>
@@ -61,13 +60,14 @@
             </li>
           </ul>
         </div>
+
         <input type="search" class="form-control form-control-dark categoryInput" placeholder="Tên sản phẩm"
-          aria-label="Search" />
-        <button type="button" class="btn btn-outline-warning rounded-0 border-left-0 categorySearchIconBtn">
+          aria-label="Search" name="searchbox" />
+        <button type="submit" class="btn btn-outline-warning rounded-0 border-left-0 categorySearchIconBtn">
           <i class="fa fa-search"></i>
         </button>
-      </form>
 
+      </form>
       <div class="m-3">
         <button type="button" class="btn btn-outline-dark me-2 signupBtn"><i
             class="fa fa-sign-in mx-2"></i>Login</button>

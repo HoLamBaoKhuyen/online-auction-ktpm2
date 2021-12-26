@@ -49,9 +49,9 @@
   color: #ff8a00;
 }
 /*-----dropdown show sorting-----------*/
-.dropdown.show {
-  /* display: none; */
-}
+/* .dropdown.show {
+  display: none;
+} */
 
 @media only screen and (max-width: 1200px) {
   .price,
