@@ -1,6 +1,10 @@
 body {
   background-color: #f5c28f;
+  
+
 }
+
+
 .responsive-img {
   width: 100%;
   max-width: 200px;
@@ -316,6 +320,11 @@ button.input-group-addon {
 
 .carousel-item img {
   width: 80%;
+}
+
+.carousel-thumbnail{
+  width:100px; 
+  height: 80px;
 }
 
 /* --------------------profile------------------- */

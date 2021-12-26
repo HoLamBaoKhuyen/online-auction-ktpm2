@@ -13,42 +13,23 @@
           Danh mục
         </button>
         <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="dropdownMenuButton2">
-          {{!-- <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Đồ điện tử</a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Điện
-                  thoại</a>
-              </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Máy tính</a>
-              </li>
-            </ul>
-          </li>
+          {{#each lv1Categories}}
           <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="#">Áo khoác</a>
-              </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Quần Jean</a>
-              </li>
-              <li class="dropdown-item"><a class="text-dark text-decoration-none" href="#">Áo sơ mi</a>
-              </li>
-            </ul>
-          </li> --}}
-
-        
-        {{#each lv1Categories}}
-          <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">{{catName}}</a>
+            <a class="dropdown-item" tabindex="-1" href="/byCat/{{catID}}">{{catName}}</a>
             <ul class="dropdown-menu">
               {{#each ../lv2Categories}}
-                {{#ifCond category ../catID}}
-                  <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none" href="/byCat2/{{typeID}}">{{typeName}}</a>
-                  </li>
-                {{/ifCond}}
+              {{#ifCond category ../catID}}
+              <li class="dropdown-item"><a tabindex="-1" class="text-dark text-decoration-none"
+                  href="/byCat2/{{typeID}}">{{typeName}}</a>
+              </li>
+              {{/ifCond}}
               {{/each}}
             </ul>
           </li>
-        {{/each}} 
+          {{/each}}
+          <li>
+            <a class="dropdown-item" tabindex="-1" href="/allproducts">Tất cả</a>
+          </li>
         </ul>
       </div>
 

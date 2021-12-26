@@ -1,17 +1,17 @@
 <div class="container my-5">
     <div class="row">
         {{#each this.product}}
-        <div class="col-md-6">
+        <div class="col-md-6 pb-3">
             <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
                 <!-- slides -->
                 <div class="carousel-inner">
                     <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg"
-                            alt="A52"> </div>
+                            alt="A52" style=" width:400px; height: 500px;"> </div>
                     <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg"
-                            alt="{{prodName}}"> </div>
+                            alt="{{prodName}}" style=" width:400px; height: 500px;"> </div>
                     <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg"
-                            alt="A52"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg">
+                            alt="A52" style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg" style=" width:400px; height: 500px;">
                     </div>
 
                 </div>
@@ -25,19 +25,19 @@
                 <ol class="carousel-indicators list-inline pb-5">
                     <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0"
                             data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/main.jpg" class="img-fluid"> </a>
+                                src="/public/images/{{prodID}}/main.jpg" class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1"
                             data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb1.jpg" class="img-fluid"> </a>
+                                src="/public/images/{{prodID}}/thumb1.jpg" class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
                             data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb2.jpg" class="img-fluid"> </a>
+                                src="/public/images/{{prodID}}/thumb2.jpg" class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
                             data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb3.jpg" class="img-fluid"> </a>
+                                src="/public/images/{{prodID}}/thumb3.jpg" class="img-fluid carousel-thumbnail"> </a>
                     </li>
                 </ol>
             </div>
@@ -82,11 +82,11 @@
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Đăng ngày:</strong></th>
-                            <td>{{timePosted}}</td>
+                            <td>{{formatTime timePosted 'DD/MM/YYYY -- HH:MM:SS'}}</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Kết thúc:</strong></th>
-                            <td>{{timeEnd}}</td>
+                            <td>{{formatTime timeEnd 'DD/MM/YYYY -- HH:MM:SS'}}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -101,12 +101,12 @@
             </small>
             <div class="p-5"></div>
         </div>
-        <div class="col-md-6 ml-5">
+        <div class="col-md-6 mt-3 ml-2">
             <h3>
                 Giá hiện tại: <span>{{format_price curPrice}}</span>
             </h3>
         </div>
-        <div class="col-md-6 ml-5 mt-3">
+        <div class="col-md-6 ml-2 mt-3">
             <button class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào
                     Watch List</i></button>
         </div>
@@ -239,11 +239,20 @@
                     <th colspan="2">Hoang Van P</th>
                     <td>3.500.000</td>
                 </tr> --}}
+                {{#if this.historytable}}
+                {{#each this.historytable}}
                 <tr>
-                    <td scope="row">29/02/2021</td>
-                    <th colspan="2">Perry the Platypus</th>
-                    <td>4.000.000</td>
+                    <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:MM:SS'}}</td>
+                    <th colspan="2">{{userName}}</th>
+                    <td>{{format_price price}}</td>
                 </tr>
+                {{/each}}
+                {{else}}
+                <tr>
+                    <td scope="row"></td>
+                    <th colspan="2">Chưa có lịch sử đấu giá</th>
+                </tr>
+                {{/if}}
             </tbody>
         </table>
     </div>
@@ -278,7 +287,7 @@
                                     <span class="font-weight-bold">{{format_price curPrice}}</span>
                                 </div>
                                 {{else}}
-                                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span>
+                                <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price curPrice}}</span>
                                 </div>
                                 {{/if}}
                             </div>
