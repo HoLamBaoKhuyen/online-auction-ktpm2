@@ -29,33 +29,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Mark</td>
-        <td>
-          <div class="d-inline-flex">
-            <a
-              name=""
-              id=""
-              class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a
-              name=""
-              id=""
-              class="btn btn-danger adminTable_deleteBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-window-close" aria-hidden="true"></i></a></div>
-        </td>
-      </tr>
+
+      {{#each this.userUpdateList}}
+        <tr>
+          <td>{{uID}}</td>
+          <td>{{fullName}}</td>
+          <td>{{email}}</td>
+          <td>{{formatTime dob "YYYY-MM-DD"}}</td>
+          <td>{{formatTime reqTime "YYYY-MM-DD HH:mm:ss"}}</td>
+          <td>
+            <div class="d-inline-flex">
+              <a
+                name=""
+                id=""
+                class="btn btn-success adminTable_updateBtn mx-1"
+                href="#"
+                role="button"
+              >
+                <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a
+                name=""
+                id=""
+                class="btn btn-danger adminTable_deleteBtn mx-1"
+                href="#"
+                role="button"
+              >
+                <i class="fa fa-window-close" aria-hidden="true"></i></a></div>
+          </td>
+        </tr>
+      {{/each}}
 
     </tbody>
   </table></div>
