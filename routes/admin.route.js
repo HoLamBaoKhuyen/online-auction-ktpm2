@@ -91,7 +91,7 @@ router.get("/products", async function (req, res) {
   const offset = (page - 1) * limit;
 
   const total = await productModel.countAll();
-  console.log(total);
+  // console.log(total);
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
 
@@ -103,7 +103,7 @@ router.get("/products", async function (req, res) {
     });
   }
   const productList = await productModel.findPageAll(limit, offset);
-  // console.log(userUpdateList);
+  console.log(productList);
 
   res.render("admin/productManagement", {
     layout: "admin",

@@ -6,10 +6,11 @@ export default {
     },
 
     async findPageAll(limit, offset) {
-        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        const sql = `select p.*, pType.typeName, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
+                        left join producttype pType on p.prodType = pType.typeID
                         group by p.prodID
                         limit `+limit +` offset `+offset;
         const raw = await db.raw(sql);
