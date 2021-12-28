@@ -10,18 +10,18 @@
 </a>
 <h3 class="my-4 adminTitle">QUẢN LÝ NGƯỜI DÙNG</h3>
 
-<!-- Modal -->
+<!-- Modal thêm user -->
 <div
   class="modal fade"
-  id="exampleModal"
+  id="addUserModal"
   tabindex="-1"
-  aria-labelledby="exampleModalLabel"
+  aria-labelledby="addUserModalLabel"
   aria-hidden="true"
 >
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="addUserModalLabel">Modal title</h5>
         <button
           type="button"
           class="close"
@@ -117,7 +117,7 @@
     type="button"
     class="form__addBtn"
     data-toggle="modal"
-    data-target="#exampleModal"
+    data-target="#addUserModal"
   >
     Thêm người dùng
   </button>
@@ -156,7 +156,7 @@
                 name=""
                 id=""
                 class="btn btn-success adminTable_updateBtn mx-1"
-                href="#"
+                href="/admin/edit-user?uID={{uID}}"
                 role="button"
               >
                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
@@ -170,6 +170,7 @@
                 <i class="fa fa-trash" aria-hidden="true"></i></a></div>
           </td>
         </tr>
+
       {{/each}}
 
     </tbody>

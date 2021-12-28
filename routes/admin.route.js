@@ -33,6 +33,18 @@ router.get("/", async function (req, res) {
     pageNumbers,
   });
 });
+router.get("/edit-user", async function (req, res) {
+  const uID = req.query.uID || 0;
+  const user = await userModel.findByID(uID);
+  console.log(user);
+  res.render("admin/edit-user", {
+    layout: "admin",
+    isAtAdminUser: true,
+    isAtUserUpdate: false,
+    user,
+  });
+});
+
 router.get("/user-update", async function (req, res) {
   const userUpdateList = await upgrdeModel.findAllUserUpdate();
   // console.log(userUpdateList);

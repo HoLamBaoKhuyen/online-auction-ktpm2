@@ -1,7 +1,7 @@
 import { engine } from "express-handlebars";
 import numeral from "numeral";
 import hbs_sections from "express-handlebars-sections";
-import moment from 'moment';
+import moment from "moment";
 
 export default function (app) {
   app.engine(
@@ -36,7 +36,7 @@ export default function (app) {
         },
 
         concatName(firstName, lastName) {
-          var fullName =firstName+" " + lastName;
+          var fullName = firstName + " " + lastName;
           return fullName;
         },
       },
