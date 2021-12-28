@@ -7,7 +7,7 @@ const router = express.Router();
 router.get("/", async function (req, res) {
   // console.log(userList);
 
-  const limit = 6;
+  const limit = 7;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
 
