@@ -134,7 +134,7 @@ router.get("/products", async function (req, res) {
       isCurrent: +page === i,
     });
   }
-  const productList = await productModel.countAllLevel1(limit, offset);
+  const productList = await productModel.findPageAll(limit, offset);
   // console.log(productList);
 
   res.render("admin/productManagement", {
