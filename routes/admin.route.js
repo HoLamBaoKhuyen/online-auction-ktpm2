@@ -1,6 +1,7 @@
 import express from "express";
 import upgrdeModel from "../models/upgrde.model.js";
 import userModel from "../models/user.model.js";
+import productModel from "../models/product.model.js";
 
 const router = express.Router();
 
@@ -51,7 +52,7 @@ router.get("/user-update", async function (req, res) {
   const offset = (page - 1) * limit;
 
   const total = await upgrdeModel.countAllUserUpdate();
-  console.log(total);
+  // console.log(total);
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
 
@@ -84,13 +85,34 @@ router.get("/categories", function (req, res) {
     isAtProducts: false,
   });
 });
-router.get("/products", function (req, res) {
+router.get("/products", async function (req, res) {
+  const limit = 7;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const total = await productModel.countAll();
+  console.log(total);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  const productList = await productModel.findPageAll(limit, offset);
+  // console.log(userUpdateList);
+
   res.render("admin/productManagement", {
     layout: "admin",
     isAtAdminUser: false,
     isAtUserUpdate: false,
     isAtCategories: false,
     isAtProducts: true,
+    productList,
+    pageNumbers
   });
 });
 
