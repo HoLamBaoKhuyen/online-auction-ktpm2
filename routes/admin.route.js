@@ -36,7 +36,7 @@ router.get("/", async function (req, res) {
 router.get("/edit-user", async function (req, res) {
   const uID = req.query.uID || 0;
   const user = await userModel.findByID(uID);
-  console.log(user);
+  // console.log(user);
   res.render("admin/edit-user", {
     layout: "admin",
     isAtAdminUser: true,
@@ -46,7 +46,24 @@ router.get("/edit-user", async function (req, res) {
 });
 
 router.get("/user-update", async function (req, res) {
-  const userUpdateList = await upgrdeModel.findAllUserUpdate();
+  const limit = 7;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const total = await upgrdeModel.countAllUserUpdate();
+  console.log(total);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+
+  const userUpdateList = await upgrdeModel.findAllUserUpdate(limit, offset);
   // console.log(userUpdateList);
   res.render("admin/userNeedUpdate", {
     layout: "admin",
@@ -55,6 +72,7 @@ router.get("/user-update", async function (req, res) {
     isAtCategories: false,
     isAtProducts: false,
     userUpdateList,
+    pageNumbers,
   });
 });
 router.get("/categories", function (req, res) {
