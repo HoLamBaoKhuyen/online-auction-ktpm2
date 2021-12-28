@@ -1,3 +1,9 @@
+{{#section "js"}}
+  <script>
+    $("#admin-user").click(function(){ console.log($("#admin-user"))});
+  </script>
+{{/section}}
+
 <div class="menu_row">
   <div>
     <a class="adminBtn" href="/">
@@ -13,27 +19,28 @@
         Quản lý người dùng</div>
     </a>
 
-    <a class="adminBtn listBtn active" href="/admin">
+    <a class="adminBtn listBtn {{#if isAtAdminUser}} active {{/if}}" id="admin-user" href="/admin">
       <div class="adminBtnText listBtnText">Danh sách chi tiết</div>
     </a>
 
-    <a class="adminBtn listBtn" href="/admin/user-update">
+    <a class="adminBtn listBtn {{#if isAtUserUpdate}} active {{/if}}" id="user-update" href="/admin/user-update">
       <div class="adminBtnText listBtnText">Danh sách cần nâng cấp</div>
     </a>
 
     <hr class="line" />
-    <a class="adminBtn" href="/admin/categories">
-      <div class="adminBtnText">
+    <a class="adminBtn {{#if isAtCategories}} active {{/if}}" id="admin-categories" href="/admin/categories">
+      <div class="adminBtnText {{#if isAtCategories}} listBtnText{{/if}}">
         <i class="fa fa-sitemap px-3 fa-lg" aria-hidden="true"></i>
         Quản lý danh mục</div>
     </a>
     <hr class="line" />
-    <a class="adminBtn" href="/admin/products">
-      <div class="adminBtnText"><i
+    <a class="adminBtn {{#if isAtProducts}} active {{/if}}" id="admin-products" href="/admin/products">
+      <div class="adminBtnText  {{#if isAtProducts}} listBtnText {{/if}}"><i
           class="fa fa-tags px-3 fa-lg"
           aria-hidden="true"
         ></i>Quản lý sản phẩm</div>
     </a>
+    
     <hr class="line" />
     <a class="adminBtn" href="/">
       <div class="adminBtnText"><i
