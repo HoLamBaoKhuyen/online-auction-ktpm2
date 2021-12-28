@@ -8,5 +8,6 @@ export default {
     const raw = await db.raw(sql);
     // console.log(raw[0]);
     return raw[0];
-  },
+    },
+ 
 };

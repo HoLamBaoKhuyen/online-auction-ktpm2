@@ -174,3 +174,24 @@
 
     </tbody>
   </table></div>
+
+{{! pagination  }}
+<nav aria-label="...">
+  <ul class="pagination pagination-sm">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="page-item active"><a
+            class="page-link"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="page-item"><a
+            class="page-link"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>
