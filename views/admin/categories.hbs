@@ -20,98 +20,77 @@
     <div class="adminBtnText">THÊM DANH MỤC</div>
   </a></div>
 {{! table  }}
-<div class="table-responsive">
-  <table class="table adminTable">
-    <thead class="adminTable_header">
-      <tr>
-        <th scope="col">
-          <div class="d-flex justify-content-between">
-            <div>Điện tử</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-                data-toggle="modal"
-                data-target="#modalAddSmallCategory"
-              >
-                <i class="fa fa-plus" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
+{{#each this.cateList}}
+  <div class="table-responsive">
+    <table class="table adminTable">
+      <thead class="adminTable_header">
+        <tr>
+          <th scope="col">
+            <div class="d-flex justify-content-between">
+              <div>{{level1}}</div>
+              <div>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                  data-toggle="modal"
+                  data-target="#modalAddSmallCategory"
+                >
+                  <i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
             </div>
-          </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each level2}}
+          <tr>
+            <td class="text-left px-5">
+              <div class="d-flex justify-content-between">
+                <div>{{typeName}}</div>
+                <div>
+                  <a
+                    name=""
+                    id=""
+                    class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
+                    href="#"
+                    role="button"
+                  >
+                    <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                  <a
+                    name=""
+                    id=""
+                    class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
+                    href="#"
+                    role="button"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i></a>
+                </div>
+              </div></td>
+          </tr>
+        {{/each}}
 
-        </th>
-      </tr>
-    </thead>
-
-    <tbody>
-      <tr>
-        <td class="text-left px-5">
-          <div class="d-flex justify-content-between">
-            <div>Điện thoại</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
-            </div>
-          </div></td>
-      </tr>
-      <tr>
-        <td class="text-left px-5">
-          <div class="d-flex justify-content-between">
-            <div>Máy tính</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
-            </div>
-          </div></td>
-      </tr>
-    </tbody>
-  </table></div>
+      </tbody>
+    </table></div>
+{{/each}}
 
 <!-- Modal -->
 <div
@@ -214,3 +193,24 @@
     </div>
   </div>
 </div>
+
+{{! pagination  }}
+<nav aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>
