@@ -1,14 +1,19 @@
 import express from "express";
 import upgrdeModel from "../models/upgrde.model.js";
+import userModel from "../models/user.model.js";
+
 const router = express.Router();
 
-router.get("/", function (req, res) {
+router.get("/", async function (req, res) {
+  const userList = await userModel.findAll();
+  // console.log(userList);
   res.render("admin/userManagement", {
     layout: "admin",
     isAtAdminUser: true,
     isAtUserUpdate: false,
     isAtCategories: false,
     isAtProducts: false,
+    userList
   });
 });
 router.get("/user-update", async function (req, res) {

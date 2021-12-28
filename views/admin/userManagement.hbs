@@ -10,73 +10,129 @@
 </a>
 <h3 class="my-4 adminTitle">QUẢN LÝ NGƯỜI DÙNG</h3>
 
-<div class="form">
-  <div class="row">
-    <div class="col-xs-12 col-sm-6">
-      <div class="input-container ic1">
-        <input id="name" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="name" class="placeholder">Họ tên</label>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div class="input-container ic1">
-        <input id="username" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="username" class="placeholder">Tên tài khoản</label>
-      </div>
-      <div class="input-container ic1">
-        <input id="password" class="input" type="password" placeholder=" " />
-        <div class="cut"></div>
-        <label for="password" class="placeholder">Mật khẩu</label>
-      </div>
+      <div class="modal-body">
 
+        <div class="form">
+          <div class="row">
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-container ic1">
+                <input id="name" class="input" type="text" placeholder=" " />
+                <div class="cut"></div>
+                <label for="name" class="placeholder">Họ tên</label>
+              </div>
+              <div class="input-container ic1">
+                <input
+                  id="username"
+                  class="input"
+                  type="text"
+                  placeholder=" "
+                />
+                <div class="cut"></div>
+                <label for="username" class="placeholder">Tên tài khoản</label>
+              </div>
+              <div class="input-container ic1">
+                <input
+                  id="password"
+                  class="input"
+                  type="password"
+                  placeholder=" "
+                />
+                <div class="cut"></div>
+                <label for="password" class="placeholder">Mật khẩu</label>
+              </div>
+
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-container ic2">
+                <input id="email" class="input" type="text" placeholder=" " />
+                <div class="cut"></div>
+                <label for="email" class="placeholder">Email</label>
+              </div>
+
+              <div class="input-container ic2">
+                <!-- Date input -->
+                <input
+                  class="form-control input"
+                  id="dob"
+                  name="dob"
+                  type="date"
+                  placeholder=" "
+                  value="2001-01-01"
+                />
+                <div class="cut"></div>
+                <label for="dob" class="placeholder">Ngày sinh</label>
+              </div>
+
+              <div class="input-container ic2">
+                <div class="cut"></div>
+                {{! <label for="typeUser" class="placeholder">Loại tài khoản</label> }}
+                <select id="typeUser" class="typeUser">
+                  <option value="" disabled selected>Loại tài khoản</option>
+                  <option value="1">Admin</option>
+                  <option value="2">Bidder</option>
+                  <option value="3">Seller</option></select>
+                <div class="cut"></div>
+
+              </div></div></div>
+          <button type="text" class="submit">THÊM</button>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+        >Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
     </div>
-
-    <div class="col-xs-12 col-sm-6">
-      <div class="input-container ic2">
-        <input id="email" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="email" class="placeholder">Email</label>
-      </div>
-
-      <div class="input-container ic2">
-        <!-- Date input -->
-        <input
-          class="form-control input"
-          id="dob"
-          name="dob"
-          type="date"
-          placeholder=" "
-          value="2001-01-01"
-        />
-        <div class="cut"></div>
-        <label for="dob" class="placeholder">Ngày sinh</label>
-      </div>
-
-      <div class="input-container ic2">
-        <div class="cut"></div>
-        {{! <label for="typeUser" class="placeholder">Loại tài khoản</label> }}
-        <select id="typeUser" class="typeUser">
-          <option value="" disabled selected>Loại tài khoản</option>
-          <option value="1">Admin</option>
-          <option value="2">Bidder</option>
-          <option value="3">Seller</option></select>
-        <div class="cut"></div>
-
-      </div></div></div>
-  <button type="text" class="submit">THÊM</button>
+  </div>
 </div>
 
-{{! search }}
-<form class="form-search" action="action_page.php">
-  <input type="text" placeholder="Tìm theo tên" name="search" />
-  <button type="submit"><i class="fa fa-search"></i></button>
-</form>
+<div class="d-flex justify-content-between"><!-- Button trigger modal -->
+  <button
+    type="button"
+    class="form__addBtn"
+    data-toggle="modal"
+    data-target="#exampleModal"
+  >
+    Thêm người dùng
+  </button>
+  {{! search }}
+  <form class="form-search" action="action_page.php">
+    <input type="text" placeholder="Tìm theo tên" name="search" />
+    <button type="submit"><i class="fa fa-search"></i></button>
+  </form></div>
+
 {{! table  }}
 <div class="table-responsive">
   <table class="table table-striped adminTable">
     <thead class="adminTable_header">
       <tr>
-        <th scope="col">Tên tài khoản</th>
+        <th scope="col">ID</th>
         <th scope="col">Họ Tên</th>
         <th scope="col">Email</th>
         <th scope="col">Ngày sinh</th>
@@ -86,87 +142,35 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Mark</td>
-        <td>
-          <div class="d-inline-flex">
-            <a
-              name=""
-              id=""
-              class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a
-              name=""
-              id=""
-              class="btn btn-danger adminTable_deleteBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i></a></div>
-        </td>
-      </tr>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Mark</td>
-        <td>
-          <div class="d-inline-flex">
-            <a
-              name=""
-              id=""
-              class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a
-              name=""
-              id=""
-              class="btn btn-danger adminTable_deleteBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i></a></div>
-        </td>
-      </tr>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Mark</td>
-        <td>
-          <div class="d-inline-flex">
-            <a
-              name=""
-              id=""
-              class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-pencil" aria-hidden="true"></i></a>
-            <a
-              name=""
-              id=""
-              class="btn btn-danger adminTable_deleteBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-trash" aria-hidden="true"></i></a></div>
-        </td>
-      </tr>
+      {{#each this.userList}}
+        <tr>
+          {{! <th scope="row">1</th> }}
+          <td>{{uID}}</td>
+          <td>{{concatName firstName lastName}}</td>
+          <td>{{email}}</td>
+          <td>{{formatTime dob "YYYY-MM-DD"}}</td>
+          <td>{{userType}}</td>
+          <td>
+            <div class="d-inline-flex">
+              <a
+                name=""
+                id=""
+                class="btn btn-success adminTable_updateBtn mx-1"
+                href="#"
+                role="button"
+              >
+                <i class="fa fa-pencil" aria-hidden="true"></i></a>
+              <a
+                name=""
+                id=""
+                class="btn btn-danger adminTable_deleteBtn mx-1"
+                href="#"
+                role="button"
+              >
+                <i class="fa fa-trash" aria-hidden="true"></i></a></div>
+          </td>
+        </tr>
+      {{/each}}
 
     </tbody>
   </table></div>

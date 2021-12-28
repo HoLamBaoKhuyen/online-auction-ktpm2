@@ -34,6 +34,11 @@ export default function (app) {
           var mmt = moment(date);
           return mmt.format(format);
         },
+
+        concatName(firstName, lastName) {
+          var fullName =firstName+" " + lastName;
+          return fullName;
+        },
       },
     })
   );

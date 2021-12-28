@@ -241,7 +241,7 @@ body {
 form.form-search {
   position: relative;
   width: 50%;
-  margin-top: 5em;
+  /* margin-top: 5em; */
 }
 /* Style the search field */
 form.form-search input[type="text"] {
@@ -381,6 +381,26 @@ h3.adminTitle {
 .adminSmallCategory_btn:hover {
   color: #e27a00;
 }
+
+/*-----------ADD BUTTON------------------*/
+.form__addBtn {
+  border-radius: 6px;
+  color: #ffffff;
+  font-size: 1.2vw;
+  font-weight: 600;
+  padding: 4px 12px;
+  text-decoration: none;
+  background: #ffad4c;
+  border: none;
+}
+.form__addBtn:hover {
+  color: #fff;
+  text-decoration: none;
+  background: #e27a00;
+  /* box-shadow: 0px 1px 5px 1px #b96300; */
+  transition: 0.2s;
+}
+
 /*Responsive*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {
