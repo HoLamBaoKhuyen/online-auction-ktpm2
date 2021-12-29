@@ -89,6 +89,34 @@ router.get("/edit-user", async function (req, res) {
     user,
   });
 });
+router.post("/edit-user", async function (req, res) {
+  const uID = req.query.uID || 0;
+
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const dob = req.body.dob;
+  const hotline = req.body.hotline;
+  const address = req.body.address;
+  const userType = req.body.userType;
+  // console.log(userType);
+  await userModel.editUser(
+    uID,
+    firstName,
+    lastName,
+    dob,
+    hotline,
+    address,
+    userType
+  );
+  const user = await userModel.findByID(uID);
+  // console.log(user);
+  res.render("admin/edit-user", {
+    layout: "admin",
+    isAtAdminUser: true,
+    isAtUserUpdate: false,
+    user,
+  });
+});
 
 router.get("/user-update", async function (req, res) {
   const limit = 7;

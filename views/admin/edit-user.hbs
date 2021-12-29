@@ -1,3 +1,16 @@
+{{#section "js"}}
+  <script>
+    $('#frmEditUser').on('submit',function(e){ e.preventDefault(); const email =
+    $('#txtEmail').val(); const lastName = $('#txtLastName').val(); const
+    firstName = $('#txtFirstName').val(); const userType = $('#typeUser').val();
+    const address = $('#txtAddress').val(); const hotline =
+    $('#txtHotline').val(); if (!(email &&userType&& lastName && firstName &&
+    address && hotline)){ alert("Vui lòng điền đầy đủ thông tin!"); return; }
+    alert(`Đã chỉnh sửa người dùng ${firstName} ${lastName}`)
+    $('#frmEditUser').off('submit').submit(); } }); });
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -10,82 +23,103 @@
 </a>
 <h3 class="my-4 adminTitle">QUẢN LÝ NGƯỜI DÙNG</h3>
 
-<div class="form">
+<form id="frmEditUser" method="post" class="form">
   <div class="row">
     <div class="col-xs-12 col-sm-6">
       <div class="input-container ic1">
         <input
-          id="name"
-          class="input"
-          type="text"
-          placeholder=" "
-          value={{concatName this.user.firstName this.user.lastName}}
-        />
-        <div class="cut"></div>
-        <label for="name" class="placeholder">Họ tên</label>
-      </div>
-      <div class="input-container ic1">
-        <input
-          id="username"
-          class="input"
-          type="text"
-          placeholder=" "
-          value={{this.user.uID}}
-        />
-        <div class="cut"></div>
-        <label for="username" class="placeholder">ID</label>
-      </div>
-      <div class="input-container ic1">
-        <input
-          id="password"
-          class="input"
-          type="password"
-          placeholder=" "
-          value="{{this.user.psword}}"
-        />
-        <div class="cut"></div>
-        <label for="password" class="placeholder">Mật khẩu</label>
-      </div>
-
-    </div>
-
-    <div class="col-xs-12 col-sm-6">
-      <div class="input-container ic2">
-        <input
-          id="email"
+          id="txtEmail"
           class="input"
           type="text"
           placeholder=" "
           value={{this.user.email}}
+          name="email"
+          readonly
         />
         <div class="cut"></div>
-        <label for="email" class="placeholder">Email</label>
+        <label for="txtEmail" class="placeholder">Email</label>
       </div>
+      <div class="input-container ic1">
+        <input
+          id="txtFirstName"
+          class="input"
+          type="text"
+          placeholder=" "
+          value="{{this.user.firstName}}"
+          name="firstName"
+        />
+        <div class="cut"></div>
+        <label for="txtFirstName" class="placeholder">Tên</label>
+      </div>
+      <div class="input-container ic1">
+        <input
+          id="txtAddress"
+          class="input"
+          type="text"
+          placeholder=" "
+          value={{this.user.address}}
+          name="address"
+        />
+        <div class="cut"></div>
+        <label for="txtAddress" class="placeholder">Địa chỉ</label>
+      </div>
+      <div class="input-container ic1">
+        <div class="cut"></div>
+        {{! <label for="typeUser" class="placeholder">Loại tài khoản</label> }}
+        <select id="typeUser" class="typeUser" name="userType">
+          <option
+            value="{{this.user.userType}}"
+            disabled
+            selected
+          >{{this.user.userType}}</option>
+          <option value="admin">Admin</option>
+          <option value="bidder">Bidder</option>
+          <option value="seller">Seller</option></select>
+        <div class="cut"></div>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
 
       <div class="input-container ic2">
         <!-- Date input -->
         <input
           class="form-control input"
-          id="dob"
+          id="txtDOB"
           name="dob"
           type="date"
           placeholder=" "
           value="{{formatTime this.user.dob "YYYY-MM-DD"}}"
+          name="dob"
         />
         <div class="cut"></div>
         <label for="dob" class="placeholder">Ngày sinh</label>
       </div>
-
       <div class="input-container ic2">
+        <input
+          id="txtLastName"
+          class="input"
+          type="text"
+          placeholder=" "
+          value="{{this.user.lastName}}"
+          name="lastName"
+        />
         <div class="cut"></div>
-        {{! <label for="typeUser" class="placeholder">Loại tài khoản</label> }}
-        <select id="typeUser" class="typeUser">
-          <option value="" disabled selected>{{this.user.userType}}</option>
-          <option value="1">admin</option>
-          <option value="2">bidder</option>
-          <option value="3">seller</option></select>
+        <label for="txtLastName" class="placeholder">Họ</label>
+      </div>
+      <div class="input-container ic2">
+        <input
+          id="txtHotline"
+          class="input"
+          type="text"
+          placeholder=" "
+          value={{this.user.hotline}}
+          name="hotline"
+        />
         <div class="cut"></div>
+        <label for="txtHotline" class="placeholder">Điện thoại</label>
+      </div>
 
-      </div></div></div>
+    </div></div>
   <button type="text" class="submit">CHỈNH SỬA</button>
-</div>
+</form>
