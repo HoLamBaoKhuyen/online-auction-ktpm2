@@ -1,4 +1,5 @@
 import express from "express";
+import bcrypt from "bcryptjs";
 import upgrdeModel from "../models/upgrde.model.js";
 import userModel from "../models/user.model.js";
 import productModel from "../models/product.model.js";
@@ -9,6 +10,48 @@ const router = express.Router();
 router.get("/", async function (req, res) {
   // console.log(userList);
 
+  const limit = 7;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const total = await userModel.countAllUser();
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  const userList = await userModel.findPageUsers(limit, offset);
+  res.render("admin/userManagement", {
+    layout: "admin",
+    isAtAdminUser: true,
+    isAtUserUpdate: false,
+    isAtCategories: false,
+    isAtProducts: false,
+    userList,
+    pageNumbers,
+  });
+});
+router.post("/", async function (req, res) {
+  const rawPassword = req.body.psword;
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(rawPassword, salt);
+  const user = {
+    email: req.body.email,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    psword: hash,
+    dob: req.body.dob,
+    hotline: req.body.hotline,
+    address: req.body.address,
+    userType: req.body.userType,
+  };
+  await userModel.add(user);
+  // console.log(user);
   const limit = 7;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;

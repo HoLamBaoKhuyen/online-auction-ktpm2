@@ -1,3 +1,19 @@
+{{#section "js"}}
+  <script>
+    $('#frmAddUser').on('submit',function(e){ e.preventDefault(); const email =
+    $('#txtEmail').val(); const password = $('#txtPassword').val(); const
+    lastName = $('#txtLastName').val(); const firstName =
+    $('#txtFirstName').val(); const userType = $('#typeUser').val(); const
+    address = $('#txtAddress').val(); const hotline = $('#txtHotline').val(); if
+    (!(email && password && lastName && firstName && userType && address &&
+    hotline)){ alert("Vui lòng điền đầy đủ thông tin!"); return; }
+    $.getJSON(`/account/is-available?email=${email}`,function(data){ if
+    (data===false){ alert('Email is not available'); return; } else { alert(`Đã
+    thêm người dùng ${firstName} ${lastName}`)
+    $('#frmAddUser').off('submit').submit(); } }); });
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -21,7 +37,7 @@
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="addUserModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="addUserModalLabel">THÊM NGƯỜI DÙNG</h5>
         <button
           type="button"
           class="close"
@@ -33,81 +49,110 @@
       </div>
       <div class="modal-body">
 
-        <div class="form">
+        <form id="frmAddUser" method="post" class="form">
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="input-container ic1">
-                <input id="name" class="input" type="text" placeholder=" " />
+                <input
+                  id="txtEmail"
+                  class="input"
+                  type="email"
+                  placeholder=" "
+                  name="email"
+                />
                 <div class="cut"></div>
-                <label for="name" class="placeholder">Họ tên</label>
+                <label for="txtEmail" class="placeholder">Email</label>
               </div>
+
               <div class="input-container ic1">
                 <input
-                  id="username"
+                  id="txtLastName"
                   class="input"
                   type="text"
                   placeholder=" "
+                  name="lastName"
                 />
                 <div class="cut"></div>
-                <label for="username" class="placeholder">Tên tài khoản</label>
+                <label for="txtLastName" class="placeholder">Họ</label>
               </div>
               <div class="input-container ic1">
                 <input
-                  id="password"
+                  id="txtAddress"
                   class="input"
-                  type="password"
+                  type="text"
                   placeholder=" "
+                  name="address"
                 />
                 <div class="cut"></div>
-                <label for="password" class="placeholder">Mật khẩu</label>
+                <label for="txtAddress" class="placeholder">Địa chỉ</label>
               </div>
-
-            </div>
-
-            <div class="col-xs-12 col-sm-6">
-              <div class="input-container ic2">
-                <input id="email" class="input" type="text" placeholder=" " />
-                <div class="cut"></div>
-                <label for="email" class="placeholder">Email</label>
-              </div>
-
-              <div class="input-container ic2">
+              <div class="input-container ic1">
                 <!-- Date input -->
                 <input
                   class="form-control input"
-                  id="dob"
+                  id="txtDOB"
                   name="dob"
                   type="date"
                   placeholder=" "
                   value="2001-01-01"
                 />
                 <div class="cut"></div>
-                <label for="dob" class="placeholder">Ngày sinh</label>
+                <label for="txtDOB" class="placeholder">Ngày sinh</label>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-6">
+              <div class="input-container ic2">
+                <input
+                  id="txtPassword"
+                  class="input"
+                  type="password"
+                  placeholder=" "
+                  name="psword"
+                />
+                <div class="cut"></div>
+                <label for="txtPassword" class="placeholder">Mật khẩu</label>
+              </div>
+              <div class="input-container ic2">
+                <input
+                  id="txtFirstName"
+                  class="input"
+                  type="text"
+                  placeholder=" "
+                  name="firstName"
+                />
+                <div class="cut"></div>
+                <label for="txtFirstName" class="placeholder">Tên</label>
+              </div>
+
+              <div class="input-container ic2">
+                <input
+                  id="txtHotline"
+                  class="input"
+                  type="text"
+                  placeholder=" "
+                  name="hotline"
+                />
+                <div class="cut"></div>
+                <label for="txtHotline" class="placeholder">Điện thoại</label>
               </div>
 
               <div class="input-container ic2">
                 <div class="cut"></div>
                 {{! <label for="typeUser" class="placeholder">Loại tài khoản</label> }}
-                <select id="typeUser" class="typeUser">
+                <select id="typeUser" class="typeUser" name="userType">
                   <option value="" disabled selected>Loại tài khoản</option>
-                  <option value="1">Admin</option>
-                  <option value="2">Bidder</option>
-                  <option value="3">Seller</option></select>
+                  <option value="admin">Admin</option>
+                  <option value="bidder">Bidder</option>
+                  <option value="seller">Seller</option></select>
                 <div class="cut"></div>
 
               </div></div></div>
-          <button type="text" class="submit">THÊM</button>
-        </div>
+          <button type="text" method="post" class="submit">THÊM</button>
+        </form>
 
       </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
+
     </div>
   </div>
 </div>
