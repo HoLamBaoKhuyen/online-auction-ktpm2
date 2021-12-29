@@ -36,8 +36,8 @@ export default {
     return db("users").limit(limit).offset(offset);
   },
 
- async editUser(uID, firstName, lastName, dob, hotline, address, userType) {
-   await db("users").where("uID", uID).update({
+  async editUser(uID, firstName, lastName, dob, hotline, address, userType) {
+    await db("users").where("uID", uID).update({
       firstName,
       lastName,
       dob,

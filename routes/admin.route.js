@@ -10,7 +10,7 @@ const router = express.Router();
 router.get("/", async function (req, res) {
   // console.log(userList);
 
-  const limit = 7;
+  const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
 
@@ -51,32 +51,15 @@ router.post("/", async function (req, res) {
     userType: req.body.userType,
   };
   await userModel.add(user);
-  // console.log(user);
-  const limit = 7;
-  const page = +req.query.page || 1;
-  const offset = (page - 1) * limit;
+  res.redirect(req.headers.referer);
+});
 
-  const total = await userModel.countAllUser();
-  let nPages = Math.floor(total / limit);
-  if (total % limit > 0) nPages++;
+router.post("/delete-user", async function (req, res) {
+  const uID = req.body.uID;
+  console.log(uID);
+  await userModel.del(uID);
 
-  const pageNumbers = [];
-  for (let i = 1; i <= nPages; i++) {
-    pageNumbers.push({
-      value: i,
-      isCurrent: +page === i,
-    });
-  }
-  const userList = await userModel.findPageUsers(limit, offset);
-  res.render("admin/userManagement", {
-    layout: "admin",
-    isAtAdminUser: true,
-    isAtUserUpdate: false,
-    isAtCategories: false,
-    isAtProducts: false,
-    userList,
-    pageNumbers,
-  });
+  res.redirect(req.headers.referer);
 });
 router.get("/edit-user", async function (req, res) {
   const uID = req.query.uID || 0;

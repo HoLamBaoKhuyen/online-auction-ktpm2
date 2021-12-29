@@ -12,6 +12,11 @@
     thêm người dùng ${firstName} ${lastName}`)
     $('#frmAddUser').off('submit').submit(); } }); });
   </script>
+  <script>
+    $('.deleteUserBtn').on('click', function (e){ const uID =
+    $(this).data('id'); alert(uID); $("#txtDelUserID").val(uID);
+    $("#frmDelUser").submit(); } )
+  </script>
 {{/section}}
 
 <a
@@ -202,21 +207,21 @@
           <td>
             <div class="d-inline-flex">
               <a
-                name=""
-                id=""
                 class="btn btn-success adminTable_updateBtn mx-1"
                 href="/admin/edit-user?uID={{uID}}"
                 role="button"
               >
                 <i class="fa fa-pencil" aria-hidden="true"></i></a>
+
               <a
-                name=""
-                id=""
-                class="btn btn-danger adminTable_deleteBtn mx-1"
-                href="#"
+                class="btn btn-danger adminTable_deleteBtn mx-1 deleteUserBtn"
+                href="javascript:'"
                 role="button"
+                data-id="{{uID}}"
               >
                 <i class="fa fa-trash" aria-hidden="true"></i></a></div>
+            <form action="/admin/delete-user" method="post" id="frmDelUser">
+              <input type="hidden" id="txtDelUserID" name="uID" /></form>
           </td>
         </tr>
 
