@@ -170,8 +170,8 @@
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
-                                    placeholder="Nhập mật khẩu" autofocus>
+                                <input type="password" class="form-control form-control-lg border-left-0"
+                                    name="checkpass" placeholder="Nhập mật khẩu" autofocus>
                             </div>
                         </div>
                     </form>
@@ -188,7 +188,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" >Sửa email</h5>
+                    <h5 class="modal-title">Sửa email</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -213,8 +213,8 @@
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
-                                    placeholder="Nhập mật khẩu" autofocus>
+                                <input type="password" class="form-control form-control-lg border-left-0"
+                                    name="checkpass" placeholder="Nhập mật khẩu" autofocus>
                             </div>
                         </div>
                     </form>
@@ -256,8 +256,8 @@
                                         <i class="fa fa-lock" aria-hidden="true"></i>
                                     </span>
                                 </div>
-                                <input type="password" class="form-control form-control-lg border-left-0" name="checkpass"
-                                    placeholder="Nhập mật khẩu" autofocus>
+                                <input type="password" class="form-control form-control-lg border-left-0"
+                                    name="checkpass" placeholder="Nhập mật khẩu" autofocus>
                             </div>
                         </div>
                     </form>
@@ -316,8 +316,8 @@
                         </div>
                         <div class="form-group">
                             <div>
-                                <a class="btn btn-lg btn-block text-white" href="javascript:/"
-                                    role="button" style="background-color: #FF8A00;">
+                                <a class="btn btn-lg btn-block text-white" href="javascript:/" role="button"
+                                    style="background-color: #FF8A00;">
                                     LƯU LẠI
                                 </a>
                             </div>
@@ -331,8 +331,8 @@
     <div class="container mt-3 mb-5 navbar-custom">
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item font-weight-bold bg-transparent border rounded-0">
-                <a class="nav-link" data-toggle="tab" href="#productlike">Sản phẩm yêu thích</a>
+            <li class="nav-item font-weight-bold bg-transparent border rounded-0 ">
+                <a class="nav-link active" data-toggle="tab" href="#productlike">Sản phẩm yêu thích</a>
             </li>
             <li class="nav-item font-weight-bold bg-transparent border rounded-0 border-right-0 border-left-0">
                 <a class="nav-link " data-toggle="tab" href="#productjoin">Sản phẩm đang tham gia</a>
@@ -344,18 +344,21 @@
 
         <!-- Tab panes -->
         <div class="tab-content">
-            <div id="productlike" class="container tab-pane"><br>
+            <div id="productlike" class="container tab-pane active"><br>
                 <div class="container ">
                     <div class="row justify-content-between">
-                        <div class="col-md-4">
+                        <div class="col-4 col-md-4">
                             <div class="ibox">
                                 <div class="ibox-content product-box">
-
+                                    <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                            aria-hidden="true"></i>
+                                        <span class="textFavorite"> Yêu thích</span>
+                                    </button>
                                     <div class="product-imitation">
                                         <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                            class="responsive-img">
+                                            class="responsive-img" />
                                     </div>
-                                    <div class="product-desc">
+                                    <div class="product-desc" onclick="location.href='/detail'">
                                         <span class="product-label">
                                             HOT
                                         </span>
@@ -363,32 +366,24 @@
                                         <a href="#" class="product-name"> Samsung Galaxy A52s</a>
 
                                         <div class="price">
-                                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                            <div>NguoiSaoHoa:
+                                                <span class="font-weight-bold">1.000.000</span>
+                                            </div>
                                         </div>
-                                        <div class="text-warning">
-                                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                        <div class="textPrice">
+                                            <div>Giá mua ngay:
+                                                <span class="font-weight-bold">20.000.000d</span>
+                                            </div>
                                         </div>
                                         <div class="remain-time">
-                                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                            <i class="fa fa-clock-o"></i>
+                                            Còn lại: 10:30:44
                                         </div>
 
-                                        <br>
+                                        <br />
 
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
-                                                        class="fa fa-info"></i>
-                                                    Thông Tin
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="#" class="btn btn-outline-success mr-1 btn-block"><i
-                                                        class="fa fa-buysellads" aria-hidden="true"></i>
-                                                    Wish List
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="text-right mt-3">
+
+                                        <div class="text-right">
                                             <small class="text-muted text-right"><i class="fa fa-calendar"></i>
                                                 21/10/2021
                                             </small>
@@ -398,15 +393,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4 col-md-4">
                             <div class="ibox">
                                 <div class="ibox-content product-box">
-
+                                    <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                            aria-hidden="true"></i>
+                                        <span class="textFavorite"> Yêu thích</span>
+                                    </button>
                                     <div class="product-imitation">
                                         <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                            class="responsive-img">
+                                            class="responsive-img" />
                                     </div>
-                                    <div class="product-desc">
+                                    <div class="product-desc" onclick="location.href='/detail'">
                                         <span class="product-label">
                                             HOT
                                         </span>
@@ -414,32 +412,23 @@
                                         <a href="#" class="product-name"> Samsung Galaxy A52s</a>
 
                                         <div class="price">
-                                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                            <div>NguoiSaoHoa:
+                                                <span class="font-weight-bold">1.000.000</span>
+                                            </div>
                                         </div>
-                                        <div class="text-warning">
-                                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                        <div class="textPrice">
+                                            <div>Giá mua ngay:
+                                                <span class="font-weight-bold">20.000.000d</span>
+                                            </div>
                                         </div>
                                         <div class="remain-time">
-                                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                            <i class="fa fa-clock-o"></i>
+                                            Còn lại: 10:30:44
                                         </div>
 
-                                        <br>
+                                        <br />
 
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
-                                                        class="fa fa-info"></i>
-                                                    Thông Tin
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="#" class="btn btn-outline-success btn-block"><i
-                                                        class="fa fa-buysellads" aria-hidden="true"></i>
-                                                    Wish List
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="text-right mt-3">
+                                        <div class="text-right">
                                             <small class="text-muted text-right"><i class="fa fa-calendar"></i>
                                                 21/10/2021
                                             </small>
@@ -449,15 +438,18 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-4 col-md-4">
                             <div class="ibox">
                                 <div class="ibox-content product-box">
-
+                                    <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                            aria-hidden="true"></i>
+                                        <span class="textFavorite"> Yêu thích</span>
+                                    </button>
                                     <div class="product-imitation">
                                         <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                            class="responsive-img">
+                                            class="responsive-img" />
                                     </div>
-                                    <div class="product-desc">
+                                    <div class="product-desc" onclick="location.href='/detail'">
                                         <span class="product-label">
                                             HOT
                                         </span>
@@ -465,32 +457,24 @@
                                         <a href="#" class="product-name"> Samsung Galaxy A52s</a>
 
                                         <div class="price">
-                                            <div>NguoiSaoHoa: <span class="font-weight-bold">1.000.000</span></div>
+                                            <div>NguoiSaoHoa:
+                                                <span class="font-weight-bold">1.000.000</span>
+                                            </div>
                                         </div>
-                                        <div class="text-warning">
-                                            <div>Giá mua ngay: <span class="font-weight-bold">20.000.000d</span></div>
+                                        <div class="textPrice">
+                                            <div>Giá mua ngay:
+                                                <span class="font-weight-bold">20.000.000d</span>
+                                            </div>
                                         </div>
                                         <div class="remain-time">
-                                            <i class="fa fa-clock-o"></i> Còn lại: 10:30:44
+                                            <i class="fa fa-clock-o"></i>
+                                            Còn lại: 10:30:44
                                         </div>
 
-                                        <br>
+                                        <br />
 
-                                        <div class="row">
-                                            <div class="col">
-                                                <a href="#" class="btn btn btn-outline-primary mr-1 btn-block"> <i
-                                                        class="fa fa-info"></i>
-                                                    Thông Tin
-                                                </a>
-                                            </div>
-                                            <div class="col">
-                                                <a href="#" class="btn btn-outline-success btn-block"><i
-                                                        class="fa fa-buysellads" aria-hidden="true"></i>
-                                                    Wish List
-                                                </a>
-                                            </div>
-                                        </div>
-                                        <div class="text-right mt-3">
+
+                                        <div class="text-right">
                                             <small class="text-muted text-right"><i class="fa fa-calendar"></i>
                                                 21/10/2021
                                             </small>

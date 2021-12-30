@@ -1,0 +1,82 @@
+.ibox {
+  width: 100%;
+  padding: 0;
+  position: relative;
+}
+.addFavoriteBtn {
+  position: absolute;
+  top: 10;
+  left: 5;
+  display: none;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #676a6c;
+}
+.ibox .ibox-content {
+  border-radius: 10px;
+  cursor: pointer;
+}
+.addFavoriteBtn .textFavorite {
+  font-weight: 500;
+  display: none;
+}
+.addFavoriteBtn:hover {
+  border-radius: 10px;
+  background-color: #e2e2e2;
+  transition: 0.3s;
+}
+.addFavoriteBtn:hover .textFavorite {
+  display: inline-block;
+  transition: 0.3s;
+}
+.ibox .ibox-content:hover {
+  border: none;
+  box-shadow: 0 1px 10px 5px #aa5b00;
+  transition: 0.3s;
+}
+.ibox .ibox-content:hover .addFavoriteBtn {
+  display: block;
+  transition: 0.1s;
+}
+.product-imitation {
+  padding: 10% 0;
+}
+.product-name:hover {
+  text-decoration: none;
+  color: #676a6c;
+}
+.textPrice {
+  color: #ff8a00;
+}
+/*-----dropdown show sorting-----------*/
+/* .dropdown.show {
+  display: none;
+} */
+
+@media only screen and (max-width: 1200px) {
+  .price,
+  .product-name,
+  .remain-time,
+  .textPrice {
+    font-size: 13px;
+  }
+}
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (max-width: 991.5px) {
+  .containItem {
+    padding: 0 10vw;
+  }
+  .price,
+  .product-name,
+  .remain-time,
+  .textPrice {
+    font-size: 15px;
+  }
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 768px) {
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (max-width: 600px) {
+}

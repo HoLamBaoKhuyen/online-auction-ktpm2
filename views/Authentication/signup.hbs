@@ -1,50 +1,82 @@
+{{#section 'js'}}
+<script>
+  $('#frmRegister').on('submit',function(e){
+    e.preventDefault();
+    const email = $('#txtEmail').val();
+    const password = $('#txtPassword').val();
+    const confirm= $('#txtConfirm').val();
+    if (password!==confirm){
+      alert('Passwords are not matching');
+      return;
+    }
+    $.getJSON(`/account/is-available?email=${email}`,function(data){
+      if (data===false){
+        alert('Email is not available');
+        return;
+      }
+      else
+      {
+         $('#frmRegister').off('submit').submit();
+      }
+    });
+    
+  });
+</script>
+{{/section}}
 <div class="form_contain">
-  <div class="form">
-    <div class="form_textField">
-      <h4 class="text-center font-weight-bold">ĐĂNG KÝ</h4>
-      <div class="input-container ic1">
-        <input id="name" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="name" class="placeholder">Họ tên</label>
+  <form id="frmRegister"class="form" method="post">
+    {{!-- <div class="form" method="post"> --}}
+      <div class="form_textField">
+        <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
+        <div class="input-container ic1 mb-4">
+          <input id="txtEmail" class="input" type="text" placeholder=" " name="email" required="true"/>
+          <div class="cut"></div>
+          <label for="txtEmail" class="placeholder">Email</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtFirstName" class="input" type="text" placeholder=" " name="firstName" required="true" />
+          <div class="cut"></div>
+          <label for="txtFirstName" class="placeholder">First name</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtLastName" class="input" type="text" placeholder=" " name="lastName" required="true"/>
+          <div class="cut"></div>
+          <label for="txtLastName" class="placeholder">Last Name</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" required="true"/>
+          <div class="cut"></div>
+          <label for="txtPassword" class="placeholder">Mật khẩu</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtConfirm" class="input" type="password" placeholder=" " required="true"/>
+          <div class="cut"></div>
+          <label for="txtConfirm" class="placeholder">Nhập lại mật khẩu</label>
+          <div id="message"></div>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtAddress" class="input" type="text" placeholder=" " name="address" required="true"/>
+          <div class="cut"></div>
+          <label for="txtAddress" class="placeholder">Địa chỉ</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input id="txtHotline" class="input" type="text" placeholder=" " name="hotline"required="true" />
+          <div class="cut"></div>
+          <label for="txtHotline" class="placeholder">Hotline</label>
+        </div>
+        <div class="input-container mb-3">
+          <!-- Date input -->
+          <input class="form-control input" id="dob" name="dob" class="dob" type="date" placeholder=" " required="true"/>
+          <div class="cut"></div>
+          <label for="dob" class="placeholder">Ngày sinh</label>
+        </div>
+        <div> <button type="text" class="submit mt-3">ĐĂNG KÝ</button></div>
       </div>
-      <div class="input-container ic1">
-        <input id="username" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="username" class="placeholder">Tên tài khoản</label>
+      <div class="text-center mt-4">
+        <a name="" id="" class="option" href="/account/login" role="button">Đã có tài khoản?
+          <span class="text-center font-weight-bold">
+            Đăng nhập</span></a>
       </div>
-      <div class="input-container ic1">
-        <input id="password" class="input" type="password" placeholder=" " />
-        <div class="cut"></div>
-        <label for="password" class="placeholder">Mật khẩu</label>
-      </div>
-      <div class="input-container ic2">
-        <input id="email" class="input" type="text" placeholder=" " />
-        <div class="cut"></div>
-        <label for="email" class="placeholder">Email</label>
-      </div>
-
-      <div class="input-container ic2">
-        <!-- Date input -->
-        <input
-          class="form-control input"
-          id="dob"
-          name="dob"
-          class="dob"
-          type="date"
-          placeholder=" "
-          value="2001-01-01"
-        />
-        <div class="cut"></div>
-        <label for="dob" class="placeholder">Ngày sinh</label>
-      </div>
-      <div> <button type="text" class="submit">ĐĂNG KÝ</button></div>
-
-    </div>
-    <div class="text-center mt-4">
-      <a name="" id="" class="option" href="#" role="button">Đã có tài khoản?
-        <span class="text-center font-weight-bold">
-          Đăng nhập</span></a>
-
-    </div>
-  </div>
+    </div> 
+  </form>
 </div>

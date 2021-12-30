@@ -23,3 +23,9 @@ function showInforTable1() {
         $("#chevron-sight-2").removeClass("fa fa-chevron-down").addClass("fa fa-chevron-right");
     }
 }
+
+function confirmAuction(){
+    var x = $("#AuctionExecute").val();
+    var numPrice = new Intl.NumberFormat("it-IT",{style: 'currency', currency: 'VND'})
+    document.getElementById("auctionPriceConfirm").innerHTML= numPrice.format(x);
+}

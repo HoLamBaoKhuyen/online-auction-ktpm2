@@ -1,0 +1,67 @@
+header {
+  box-shadow: 1px 0 10px #bb6400;
+  padding: 0;
+}
+.header__title {
+  font-family: fantasy;
+}
+/*-----------category Button-----------*/
+.categoryBtn {
+  font-weight: 500;
+  color: #757575;
+  font-size: 18px;
+  background: transparent;
+}
+.categoryBtn:hover {
+  color: rgb(19, 19, 19);
+  transition: 0.3s;
+} 
+/*-----------category search Button-----------*/
+.categorySearchBtn {
+  font-weight: 400;
+  font-size: 16px;
+  border: solid 1px #ced4da;
+  border-radius: 20px 0 0 20px !important;
+  height: 100%;
+  padding-left: 1em;
+}
+.categoryInput:focus {
+  border: none;
+  box-shadow: none;
+  border: solid 1px #ced4da;
+}
+.categorySearchIconBtn {
+  border-radius: 0 20px 20px 0 !important;
+  color: #ff8a00;
+  border: solid 1px #ff8a00;
+}
+.categorySearchIconBtn:hover {
+  background: #ff8a00;
+
+  transition: 0.3s;
+}
+.categorySearchIconBtn:focus {
+  box-shadow: none;
+}
+/*-------------Login Button------------------------------*/
+.loginBtn {
+  font-weight: 500;
+  font-size: 18px;
+  border: none;
+}
+.loginBtn:hover {
+  font-weight: 500;
+  background-color: #757575;
+  transition: 0.4s;
+}
+.signupBtn {
+  font-weight: 500;
+  font-size: 18px;
+  border: none;
+  color: #ff8a00;
+}
+.signupBtn:hover {
+  font-weight: 500;
+  background-color: #ff8a00;
+  transition: 0.4s;
+}
