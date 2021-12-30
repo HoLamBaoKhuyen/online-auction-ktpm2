@@ -278,8 +278,9 @@ form.form-search::after {
   display: table;
 }
 /*--------------ADMIN TITLE----------------------------*/
-h3.adminTitle {
-  font-size: 2em;
+h4.adminTitle {
+  /* font-size: 2em; */
+  text-transform: uppercase;
 }
 /*--------------ADMIN TABLE----------------------------*/
 .adminTable_scroll {

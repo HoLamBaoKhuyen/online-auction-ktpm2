@@ -150,7 +150,7 @@ router.post("/user-update/decline", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 router.get("/categories", async function (req, res) {
-  const limit = 2;
+  const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
 
@@ -166,27 +166,67 @@ router.get("/categories", async function (req, res) {
       isCurrent: +page === i,
     });
   }
-
-  const cateList = [];
   const categoryList = await categoryModel.findPageLevel1(limit, offset);
-  // console.log(categoryList);
+  console.log(categoryList);
 
-  for (let i = 0; i < categoryList.length; i++) {
-    const prodTypeList = await categoryModel.findLevel2(categoryList[i].catID);
-    cateList.push({
-      level1: categoryList[i].catName,
-      level2: prodTypeList,
-    });
-  }
-  // console.log(cateList);
-  res.render("admin/categories", {
+  res.render("admin/cate-lv1", {
     layout: "admin",
     isAtAdminUser: false,
     isAtUserUpdate: false,
     isAtCategories: true,
     isAtProducts: false,
     pageNumbers,
-    cateList,
+    categoryList,
+  });
+});
+router.post("/categories", async function (req, res) {
+  const catName = req.body.catName;
+
+  await categoryModel.add(catName);
+
+  res.redirect(req.headers.referer);
+});
+router.get("/categories/is-available", async function (req, res) {
+  const catName = await categoryModel.findByCatName(req.query.catName);
+  // console.log(catName);
+  if (catName.length === 0) {
+    return res.json(true);
+  }
+  res.json(false);
+});
+
+router.get("/categories/detail/byCat/:catID", async function (req, res) {
+  const catID = req.params.catID || 0;
+
+  const limit = 6;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const total = await categoryModel.countAllLevel2InLevel1(catID);
+  // console.log(total);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  const level1 = await categoryModel.findByCatID(catID);
+  const level2List = await categoryModel.findPageLevel2(catID, limit, offset);
+  // console.log(level2List);
+
+  res.render("admin/cate-lv2", {
+    layout: "admin",
+    isAtAdminUser: false,
+    isAtUserUpdate: false,
+    isAtCategories: true,
+    isAtProducts: false,
+    pageNumbers,
+    level1,
+    level2List,
   });
 });
 router.post("/categories", async function (req, res) {

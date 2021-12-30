@@ -16,8 +16,22 @@ export default {
     return db("categories").limit(limit).offset(offset);
   },
 
+  findPageLevel2(catID, limit, offset) {
+    return db("producttype")
+      .where("category", catID)
+      .limit(limit)
+      .offset(offset);
+  },
+
   async countAllLevel1() {
     const list = await db("categories").count({ amount: "*" });
+    return list[0].amount;
+  },
+
+  async countAllLevel2InLevel1(level1) {
+    const list = await db("producttype")
+      .where("category", level1)
+      .count({ amount: "*" });
     return list[0].amount;
   },
 
@@ -27,5 +41,10 @@ export default {
 
   findByCatName(catName) {
     return db("categories").where("catName", catName);
+  },
+
+  async findByCatID(catID) {
+    const list = await db("categories").where("catID", catID);
+    return list[0];
   },
 };
