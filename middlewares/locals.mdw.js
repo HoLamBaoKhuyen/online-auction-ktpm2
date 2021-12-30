@@ -7,5 +7,14 @@ export default function(app){
 
         next();
       });
+      app.use( function (req, res, next) {
+        if (typeof (req.session.auth)==='undefined'){
+          res.locals.auth = false;
+          res.locals.authUser = null;
+        }
+        res.locals.auth = req.session.auth;
+        res.locals.authUser = req.session.authUser;
+        next();
+      });
   
 }

@@ -68,22 +68,45 @@
         </button>
 
       </form>
-      <div class="m-3">
-        <a  class="btn btn-outline-dark me-2 signupBtn" href="/account/login" role="button">
-        <i class="fa fa-sign-in" aria-hidden="true"></i>
-        Login
-        </a>
-        <a  class="btn btn-outline-dark me-2 signupBtn" href="/account/signup" role="button">
-        <i class="fa fa-user-plus" aria-hidden="true"></i>
-        Sign-up
-        </a>
-        {{!-- <button type="button" class="btn btn-outline-dark me-2 signupBtn" href="/login"><i
-            class="fa fa-sign-in mx-2"></i>Login</button> --}}
-        {{!-- <button type="button" class="btn btn-outline-dark signupBtn" href="/signup">
-          <i class="fa fa-pencil" aria-hidden="true"></i>
-          Sign-up</button> --}}
+      {{#if auth}}
+      <div class="nav-item dropdown m-3">
+        <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false">
+          Hi, <b>{{authUser.firstName}}!</b>
+        </button>
+        <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton2">
+          <li>
+            <a class="dropdown-item" tabindex="-1" href="#">Profile</a>
+          </li>
+          <li>
+            <a class="dropdown-item" tabindex="-1" href="#">Sign out</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
-</header>
 
+  {{else}}
+  <div class="m-3">
+    <a class="btn btn-outline-dark me-2 signupBtn" href="/account/login" role="button">
+      <i class="fa fa-sign-in" aria-hidden="true"></i>
+      Login
+    </a>
+    <a class="btn btn-outline-dark me-2 signupBtn" href="/account/signup" role="button">
+      <i class="fa fa-user-plus" aria-hidden="true"></i>
+      Sign-up
+    </a>
+  </div>
+  {{/if}}
+
+
+
+  {{!-- <button type="button" class="btn btn-outline-dark me-2 signupBtn" href="/login"><i
+      class="fa fa-sign-in mx-2"></i>Login</button> --}}
+  {{!-- <button type="button" class="btn btn-outline-dark signupBtn" href="/signup">
+    <i class="fa fa-pencil" aria-hidden="true"></i>
+    Sign-up</button> --}}
+
+  </div>
+  </div>
+</header>
