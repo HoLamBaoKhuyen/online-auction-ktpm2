@@ -82,7 +82,8 @@
             </a>
           </li>
           <li>
-            <a class="dropdown-item" tabindex="-1" href="#">
+            <form id = "frmLogout"action="/account/logout" method="post"></form>
+            <a class="dropdown-item" tabindex="-1"  href="javascript: $('#frmLogout').submit();">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
               Sign out
               </a>
