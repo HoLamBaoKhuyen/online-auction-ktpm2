@@ -5,6 +5,7 @@ import userModel from "../models/user.model.js";
 import productModel from "../models/product.model.js";
 import categoryModel from "../models/category.model.js";
 import adminProductModel from "../models/admin-product.model.js";
+import searchModel from "../models/search.model.js";
 
 const router = express.Router();
 
@@ -372,4 +373,37 @@ router.post("/products/delete", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
+//-----------search--------------
+router.get("/search", async function (req, res) {
+  // console.log(userList);
+
+  const limit = 6;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const name = req.query.search || "";
+  // console.log(name);
+
+  const total = await searchModel.countAllUser(name);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  const userList = await searchModel.fullTextSearchUser(name, limit, offset);
+  res.render("admin/userManagement", {
+    layout: "admin",
+    isAtAdminUser: true,
+    isAtUserUpdate: false,
+    isAtCategories: false,
+    isAtProducts: false,
+    userList,
+    pageNumbers,
+  });
+});
 export default router;

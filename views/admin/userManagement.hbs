@@ -54,7 +54,7 @@
       </div>
       <div class="modal-body">
 
-        <form id="frmAddUser" method="post" class="form">
+        <form id="frmAddUser" action="/admin" method="post" class="form">
           <div class="row">
             <div class="col-xs-12 col-sm-6">
               <div class="input-container ic1">
@@ -172,7 +172,7 @@
     Thêm người dùng
   </button>
   {{! search }}
-  <form class="form-search" action="action_page.php">
+  <form class="form-search" method="get" action="/admin/search">
     <input type="text" placeholder="Tìm theo tên" name="search" />
     <button type="submit"><i class="fa fa-search"></i></button>
   </form></div>

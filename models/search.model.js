@@ -28,11 +28,13 @@ export default {
     return db("users").where("uID", id).update(entity);
   },
 
-  async countAllUser() {
-    const list = await db("users").count({ amount: "*" });
-    return list[0].amount;
+  async countAllUser(name) {
+    const sql = `SELECT * FROM users
+    WHERE MATCH(firstName, lastName) AGAINST ('${name}');`;
+    const raw = await db.raw(sql);
+    return raw;
   },
-  findPageUsers(limit, offset) {
+  findPageUsers(name, limit, offset) {
     return db("users").limit(limit).offset(offset);
   },
 
@@ -53,25 +55,8 @@ export default {
     });
   },
 
-  async fullTextSearchUser(name) {
-    const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
-                    from products p
-                    left join participate par on par.prodID = p.prodID
-                    left join users u on p.highestBidID = u.UID
-                    left join proddes pd on pd.prodID = p.prodID
-                    where
-                        match(p.prodName) AGAINST('` +
-      text +
-      `') OR
-                        match(pd.des) AGAINST('` +
-      text +
-      `')
-                    group by p.prodID
-                    limit ` +
-      limit +
-      ` offset ` +
-      offset;
+  async fullTextSearchUser(text, limit, offset) {
+    const sql = `select * from users u where match(firstName) AGAINST('${text}') OR match(lastName) AGAINST('${text}') limit ${limit} offset ${offset}`;
 
     const raw = await db.raw(sql);
     return raw[0];
