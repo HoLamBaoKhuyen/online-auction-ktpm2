@@ -406,4 +406,42 @@ router.get("/search", async function (req, res) {
     pageNumbers,
   });
 });
+
+router.get("/user-update/search", async function (req, res) {
+  const limit = 6;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const name = req.query.search || "";
+
+  const total = await searchModel.countAllUserUpdate(name);
+  // console.log(total);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+
+  const userUpdateList = await searchModel.findAllUserUpdate(
+    name,
+    limit,
+    offset
+  );
+  // console.log(userUpdateList);
+  res.render("admin/userNeedUpdate", {
+    layout: "admin",
+    isAtAdminUser: false,
+    isAtUserUpdate: true,
+    isAtCategories: false,
+    isAtProducts: false,
+    userUpdateList,
+    pageNumbers,
+  });
+});
+
 export default router;
