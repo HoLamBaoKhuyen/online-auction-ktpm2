@@ -205,7 +205,7 @@ router.get("/categories/is-available", async function (req, res) {
 });
 
 router.get("/products", async function (req, res) {
-  const limit = 7;
+  const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
 
@@ -222,7 +222,7 @@ router.get("/products", async function (req, res) {
     });
   }
   const productList = await productModel.findPageAll(limit, offset);
-  // console.log(productList);
+  console.log(productList);
 
   res.render("admin/productManagement", {
     layout: "admin",

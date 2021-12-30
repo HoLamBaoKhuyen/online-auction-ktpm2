@@ -16,7 +16,7 @@
 >
   <i class="fa fa-list fa-2x" aria-hidden="true"></i>
 </a>
-<h3 class="my-4 adminTitle">QUẢN LÝ SẢN PHẨM</h3>
+<h4 class="my-4 adminTitle">QUẢN LÝ SẢN PHẨM</h4>
 
 {{! search }}
 <form class="form-search" action="action_page.php">
@@ -32,7 +32,10 @@
         <th scope="col">Danh mục</th>
         <th scope="col">Tên sản phẩm</th>
         <th scope="col">Người đấu giá</th>
-        <th scope="col">Xem chi tiết</th>
+        <th scope="col">Giá hiện tại</th>
+        <th scope="col">Bắt đầu</th>
+        <th scope="col">Kết thúc</th>
+        <th scope="col">Chi tiết</th>
         <th scope="col">Xóa</th>
       </tr>
     </thead>
@@ -43,7 +46,10 @@
           <td>{{prodID}}</td>
           <td>{{typeName}}</td>
           <td>{{prodName}}</td>
-          <td>{{nameofUser}}</td>
+          <td>{{nameofSeller}}</td>
+          <td>{{format_price curPrice}}</td>
+          <td>{{formatTime timePosted "YYYY-MM-DD hh:mm:ss"}}</td>
+          <td>{{formatTime timeEnd "YYYY-MM-DD hh:mm:ss"}}</td>
           <td>
             <a
               class="btn btn-success adminTable_updateBtn mx-1"
