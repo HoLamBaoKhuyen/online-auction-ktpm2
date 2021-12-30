@@ -75,7 +75,7 @@ router.post('/login', recaptcha.middleware.verify, async function (req, res) {
 router.post('/logout', recaptcha.middleware.verify, async function (req, res) {
     req.session.auth = false;
     req.session.authUser=null;
-    const url = '/';
+    const url = req.headers.referer||'/';
     res.redirect(url);
 });
 router.get('/is-available', async function (req, res) {
