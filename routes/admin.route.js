@@ -4,6 +4,7 @@ import upgrdeModel from "../models/upgrde.model.js";
 import userModel from "../models/user.model.js";
 import productModel from "../models/product.model.js";
 import categoryModel from "../models/category.model.js";
+import adminProductModel from "../models/admin-product.model.js";
 
 const router = express.Router();
 
@@ -235,11 +236,15 @@ router.get("/products", async function (req, res) {
   });
 });
 
-router.post("/products/delete", function (req, res) {
+router.post("/products/delete", async function (req, res) {
   const prodID = req.body.prodID;
-  console.log(prodID);
-  // await userModel.del(prodID);
-  // await upgrdeModel.delUpgrade(prodID);
+  // console.log(prodID);
+  await adminProductModel.delInProducts(prodID);
+  await adminProductModel.delInRating(prodID);
+  await adminProductModel.delInDeclined(prodID);
+  await adminProductModel.delInFavorite(prodID);
+  await adminProductModel.delInPaticipate(prodID);
+  await adminProductModel.delInProddes(prodID);
 
   res.redirect(req.headers.referer);
 });
