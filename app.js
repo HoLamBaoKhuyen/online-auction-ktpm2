@@ -8,7 +8,7 @@ import activate_locals_middleware from './middlewares/locals.mdw.js';
 
 import viewMdw from "./middlewares/view.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
-
+import sessionMdw from "./middlewares/session.mdw.js";
 import * as path from "path";
 
 import { create } from "express-handlebars";
@@ -25,6 +25,7 @@ app.use(
     extended: true,
   })
 );
+
 app.use("/public", express.static("public"));
 viewMdw(app);
 routesMdw(app);
