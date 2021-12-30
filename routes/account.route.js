@@ -42,9 +42,9 @@ router.post('/signup',recaptcha.middleware.verify,async function (req,res){
 
   
   });
-  router.post('/login',async function (req,res){
-   
-    const user = await userModel.findByEmail(req.body.email);
+  router.post('/login',recaptcha.middleware.verify,async function (req,res){
+    if (!req.recaptcha.error) {
+      const user = await userModel.findByEmail(req.body.email);
     if (user===null){
       res.render("Authentication/login", { 
         layout: "authentication",
@@ -60,6 +60,13 @@ router.post('/signup',recaptcha.middleware.verify,async function (req,res){
     }
     const url='/';
     res.redirect(url);
+    } else {
+      res.render("Authentication/login", { 
+        layout: "authentication",
+        err_message: 'You forgot to check reCaptcha box'
+      });
+    }
+    
   });
 router.get('/is-available', async function(req,res){
     const user = await userModel.findByEmail(req.query.email);
