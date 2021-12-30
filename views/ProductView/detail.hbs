@@ -5,13 +5,14 @@
             <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
                 <!-- slides -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg"
-                            alt="A52" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg"
-                            alt="{{prodName}}" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg"
-                            alt="A52" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg" style=" width:400px; height: 500px;">
+                    <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg" alt="A52"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg" alt="{{prodName}}"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg" alt="A52"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg"
+                            style=" width:400px; height: 500px;">
                     </div>
 
                 </div>
@@ -24,26 +25,24 @@
                 <!-- Thumbnails -->
                 <ol class="carousel-indicators list-inline pb-5">
                     <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/main.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/main.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb1.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb1.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb2.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb2.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb3.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb3.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                 </ol>
             </div>
         </div>
-
-
 
         <div class="col-md-6">
             <p class="mb-2 text-muted text-uppercase small">{{typeName}}</p>
@@ -102,18 +101,18 @@
             <div class="p-5"></div>
         </div>
         <div class="col-md-6 mt-3 ml-2">
-            <h3>
+            <h3 class="text-center">
                 Giá hiện tại: <span>{{format_price curPrice}}</span>
             </h3>
         </div>
         <div class="col-md-6 ml-2 mt-3">
-            <button class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào
-                    Watch List</i></button>
+            <a class="btn text-white"  style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào Watch List</i></a>
         </div>
 
         <div class="p-2"></div>
-        {{/each}}
+         {{/each}}
     </div>
+   
 
 
     <div class="container mt-3 border-bottom">
@@ -137,7 +136,8 @@
                         <tbody>
                             {{#each this.description}}
                             <tr>
-                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime modifyTime
+                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
+                                        modifyTime
                                         'DD-MM-YYYY'}}</strong></th>
                                 <td>{{{des}}}</td>
                             </tr>
