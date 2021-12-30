@@ -18,4 +18,13 @@ export default {
   delInProddes(prodID) {
     return db("proddes").where("prodID", prodID).del();
   },
+
+  async findProductByCatID(catID) {
+    const sql = `select p.*, pt.typeName, c.catID from products p  left join producttype pt on p.prodType = pt.typeID 
+          left join categories c on pt.category = c.catID
+          where c.catID = ${catID};`;
+    const raw = await db.raw(sql);
+    // console.log(raw[0]);
+    return raw[0];
+  },
 };

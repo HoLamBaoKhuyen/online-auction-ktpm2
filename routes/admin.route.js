@@ -167,7 +167,7 @@ router.get("/categories", async function (req, res) {
     });
   }
   const categoryList = await categoryModel.findPageLevel1(limit, offset);
-  console.log(categoryList);
+  // console.log(categoryList);
 
   res.render("admin/cate-lv1", {
     layout: "admin",
@@ -186,8 +186,25 @@ router.post("/categories", async function (req, res) {
 
   res.redirect(req.headers.referer);
 });
+router.post("/categories/delete", async function (req, res) {
+  const catID = req.body.catID;
+
+  await categoryModel.delLevel1(catID);
+  await categoryModel.delLevel2InLevel1(catID);
+
+  res.redirect(req.headers.referer);
+});
 router.get("/categories/is-available", async function (req, res) {
   const catName = await categoryModel.findByCatName(req.query.catName);
+  // console.log(catName);
+  if (catName.length === 0) {
+    return res.json(true);
+  }
+  res.json(false);
+});
+router.get("/categories/has-products", async function (req, res) {
+  console.log(req.query.catID);
+  const catName = await adminProductModel.findProductByCatID(req.query.catID);
   // console.log(catName);
   if (catName.length === 0) {
     return res.json(true);

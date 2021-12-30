@@ -1,4 +1,5 @@
 {{#section "js"}}
+  {{! thêm danh mục  }}
   <script>
     $('#frmAddCate').on('submit',function(e){ e.preventDefault(); const catName
     = $('#txtCatName').val(); if (!catName){ alert(`Vui lòng điền tên danh
@@ -7,6 +8,16 @@
     if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã
     thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
     });
+  </script>
+
+  {{! xóa danh mục  }}
+  <script>
+    $('.delCatBtn').on('click', function (e){ const catID = $(this).data('id');
+    $.getJSON(`/admin/categories/has-products?catID=${catID}`,function(data){ if
+    (data===false){ alert('Danh mục tồn tại sản phẩm! Không thể xóa!'); return;
+    } else { alert(`Đã xóa danh mục ${catID}`); $("#txtDelCatID").val(catID);
+    $("#frmDelCate").submit() } } )})
+
   </script>
 {{/section}}
 
@@ -114,14 +125,18 @@
             >
               <i class="fa fa-pencil" aria-hidden="true"></i></a>
             <a
-              class="btn btn-danger adminTable_deleteBtn mx-1"
+              class="btn btn-danger adminTable_deleteBtn mx-1 delCatBtn"
               href="#"
               role="button"
-              data-id="{{prodID}}"
+              data-id="{{catID}}"
             >
               <i class="fa fa-trash" aria-hidden="true"></i></a>
-            <form action="/admin/products/delete" method="post" id="frmDelProd">
-              <input type="hidden" id="txtDelProdID" name="prodID" /></form>
+            <form
+              action="/admin/categories/delete"
+              method="post"
+              id="frmDelCate"
+            >
+              <input type="hidden" id="txtDelCatID" name="catID" /></form>
           </td>
 
         </tr>

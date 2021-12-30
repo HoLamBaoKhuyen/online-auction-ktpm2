@@ -51,4 +51,11 @@ export default {
     const list = await db("categories").where("catID", catID);
     return list[0];
   },
+
+  delLevel1(catID) {
+    return db("categories").where("catID", catID).del();
+  },
+  delLevel2InLevel1(catID) {
+    return db("producttype").where("category", catID).del();
+  },
 };
