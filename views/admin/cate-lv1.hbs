@@ -56,7 +56,12 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="frmAddCate" method="post" class="form">
+        <form
+          id="frmAddCate"
+          action="/admin/categories"
+          method="post"
+          class="form"
+        >
           <label for=""></label>
           <input
             type="text"
@@ -87,7 +92,7 @@
     Thêm danh mục
   </button>
   {{! search }}
-  <form class="form-search" action="action_page.php">
+  <form class="form-search" action="/admin/categories/search">
     <input type="text" placeholder="Tìm theo tên" name="search" />
     <button type="submit"><i class="fa fa-search"></i></button>
   </form></div>
