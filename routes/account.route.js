@@ -1,9 +1,10 @@
 import express from 'express';
 import bcrypt from 'bcryptjs';
+import Recaptcha from 'express-recaptcha';
 
 import userModel from '../models/user.model.js';
 const router = express.Router();
-
+var recaptcha = new Recaptcha.RecaptchaV2('6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL', '6LeOKdsdAAAAACIZLMh8Osrrj5cJmsNDnC-TpsT1');
 
 router.get("/login", function (req, res) {
     res.render("Authentication/login", { layout: "authentication" });
@@ -11,7 +12,10 @@ router.get("/login", function (req, res) {
 router.get("/signup", function (req, res) {
     res.render("Authentication/signup", { layout: "authentication" });
   });
-router.post('/signup',async function (req,res){
+router.post('/signup',recaptcha.middleware.verify,async function (req,res){
+    
+  if (!req.recaptcha.error) {
+    // success code
     const rawPassword = req.body.psword;
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(rawPassword,salt);
@@ -28,8 +32,18 @@ router.post('/signup',async function (req,res){
     }
     await userModel.add(user);
     res.render("Authentication/login", { layout: "authentication" });
+  } else {
+    // error code
+    res.render("Authentication/signup", { 
+      layout: "authentication",
+      err_message: 'You forgot to check reCaptcha box'
+    });
+  }
+
+  
   });
   router.post('/login',async function (req,res){
+   
     const user = await userModel.findByEmail(req.body.email);
     if (user===null){
       res.render("Authentication/login", { 
