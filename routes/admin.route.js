@@ -186,13 +186,17 @@ router.post("/categories", async function (req, res) {
 
   res.redirect(req.headers.referer);
 });
-router.post("/categories/delete", async function (req, res) {
-  const catID = req.body.catID;
 
-  await categoryModel.delLevel1(catID);
-  await categoryModel.delLevel2InLevel1(catID);
-
-  res.redirect(req.headers.referer);
+router.get("/categories/edit", async function (req, res) {
+  const catID = req.query.catID || 0;
+  const cat = await categoryModel.findByCatID(catID);
+  // console.log(user);
+  res.render("admin/edit-cat", {
+    layout: "admin",
+    isAtCategories: true,
+    // isAtUserUpdate: false,
+    cat,
+  });
 });
 router.get("/categories/is-available", async function (req, res) {
   const catName = await categoryModel.findByCatName(req.query.catName);
@@ -202,6 +206,15 @@ router.get("/categories/is-available", async function (req, res) {
   }
   res.json(false);
 });
+router.post("/categories/delete", async function (req, res) {
+  const catID = req.body.catID;
+
+  await categoryModel.delLevel1(catID);
+  await categoryModel.delLevel2InLevel1(catID);
+
+  res.redirect(req.headers.referer);
+});
+
 router.get("/categories/has-products", async function (req, res) {
   // console.log(req.query.catID);
   const catName = await adminProductModel.findProductByCatID(req.query.catID);
@@ -212,6 +225,19 @@ router.get("/categories/has-products", async function (req, res) {
   res.json(false);
 });
 
+router.get("/categories/detail/edit", async function (req, res) {
+  const catID = req.query.catID || 0;
+  const type = await categoryModel.findByTypeID(catID);
+  const cat = { catID: type.typeID, catName: type.typeName };
+
+  console.log(cat);
+  res.render("admin/edit-cat", {
+    layout: "admin",
+    isAtCategories: true,
+    // isAtUserUpdate: false,
+    cat,
+  });
+});
 router.get("/categories/detail/is-available", async function (req, res) {
   const typeName = await categoryModel.findByTypeName(req.query.typeName);
   console.log(typeName);
@@ -225,7 +251,7 @@ router.get("/categories/detail/has-products", async function (req, res) {
   const prodList = await adminProductModel.findProductByTypeID(
     req.query.typeID
   );
-  console.log(prodList);
+  // console.log(prodList);
   if (prodList.length === 0) {
     return res.json(true);
   }
@@ -233,9 +259,7 @@ router.get("/categories/detail/has-products", async function (req, res) {
 });
 router.post("/categories/detail/delete", async function (req, res) {
   const typeID = req.body.typeID;
-
   await categoryModel.delLevel2(typeID);
-
   res.redirect(req.headers.referer);
 });
 
@@ -282,21 +306,6 @@ router.post("/categories/detail/byCat/:catID", async function (req, res) {
   await categoryModel.addLevel2(typeName, catID);
 
   res.redirect(req.headers.referer);
-});
-router.post("/categories", async function (req, res) {
-  const catName = req.body.catName;
-
-  await categoryModel.add(catName);
-
-  res.redirect(req.headers.referer);
-});
-router.get("/categories/is-available", async function (req, res) {
-  const catName = await categoryModel.findByCatName(req.query.catName);
-  // console.log(catName);
-  if (catName.length === 0) {
-    return res.json(true);
-  }
-  res.json(false);
 });
 
 router.get("/products", async function (req, res) {

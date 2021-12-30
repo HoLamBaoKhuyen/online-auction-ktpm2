@@ -52,6 +52,11 @@ export default {
     return list[0];
   },
 
+  async findByTypeID(typeID) {
+    const list = await db("producttype").where("typeID", typeID);
+    return list[0];
+  },
+
   delLevel1(catID) {
     return db("categories").where("catID", catID).del();
   },
