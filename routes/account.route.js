@@ -86,4 +86,9 @@ router.get('/is-available', async function (req, res) {
   res.json(false);
 });
 
+function auth(req,res,next){
+    if (req.session.auth===false){
+      return res.redirect('/account/login');
+    }
+};
 export default router;
