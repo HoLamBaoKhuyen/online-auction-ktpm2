@@ -56,8 +56,9 @@ router.post("/", async function (req, res) {
 
 router.post("/delete-user", async function (req, res) {
   const uID = req.body.uID;
-  console.log(uID);
+
   await userModel.del(uID);
+  await upgrdeModel.delUpgrade(uID);
 
   res.redirect(req.headers.referer);
 });
@@ -130,6 +131,22 @@ router.get("/user-update", async function (req, res) {
     userUpdateList,
     pageNumbers,
   });
+});
+router.post("/user-update/approve", async function (req, res) {
+  const uID = req.body.uID || 0;
+  console.log(uID);
+
+  await userModel.approveUpgrade(uID);
+  await upgrdeModel.delUpgrade(uID);
+
+  res.redirect(req.headers.referer);
+});
+router.post("/user-update/decline", async function (req, res) {
+  const uID = req.body.uID || 0;
+  // console.log(uID);
+  await upgrdeModel.delUpgrade(uID);
+
+  res.redirect(req.headers.referer);
 });
 router.get("/categories", async function (req, res) {
   const limit = 2;

@@ -14,8 +14,8 @@
   </script>
   <script>
     $('.deleteUserBtn').on('click', function (e){ const uID =
-    $(this).data('id'); alert(uID); $("#txtDelUserID").val(uID);
-    $("#frmDelUser").submit(); } )
+    $(this).data('id'); alert(`Đã xóa người dùng ${uID}`);
+    $("#txtDelUserID").val(uID); $("#frmDelUser").submit(); } )
   </script>
 {{/section}}
 
@@ -215,7 +215,7 @@
 
               <a
                 class="btn btn-danger adminTable_deleteBtn mx-1 deleteUserBtn"
-                href="javascript:'"
+                href="javascript:;"
                 role="button"
                 data-id="{{uID}}"
               >

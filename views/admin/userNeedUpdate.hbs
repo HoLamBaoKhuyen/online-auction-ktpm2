@@ -1,3 +1,17 @@
+{{#section "js"}}
+
+  <script>
+    $('.declineUpgrade').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Từ chối nâng cấp người dùng ${uID}`);
+    $("#txtDeclineUserID").val(uID); $("#frmDeclineUpgrade").submit(); } )
+  </script>
+
+  <script>
+    $('.approveUpgrade').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Đã nâng cấp người dùng ${uID}`);
+    $("#txtApproveUserID").val(uID); $("#frmAppoveUpgrade").submit(); } )
+  </script>
+{{/section}}
 <a
   class="mx-4"
   id="menuBtn"
@@ -40,21 +54,32 @@
           <td>
             <div class="d-inline-flex">
               <a
-                name=""
-                id=""
-                class="btn btn-success adminTable_updateBtn mx-1"
-                href="#"
+                class="btn btn-success adminTable_updateBtn mx-1 approveUpgrade"
+                href="javascript:;"
                 role="button"
+                data-id="{{uID}}"
               >
                 <i class="fa fa-check" aria-hidden="true"></i></a>
               <a
-                name=""
-                id=""
-                class="btn btn-danger adminTable_deleteBtn mx-1"
-                href="#"
+                class="btn btn-danger adminTable_deleteBtn mx-1 declineUpgrade"
+                href="javascript:;"
                 role="button"
+                data-id="{{uID}}"
               >
-                <i class="fa fa-window-close" aria-hidden="true"></i></a></div>
+                <i class="fa fa-window-close" aria-hidden="true"></i></a>
+              <form
+                action="/admin/user-update/approve"
+                method="post"
+                id="frmAppoveUpgrade"
+              >
+                <input type="hidden" id="txtApproveUserID" name="uID" /></form>
+              <form
+                action="/admin/user-update/decline"
+                method="post"
+                id="frmDeclineUpgrade"
+              >
+                <input type="hidden" id="txtDeclineUserID" name="uID" /></form>
+            </div>
           </td>
         </tr>
       {{/each}}

@@ -46,4 +46,10 @@ export default {
       userType,
     });
   },
+
+  async approveUpgrade(uID) {
+    await db("users").where("uID", uID).update({
+      userType: "seller",
+    });
+  },
 };
