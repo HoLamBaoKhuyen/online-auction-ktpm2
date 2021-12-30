@@ -1,3 +1,19 @@
+{{#section "js"}}
+  <script>
+    $('#frmAddCate').on('submit',function(e){ e.preventDefault(); const catName
+    = $('#txtCatName').val(); if (!catName){ alert(`Vui lòng điền tên danh mục!`); return; }
+    $.getJSON(`/admin/categories/is-available?catName=${catName}`,function(data){
+    if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã
+    thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
+    });
+  </script>
+  <script>
+    $('.deleteUserBtn').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Đã xóa người dùng ${uID}`);
+    $("#txtDelUserID").val(uID); $("#frmDelUser").submit(); } )
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -115,30 +131,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
+        <form id="frmAddCate" method="post" class="form">
           <label for=""></label>
           <input
             type="text"
             class="form-control"
-            name=""
-            id=""
+            id="txtCatName"
+            name="catName"
             aria-describedby="helpId"
             placeholder="Danh mục mới"
           />
+          <button
+            type="submit"
+            class="btn btn-warning text-light mt-4 addCategory_btnSave"
+          >Lưu</button>
+        </form>
+      </div>
 
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >Hủy</button>
-        <button
-          type="button"
-          class="btn btn-light addCategory_btnSave"
-        >Lưu</button>
-      </div>
     </div>
   </div>
 </div>

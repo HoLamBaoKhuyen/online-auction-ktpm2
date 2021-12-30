@@ -20,4 +20,12 @@ export default {
     const list = await db("categories").count({ amount: "*" });
     return list[0].amount;
   },
+
+  add(catName) {
+    return db("categories").insert({ catName });
+  },
+
+  findByCatName(catName) {
+    return db("categories").where("catName", catName);
+  },
 };

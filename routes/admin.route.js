@@ -188,6 +188,22 @@ router.get("/categories", async function (req, res) {
     cateList,
   });
 });
+router.post("/categories", async function (req, res) {
+  const catName = req.body.catName;
+
+  await categoryModel.add(catName);
+
+  res.redirect(req.headers.referer);
+});
+router.get("/categories/is-available", async function (req, res) {
+  const catName = await categoryModel.findByCatName(req.query.catName);
+  console.log(catName);
+  if (catName.length === 0) {
+    return res.json(true);
+  }
+  res.json(false);
+});
+
 router.get("/products", async function (req, res) {
   const limit = 7;
   const page = +req.query.page || 1;
