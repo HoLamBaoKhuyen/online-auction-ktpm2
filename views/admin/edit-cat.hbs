@@ -1,15 +1,11 @@
-{{#section "js"}}
+{{!-- {{#section "js"}}
   <script>
-    $('#frmEditUser').on('submit',function(e){ e.preventDefault(); const email =
-    $('#txtEmail').val(); const lastName = $('#txtLastName').val(); const
-    firstName = $('#txtFirstName').val(); const userType = $('#typeUser').val();
-    const address = $('#txtAddress').val(); const hotline =
-    $('#txtHotline').val(); if (!(email &&userType&& lastName && firstName &&
-    address && hotline)){ alert("Vui lòng điền đầy đủ thông tin!"); return; }
-    alert(`Đã chỉnh sửa người dùng ${firstName} ${lastName}`)
-    $('#frmEditUser').off('submit').submit(); } }); });
+    $('#frmEditCat').on('submit',function(e){ e.preventDefault(); const catID =
+    $('#txtID').val(); const catName = $('#txtName').val(); if (!catName){
+    alert("Vui lòng điền đầy đủ thông tin!"); return; } else{alert(`Đã chỉnh sửa
+    danh mục ${catID}`); $('#frmEditCat').off('submit').submit();} } }); });
   </script>
-{{/section}}
+{{/section}} --}}
 
 <a
   class="mx-4"
@@ -23,7 +19,7 @@
 </a>
 <h3 class="my-4 adminTitle">QUẢN LÝ DANH MỤC</h3>
 
-<form id="frmEditUser" method="post" class="form">
+<form id="frmEditCat" method="post" class="form">
   <div class="row">
     <div class="col-xs-12 col-sm-12">
       <div class="input-container ic1">
@@ -33,7 +29,7 @@
           type="text"
           placeholder=" "
           value={{this.cat.catID}}
-          name="email"
+          name="catID"
           readonly
         />
         <div class="cut"></div>
@@ -46,7 +42,7 @@
           type="text"
           placeholder=" "
           value="{{this.cat.catName}}"
-          name="firstName"
+          name="catName"
         />
         <div class="cut"></div>
         <label for="txtName" class="placeholder">Tên danh mục</label>

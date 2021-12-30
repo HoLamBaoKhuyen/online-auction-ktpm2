@@ -66,4 +66,15 @@ export default {
   delLevel2(typeID) {
     return db("producttype").where("typeID", typeID).del();
   },
+
+  async editLevel1(catID, catName) {
+    await db("categories").where("catID", catID).update({
+      catName,
+    });
+  },
+  async editLevel2(catID, catName) {
+    await db("producttype").where("typeID", catID).update({
+      typeName: catName,
+    });
+  },
 };

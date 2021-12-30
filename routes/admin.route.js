@@ -198,6 +198,16 @@ router.get("/categories/edit", async function (req, res) {
     cat,
   });
 });
+
+router.post("/categories/edit", async function (req, res) {
+  const catID = req.body.catID;
+  const catName = req.body.catName;
+
+  await categoryModel.editLevel1(catID, catName);
+
+  res.redirect(req.headers.referer);
+});
+
 router.get("/categories/is-available", async function (req, res) {
   const catName = await categoryModel.findByCatName(req.query.catName);
   // console.log(catName);
@@ -238,6 +248,16 @@ router.get("/categories/detail/edit", async function (req, res) {
     cat,
   });
 });
+
+router.post("/categories/detail/edit", async function (req, res) {
+  const catID = req.body.catID;
+  const catName = req.body.catName;
+
+  await categoryModel.editLevel2(catID, catName);
+
+  res.redirect(req.headers.referer);
+});
+
 router.get("/categories/detail/is-available", async function (req, res) {
   const typeName = await categoryModel.findByTypeName(req.query.typeName);
   console.log(typeName);
