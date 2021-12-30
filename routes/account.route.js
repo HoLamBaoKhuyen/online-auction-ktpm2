@@ -72,6 +72,12 @@ router.post('/login', recaptcha.middleware.verify, async function (req, res) {
   }
 
 });
+router.post('/logout', recaptcha.middleware.verify, async function (req, res) {
+    req.session.auth = false;
+    req.session.authUser=null;
+    const url = '/';
+    res.redirect(url);
+});
 router.get('/is-available', async function (req, res) {
   const user = await userModel.findByEmail(req.query.email);
   if (user === null) {
