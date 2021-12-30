@@ -8,6 +8,17 @@
     thêm danh mục ${typeName}`); $('#frmAddSmallCate').off('submit').submit(); }
     }); });
   </script>
+
+  {{! xóa danh mục  }}
+  <script>
+    $('.delTypeBtn').on('click', function (e){ const typeID =
+    $(this).data('id');
+    $.getJSON(`/admin/categories/detail/has-products?typeID=${typeID}`,function(data){
+    if (data===false){ alert('Danh mục tồn tại sản phẩm! Không thể xóa!');
+    return; } else { alert(`Đã xóa danh mục ${typeID}`);
+    $("#txtDelTypeID").val(typeID); $("#frmDelType").submit() } } )})
+
+  </script>
 {{/section}}
 
 <a
@@ -106,14 +117,18 @@
             >
               <i class="fa fa-pencil" aria-hidden="true"></i></a>
             <a
-              class="btn btn-danger adminTable_deleteBtn mx-1"
+              class="btn btn-danger adminTable_deleteBtn mx-1 delTypeBtn"
               href="#"
               role="button"
-              data-id="{{prodID}}"
+              data-id="{{typeID}}"
             >
               <i class="fa fa-trash" aria-hidden="true"></i></a>
-            <form action="/admin/products/delete" method="post" id="frmDelProd">
-              <input type="hidden" id="txtDelProdID" name="prodID" /></form>
+            <form
+              action="/admin/categories/detail/delete"
+              method="post"
+              id="frmDelType"
+            >
+              <input type="hidden" id="txtDelTypeID" name="typeID" /></form>
           </td>
 
         </tr>

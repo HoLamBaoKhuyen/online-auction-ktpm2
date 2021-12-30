@@ -27,4 +27,10 @@ export default {
     // console.log(raw[0]);
     return raw[0];
   },
+  async findProductByTypeID(typeID) {
+    const sql = ` select * from products p left join producttype pt on p.prodType = pt.typeID where pt.typeID = ${typeID};`;
+    const raw = await db.raw(sql);
+    // console.log(raw[0]);
+    return raw[0];
+  },
 };

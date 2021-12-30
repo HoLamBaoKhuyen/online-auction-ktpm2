@@ -58,4 +58,7 @@ export default {
   delLevel2InLevel1(catID) {
     return db("producttype").where("category", catID).del();
   },
+  delLevel2(typeID) {
+    return db("producttype").where("typeID", typeID).del();
+  },
 };

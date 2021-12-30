@@ -203,7 +203,7 @@ router.get("/categories/is-available", async function (req, res) {
   res.json(false);
 });
 router.get("/categories/has-products", async function (req, res) {
-  console.log(req.query.catID);
+  // console.log(req.query.catID);
   const catName = await adminProductModel.findProductByCatID(req.query.catID);
   // console.log(catName);
   if (catName.length === 0) {
@@ -219,6 +219,24 @@ router.get("/categories/detail/is-available", async function (req, res) {
     return res.json(true);
   }
   res.json(false);
+});
+router.get("/categories/detail/has-products", async function (req, res) {
+  // console.log(req.query.catID);
+  const prodList = await adminProductModel.findProductByTypeID(
+    req.query.typeID
+  );
+  console.log(prodList);
+  if (prodList.length === 0) {
+    return res.json(true);
+  }
+  res.json(false);
+});
+router.post("/categories/detail/delete", async function (req, res) {
+  const typeID = req.body.typeID;
+
+  await categoryModel.delLevel2(typeID);
+
+  res.redirect(req.headers.referer);
 });
 
 router.get("/categories/detail/byCat/:catID", async function (req, res) {
