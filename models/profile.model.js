@@ -3,8 +3,14 @@ import db from "../utils/db.js"
 export default {
 
 
+
     getInforByID(id) {
         return db('users').where('UID', id);
+    },
+
+    async getIDseller(prodID){
+        const list = await db.select('selID').from('products').where('prodID',prodID);
+        return list[0].selID;
     },
 
     async checkUserType(id) {
@@ -109,5 +115,27 @@ export default {
                     where r.liked = FALSE and r.rateToBidder = TRUE`;
         const raw = await db.raw(sql);
         return raw[0];
+    },
+
+    async checkExistComment(uid,prodID){
+        // const sql= `select * from rating r
+        //            where r.bidID= `+uid+` and prodID=`+prodID+ 
+        //            ` and r.rateToBidder=false`;
+        //const raw = await db.raw(sql);
+        const list = await db('rating').where('bidID',uid).andWhere('prodID',prodID);
+        if (list.length === 0)
+            return null;
+        return raw[0];
+
+    },
+
+    async bidderAddGoodRate(uid, idseller , prodID, comment){
+        const sql=`insert into rating values (`+uid+`,`+idseller+`,`+prodID +`, true, false,'`+comment+`')`;
+        const raw = await db.raw(sql);
+    },
+
+    async bidderAddBadRate(uid, idseller , prodID, comment){
+        const sql=`insert into rating values (`+uid+`,`+idseller+`,`+prodID +`, false, false,'`+comment+`')`;
+        const raw = await db.raw(sql);
     }
 }

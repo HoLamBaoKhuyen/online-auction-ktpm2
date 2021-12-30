@@ -109,7 +109,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
@@ -158,6 +158,8 @@
     </div>
 </div>
 
+
+{{!-- ----------Change password------------- --}}
 <div class="container my-5">
     <a class="btn" onclick="showInforTable1()">
         <h4>Đổi mật khẩu
@@ -289,7 +291,7 @@
             </div>
         </div>
 
-        <div id="productjoin" class="container tab-pane fade"><br>
+        <div id="productjoin" class="container tab-pane fade "><br>
             <div class="container ">
                 <div class="row justify-content-between">
                     {{#each participate}}
@@ -346,17 +348,17 @@
             </div>
         </div>
 
-        <div id="productwin" class="container tab-pane fade"><br>
+        <div id="productwin" class="container tab-pane fade "><br>
             <div class="container ">
                 <div class="row justify-content-between">
                     {{#each win}}
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
-                                        aria-hidden="true"></i>
-                                    <span class="textFavorite"> Yêu thích</span>
-                                </button>
+                                <a class="btn addFavoriteBtn" href="/profile/{{../information.uID}}/comment/{{prodID}}" ><i class="fa fa-plus favoriteIcon"
+                                        aria-hidden="true" href="/"></i>
+                                    <span class="textFavorite"> Đánh giá </span>
+                                </a>
                                 <div class="product-imitation">
                                     <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
                                 </div>

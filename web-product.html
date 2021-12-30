@@ -110,7 +110,7 @@
     <!-- main content -->;
     <!-- -------------------------------------------------------------------TOP 5 sản phẩm------------------------------------------------------------------ -->
 
-    <div class="container-fluid">
+    <!-- <div class="container-fluid">
         <div class="m-5 d-flex justify-content-between ">
             <h4>Tất cả sản phẩm</h4>
             <form method="GET">
@@ -417,10 +417,61 @@
                 </div>
             </div>   
         </div>
-    </div>
+    </div> -->
     <!-- --------------------------------------------------------------------TOP 5 sản phẩm---------------------------------------------------------------- -->
+    
+    <div class="container">
 
-
+        <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
+            <!-- slides -->
+            <div class="carousel-inner">
+                <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg" alt="{{prodName}}"
+                        style=" width:400px; height: 500px;"> </div>
+                <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg" alt="{{prodName}}"
+                        style=" width:400px; height: 500px;"> </div>
+                <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg" alt="{{prodName}}"
+                        style=" width:400px; height: 500px;"> </div>
+                <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg" alt="{{prodName}}"
+                        style=" width:400px; height: 500px;">
+                </div>
+    
+            </div>
+            <!-- Left right -->
+            <a class="carousel-control-prev" href="#custCarousel" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span> </a>
+            <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span
+                    class="carousel-control-next-icon"></span> </a>
+    
+            <!-- Thumbnails -->
+            <ol class="carousel-indicators list-inline pb-5" align="center">
+                <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0"
+                        data-target="#custCarousel"> <img src="/public/images/{{prodID}}/main.jpg"
+                            class="img-fluid carousel-thumbnail"> </a>
+                </li>
+                <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1"
+                        data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb1.jpg"
+                            class="img-fluid carousel-thumbnail"> </a>
+                </li>
+                <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
+                        data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb2.jpg"
+                            class="img-fluid carousel-thumbnail"> </a>
+                </li>
+                <li class="list-inline-item"> <a id="carousel-selector-3" data-slide-to="3"
+                        data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb3.jpg"
+                            class="img-fluid carousel-thumbnail"> </a>
+                </li>
+            </ol>
+        </div>
+        <!-- Your review -->
+        <div class="md-form md-outline">
+            <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
+            <label for="form76">Comment</label>
+        </div>
+        <div class="text-right pb-2">
+            <a type="button" class="btn btn-primary"><i class="fa fa-thumbs-up mr-3"></i>Đánh giá tốt</a>
+            <a type="button" class="btn btn-danger"><i class="fa fa-thumbs-down mr-3"></i>Đánh giá xấu</a>
+        </div>
+    </div>
 
 
 
