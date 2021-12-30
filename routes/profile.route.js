@@ -1,5 +1,4 @@
 import profileModel from "../models/profile.model.js";
-
 const router = express.Router();
 
 router.get("/", async function (req, res) {
@@ -12,7 +11,7 @@ router.get("/", async function (req, res) {
 
     }
     else{
-        res.render(/account/profile,{
+        res.render('/account/profile',{
             information: infor,
             type: typeUser,
             favorite: favoriteproducts,

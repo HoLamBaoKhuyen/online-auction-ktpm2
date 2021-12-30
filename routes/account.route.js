@@ -62,7 +62,7 @@ router.post('/login', recaptcha.middleware.verify, async function (req, res) {
     req.session.auth = true;
     req.session.authUser = user;
 
-    const url = '/';
+    const url =  req.session.retUrl||'/';
     res.redirect(url);
   } else {
     res.render("Authentication/login", {
@@ -86,9 +86,4 @@ router.get('/is-available', async function (req, res) {
   res.json(false);
 });
 
-function auth(req,res,next){
-    if (req.session.auth===false){
-      return res.redirect('/account/login');
-    }
-};
 export default router;
