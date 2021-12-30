@@ -1,3 +1,11 @@
+{{#section "js"}}
+  <script>
+    $('.adminTable_deleteBtn').on('click', function (e){const prodID =
+    $(this).data('id'); alert(`Đã xóa sản phẩm ${prodID}`);
+    $("#txtDelProdID").val(prodID); $("#frmDelProd").submit(); } )
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -38,23 +46,22 @@
           <td>{{nameofUser}}</td>
           <td>
             <a
-              name=""
-              id=""
               class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
+              href="/detail/{{prodID}}"
               role="button"
             >
               <i class="fa fa-eye" aria-hidden="true"></i></a></td>
           <td>
 
             <a
-              name=""
-              id=""
               class="btn btn-danger adminTable_deleteBtn mx-1"
               href="#"
               role="button"
+              data-id="{{prodID}}"
             >
               <i class="fa fa-trash" aria-hidden="true"></i></a>
+            <form action="/admin/products/delete" method="post" id="frmDelProd">
+              <input type="hidden" id="txtDelProdID" name="prodID" /></form>
           </td>
         </tr>
       {{/each}}

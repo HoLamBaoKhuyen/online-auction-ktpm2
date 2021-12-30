@@ -197,7 +197,7 @@ router.post("/categories", async function (req, res) {
 });
 router.get("/categories/is-available", async function (req, res) {
   const catName = await categoryModel.findByCatName(req.query.catName);
-  console.log(catName);
+  // console.log(catName);
   if (catName.length === 0) {
     return res.json(true);
   }
@@ -233,6 +233,15 @@ router.get("/products", async function (req, res) {
     productList,
     pageNumbers,
   });
+});
+
+router.post("/products/delete", function (req, res) {
+  const prodID = req.body.prodID;
+  console.log(prodID);
+  // await userModel.del(prodID);
+  // await upgrdeModel.delUpgrade(prodID);
+
+  res.redirect(req.headers.referer);
 });
 
 export default router;
