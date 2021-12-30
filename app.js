@@ -27,9 +27,13 @@ app.use(
 );
 
 app.use("/public", express.static("public"));
+
+sessionMdw(app);
+activate_locals_middleware(app);
 viewMdw(app);
 routesMdw(app);
-activate_locals_middleware(app);
+
+
 
 app.use('/',productRoute);
 
