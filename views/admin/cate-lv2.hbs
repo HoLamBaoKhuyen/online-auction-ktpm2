@@ -1,12 +1,12 @@
 {{#section "js"}}
   <script>
-    $('#frmAddCate').on('submit',function(e){ e.preventDefault(); const catName
-    = $('#txtCatName').val(); if (!catName){ alert(`Vui lòng điền tên danh
-    mục!`); return; }
-    $.getJSON(`/admin/categories/is-available?catName=${catName}`,function(data){
+    $('#frmAddSmallCate').on('submit',function(e){ e.preventDefault(); const
+    typeName = $('#txtTypeName').val(); if (!typeName){ alert(`Vui lòng điền tên
+    danh mục!`); return; }
+    $.getJSON(`/admin/categories/detail/is-available?typeName=${typeName}`,function(data){
     if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã
-    thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
-    });
+    thêm danh mục ${typeName}`); $('#frmAddSmallCate').off('submit').submit(); }
+    }); });
   </script>
 {{/section}}
 
@@ -45,13 +45,13 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="frmAddCate" method="post" class="form">
+        <form id="frmAddSmallCate" method="post" class="form">
           <label for=""></label>
           <input
             type="text"
             class="form-control"
-            id="txtCatName"
-            name="catName"
+            id="txtTypeName"
+            name="typeName"
             aria-describedby="helpId"
             placeholder="Danh mục mới"
           />

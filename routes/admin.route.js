@@ -104,7 +104,7 @@ router.post("/edit-user", async function (req, res) {
 });
 
 router.get("/user-update", async function (req, res) {
-  const limit = 7;
+  const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
 
@@ -195,6 +195,15 @@ router.get("/categories/is-available", async function (req, res) {
   res.json(false);
 });
 
+router.get("/categories/detail/is-available", async function (req, res) {
+  const typeName = await categoryModel.findByTypeName(req.query.typeName);
+  console.log(typeName);
+  if (typeName.length === 0) {
+    return res.json(true);
+  }
+  res.json(false);
+});
+
 router.get("/categories/detail/byCat/:catID", async function (req, res) {
   const catID = req.params.catID || 0;
 
@@ -228,6 +237,16 @@ router.get("/categories/detail/byCat/:catID", async function (req, res) {
     level1,
     level2List,
   });
+});
+
+router.post("/categories/detail/byCat/:catID", async function (req, res) {
+  const catID = req.params.catID;
+  const typeName = req.body.typeName;
+  console.log(catID);
+  console.log(typeName);
+  await categoryModel.addLevel2(typeName, catID);
+
+  res.redirect(req.headers.referer);
 });
 router.post("/categories", async function (req, res) {
   const catName = req.body.catName;

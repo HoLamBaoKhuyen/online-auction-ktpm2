@@ -38,11 +38,15 @@ export default {
   add(catName) {
     return db("categories").insert({ catName });
   },
-
+  addLevel2(typeName, category) {
+    return db("producttype").insert({ typeName, category });
+  },
   findByCatName(catName) {
     return db("categories").where("catName", catName);
   },
-
+  findByTypeName(typeName) {
+    return db("producttype").where("typeName", typeName);
+  },
   async findByCatID(catID) {
     const list = await db("categories").where("catID", catID);
     return list[0];
