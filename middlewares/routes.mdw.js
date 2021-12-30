@@ -1,4 +1,6 @@
 import accountRouter from "../routes/account.route.js";
+import productRoute from '../routes/product.route.js';
+import profileRoute from '../routes/profile.route.js';
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -28,4 +30,6 @@ export default function (app){
       
 
     app.use('/account',accountRouter);
+    app.use('/',productRoute);
+    app.use('/profile',profileRoute);
 }

@@ -64,7 +64,6 @@ router.get("/byCat/:catID", async function (req, res) {
         productModel.countByCatID(catID)
     ]);
 
-    console.log(total);
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -152,7 +151,7 @@ router.get("/byCat/sortPrice/:catID", async function (req, res) {
     categoryName[0].sortPrice = 1;
 
     categoryName[0].sortPrice = 1;
-    console.log(categoryName);
+
     res.render('ProductView/byCat', {
         products: list,
         empty: list.length === 0,
@@ -285,7 +284,7 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
 router.get("/detail/:prodid", async function (req, res) {
     const prodID = req.params.prodid;
     const product = await productModel.findByProdID(prodID);
-    console.log(product);
+
     if (product == null) {
         return res.redirect('/');
     }
@@ -308,14 +307,17 @@ router.get("/detail/:prodid", async function (req, res) {
 
 router.get("/product/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search= req.query.categorySearch || 0;
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
-    const [list, total] = await Promise.all([
-        productModel.searchProd(text, limit, offset),
-        productModel.countsearchProd(text)
-    ])
+
+        const [list, total] = await Promise.all([
+            productModel.searchProd(text,category_search, limit, offset),
+            productModel.countsearchProd(text,category_search)
+        ]);
+
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -327,9 +329,10 @@ router.get("/product/search", async function (req, res) {
         });
     }
 
-    const searchName = [{ search: "" }];
+    const searchName = [{ search: "",cate: "" }];
 
     searchName[0].search = text;
+    searchName[0].cate = category_search;
 
     res.render('ProductView/byCat', {
         products: list,
@@ -346,14 +349,17 @@ router.get("/product/search", async function (req, res) {
 
 router.get("/product/sortPrice/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search= req.query.categorySearch || 0;
+
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortPrice(text, limit, offset),
-        productModel.countsearchProd(text)
+        productModel.searchProdSortPrice(text,category_search, limit, offset),
+        productModel.countsearchProd(text,category_search)
     ])
+
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -365,9 +371,10 @@ router.get("/product/sortPrice/search", async function (req, res) {
         });
     }
 
-    const searchName = [{ search: "" }];
+    const searchName = [{ search: "",cate: "" }];
 
     searchName[0].search = text;
+    searchName[0].cate = category_search;
     searchName[0].sortPrice=1;
 
     res.render('ProductView/byCat', {
@@ -384,13 +391,15 @@ router.get("/product/sortPrice/search", async function (req, res) {
 
 router.get("/product/sortDate/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search= req.query.categorySearch || 0;
+
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortDate(text, limit, offset),
-        productModel.countsearchProd(text)
+        productModel.searchProdSortDate(text,category_search, limit, offset),
+        productModel.countsearchProd(text,category_search)
     ])
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
@@ -403,9 +412,10 @@ router.get("/product/sortDate/search", async function (req, res) {
         });
     }
 
-    const searchName = [{ search: "" }];
+    const searchName = [{ search: "",cate: "" }];
 
     searchName[0].search = text;
+    searchName[0].cate = category_search;
     searchName[0].sortDate=1;
 
     res.render('ProductView/byCat', {

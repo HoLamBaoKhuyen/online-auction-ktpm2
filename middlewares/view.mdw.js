@@ -33,7 +33,12 @@ export default function (app){
             formatTime(date, format){
               var mmt = moment(date);
               return mmt.format(format);
-            }
+            },
+
+            concatName(firstName, lastName) {
+              var fullName = firstName + " " + lastName;
+              return fullName;
+            },
           }
         }),
       );

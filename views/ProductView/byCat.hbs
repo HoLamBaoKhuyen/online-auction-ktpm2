@@ -33,9 +33,9 @@
         <h4>Tìm kiếm:   {{search}}</h4>
         <form method="GET">
             <select class="form-select" aria-label="Default select example" onchange="location = this.value;">
-                <option value="/product/search?searchbox={{search}}">Sắp xếp</option>
-                <option value="/product/sortPrice/search?searchbox={{search}}" {{#if sortPrice}}selected{{/if}}>Theo giá tăng dần</option>
-                <option value="/product/sortDate/search?searchbox={{search}}" {{#if sortDate}}selected{{/if}}>Theo thời gian kết thúc giảm
+                <option value="/product/search?categorySearch={{cate}}&searchbox={{search}}">Sắp xếp</option>
+                <option value="/product/sortPrice/search?categorySearch={{cate}}&searchbox={{search}}" {{#if sortPrice}}selected{{/if}}>Theo giá tăng dần</option>
+                <option value="/product/sortDate/search?categorySearch={{cate}}&searchbox={{search}}" {{#if sortDate}}selected{{/if}}>Theo thời gian kết thúc giảm
                     dần</option>
             </select>
         </form>
@@ -105,7 +105,7 @@
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{prev_page}}">Previous</a>
+                    <a class="page-link" href="?page={{prev_page}}">&laquo;</a>
                 </li>
                 {{#each this.pageNumbers}}
                 {{#if isCurrent}}
@@ -119,7 +119,7 @@
                 {{/if}}
                 {{/each}}
                 <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{next_page}}">Next</a>
+                    <a class="page-link" href="?page={{next_page}}">&raquo;</a>
                 </li>
             </ul>
         </nav>

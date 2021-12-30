@@ -14,7 +14,6 @@ import * as path from "path";
 import { create } from "express-handlebars";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
-import productRoute from './routes/product.route.js';
 
 
 const port = 3000;
@@ -26,11 +25,12 @@ app.use(
   })
 );
 app.use("/public", express.static("public"));
-viewMdw(app);
-routesMdw(app);
 activate_locals_middleware(app);
 
-app.use('/',productRoute);
+viewMdw(app);
+routesMdw(app);
+
+
 
 app.listen(port, function () {
   console.log(`Example app listening at http://localhost:${port}`);

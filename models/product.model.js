@@ -1,3 +1,4 @@
+import e from "express";
 import db from "../utils/db.js";
 
 export default {
@@ -19,6 +20,35 @@ export default {
     async countAll() {
         const list = await db('products').count({ amount: 'prodID' });
         return list[0].amount;
+    },
+
+    countTime(list){
+        const oneDay = 24 * 60 * 60 * 1000; 
+        for(var i = 0; i < list.length ; i++){
+            const timeleft = Math.abs(new Date(list[i].timeEnd) - new Date());
+            const dayleft = Math.floor(timeleft/oneDay); 
+            
+            var minuteleft = Math.floor(((timeleft % oneDay) % 3600000) / 60000) + Math.floor(timeleft / oneDay) * 24 * 60 + Math.floor((timeleft % oneDay) / 3600000) * 60;
+            var hourleft = Math.floor(minuteleft / 60);
+            
+            var currentleft2 = (new Date() - new Date(list[i].timePosted));
+            var new_minute = Math.round(((currentleft2 % oneDay) % 3600000) / 60000) + Math.floor(currentleft2 / oneDay) * 24 * 60 + Math.floor((currentleft2 % oneDay) / 3600000) * 60;
+            if (dayleft >= 1 && dayleft <= 3) {
+                    console.log("Day "+dayleft);
+            }
+            else if (dayleft == 0) {
+                    if (hourleft > 0)
+                            console.log("Hour "+hourleft);
+                    else {
+                            console.log("minute" +minuteleft);
+                    }
+            }
+            else
+                    console.log(timeleft);
+            
+            if(new_minute < 60 )
+                    console.log(new_minute);
+        }
     },
 
 
@@ -219,63 +249,110 @@ export default {
 
 
 
-    async searchProd(text,limit,offset){
-        const sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
-                    from products p
-                    left join participate par on par.prodID = p.prodID
-                    left join users u on p.highestBidID = u.UID
-                    left join proddes pd on pd.prodID = p.prodID
-                    where
-                        match(p.prodName) AGAINST('`+text+`') OR
-                        match(pd.des) AGAINST('`+text+`')
-                    group by p.prodID
-                    limit `+limit+` offset `+offset;
-                    
+    async searchProd(text,category_search,limit,offset){
+        let sql="";
+        if(category_search == "0"){
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`')
+                        group by p.prodID
+                        limit `+limit+` offset `+offset;
+        }
+        else{
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`') AND p.prodtype=`+category_search+` 
+                        group by p.prodID
+                        limit `+limit+` offset `+offset;
+        }              
         const raw = await db.raw(sql);
         return raw[0];
     },
 
-    async countsearchProd(text){
-        const sql = `select count(p.prodID) as amount
+    async countsearchProd(text,category_search){
+        let sql="";
+        if(category_search=="0"){
+            sql = `select count(p.prodID) as amount
+                            from products p
+                            left join proddes pd on pd.prodID = p.prodID
+                            where
+                                match(p.prodName) AGAINST('`+text+`')`
+        }
+        else{
+            sql = `select count(p.prodID) as amount
                         from products p
                         left join proddes pd on pd.prodID = p.prodID
                         where
-                            match(p.prodName) AGAINST('`+text+`') OR
-                            match(pd.des) AGAINST('`+text+`')`
+                            match(p.prodName) AGAINST('`+text+`') and prodtype=`+category_search;
+        }
         const raw = await db.raw(sql);
         return raw[0][0].amount;
     },
 
-    async searchProdSortPrice(text,limit,offset){
-        const sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
-                    from products p
-                    left join participate par on par.prodID = p.prodID
-                    left join users u on p.highestBidID = u.UID
-                    left join proddes pd on pd.prodID = p.prodID
-                    where
-                        match(p.prodName) AGAINST('`+text+`') OR
-                        match(pd.des) AGAINST('`+text+`')
-                    group by p.prodID
-                    order by p.curPrice asc
-                    limit `+limit+` offset `+offset;
-                    
+    async searchProdSortPrice(text,category_search,limit,offset){
+        let sql="";
+        if(category_search == "0"){
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`')
+                        group by p.prodID
+                        order by p.curPrice asc
+                        limit `+limit+` offset `+offset;
+        }
+        else{
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`') AND p.prodtype=`+category_search+` 
+                        group by p.prodID
+                        order by p.curPrice asc
+                        limit `+limit+` offset `+offset;
+        }              
         const raw = await db.raw(sql);
         return raw[0];
     },
 
-    async searchProdSortDate(text,limit,offset){
-        const sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
-                    from products p
-                    left join participate par on par.prodID = p.prodID
-                    left join users u on p.highestBidID = u.UID
-                    left join proddes pd on pd.prodID = p.prodID
-                    where
-                        match(p.prodName) AGAINST('`+text+`') OR
-                        match(pd.des) AGAINST('`+text+`')
-                    group by p.prodID
-                    order by p.timeEnd desc
-                    limit `+limit+` offset `+offset;
-                    
+    async searchProdSortDate(text,category_search,limit,offset){
+        let sql="";
+        if(category_search == "0"){
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`')
+                        group by p.prodID
+                        order by p.timeEnd desc
+                        limit `+limit+` offset `+offset;
+        }
+        else{
+            sql =`select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        left join users u on p.highestBidID = u.UID
+                        left join proddes pd on pd.prodID = p.prodID
+                        where
+                            match(p.prodName) AGAINST('`+text+`') AND p.prodtype=`+category_search+` 
+                        group by p.prodID
+                        order by p.timeEnd desc
+                        limit `+limit+` offset `+offset;
+        }              
         const raw = await db.raw(sql);
         return raw[0];
     },

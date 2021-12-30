@@ -8,32 +8,43 @@ export default {
     },
 
     async checkUserType(id) {
-        const role = await select('userType').from('users').where('UID', id);
+        const role = await db.select('userType').from('users').where('UID', id);
         if (role.length == 0)
             return null;
         return role[0];
     },
 
-    getFavoriteProd(id) {
-        const sql = `select p.*,d.*,pt.*, concat(u.lastname,' ',u.firstname) AS nameofUser, concat(u2.lastname,' ',u2.firstname) AS nameofSeller
-                    from products p
-                    left join proddes d on p.prodID = d.prodID
-                    left join producttype pt on p.prodType = pt.typeID
-                    left join users u on p.highestBID = u.UID
-                    left join users u2 on p.sellID = u2.UID
-                    left join favoriteproducts fp on fp.prodID=p.prodID and fp.bidID =`+ id;
+    async getFavoriteProd(id) {
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                        from products p
+                        left join users u on p.highestBidID = u.UID
+                        left join participate par on par.prodID = p.prodID
+                        left join favoriteproducts fp on fp.prodID = p.prodID 
+                        where fp.bidID= `+id+`
+                        group by p.prodID`;
+                        
         const raw = await db.raw(sql);
         return raw[0];
     },
 
-    getParticipatingProd(id) {
-        const sql = `select p.*,d.*,pt.*, concat(u.lastname,' ',u.firstname) AS nameofUser, concat(u2.lastname,' ',u2.firstname) AS nameofSeller
+    async getParticipatingProd(id) {
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
-                    left join proddes d on p.prodID = d.prodID
-                    left join producttype pt on p.prodType = pt.typeID
-                    left join users u on p.highestBID = u.UID
-                    left join users u2 on p.sellID = u2.UID
-                    left join participate ptp on ptp.prodID=p.prodID and ptp.bidID =`+ id;
+                    left join users u on p.highestBidID = u.UID
+                    left join participate par on par.prodID = p.prodID
+                    where par.bidID= `+id+`
+                    group by p.prodID;`
+        const raw = await db.raw(sql);
+        return raw[0];
+    },
+
+    async getWinProd(id) {
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+                    from products p
+                    left join users u on p.highestBidID = u.UID
+                    left join participate par on par.prodID = p.prodID
+                    where p.highestBidID= `+id+` and p.timeEnd < curdate()
+                    group by p.prodID;`
         const raw = await db.raw(sql);
         return raw[0];
     },
@@ -84,7 +95,7 @@ export default {
         return raw[0];
     },
 
-    getLikeOfBidder(id){
+    async getLikeOfBidder(id){
         const sql = `select count(liked) as like
                     from rating r
                     where r.liked = TRUE and r.rateToBidder = TRUE`;
@@ -92,7 +103,7 @@ export default {
         return raw[0];
     },
 
-    getDislikeOfBidder(id){
+    async getDislikeOfBidder(id){
         const sql = `select count(liked) as dislike
                     from rating r
                     where r.liked = FALSE and r.rateToBidder = TRUE`;
