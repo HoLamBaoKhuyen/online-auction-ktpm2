@@ -70,4 +70,32 @@ export default {
     // console.log(raw[0]);
     return raw[0];
   },
+
+  //product
+
+  async countAllProducts(name) {
+    const sql = `select p.*, pType.typeName, concat('***** ',u.firstname) AS nameofUser,concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
+        from products p
+        left join users u on p.highestBidID = u.UID
+        left join participate par on par.prodID = p.prodID
+        left join producttype pType on p.prodType = pType.typeID
+        left join users u2 on p.selID = u2.UID
+        where match(p.prodName) against ('${name}') or match(pType.typeName) against('${name}')
+        group by p.prodID`;
+    const raw = await db.raw(sql);
+    return raw[0].length;
+  },
+
+  async findPageAll(name, limit, offset) {
+    const sql = `select p.*, pType.typeName, concat('***** ',u.firstname) AS nameofUser,concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
+        from products p
+        left join users u on p.highestBidID = u.UID
+        left join participate par on par.prodID = p.prodID
+        left join producttype pType on p.prodType = pType.typeID
+        left join users u2 on p.selID = u2.UID
+        where match(p.prodName) against ('${name}') or match(pType.typeName) against('${name}')
+        group by p.prodID limit ${limit} offset ${offset}`;
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
 };

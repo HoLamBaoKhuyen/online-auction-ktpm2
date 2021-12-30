@@ -347,7 +347,7 @@ router.get("/products", async function (req, res) {
     });
   }
   const productList = await productModel.findPageAll(limit, offset);
-  console.log(productList);
+  // console.log(productList);
 
   res.render("admin/productManagement", {
     layout: "admin",
@@ -514,6 +514,39 @@ router.get("/categories/detail/byCat/:catID/search", async function (req, res) {
     pageNumbers,
     level1,
     level2List,
+  });
+});
+
+router.get("/products/search", async function (req, res) {
+  const limit = 6;
+  const page = +req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const name = req.query.search || "";
+  // console.log(name);
+  const total = await searchModel.countAllProducts(name);
+  // console.log(total);
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  const productList = await searchModel.findPageAll(name, limit, offset);
+  // console.log(productList);
+
+  res.render("admin/productManagement", {
+    layout: "admin",
+    isAtAdminUser: false,
+    isAtUserUpdate: false,
+    isAtCategories: false,
+    isAtProducts: true,
+    productList,
+    pageNumbers,
   });
 });
 export default router;
