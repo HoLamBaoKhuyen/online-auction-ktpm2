@@ -13,7 +13,7 @@ router.get("/:id", async function (req, res) {
     const participateproducts = await profileModel.getParticipatingProd(id);
     const winproducts = await profileModel.getWinProd(id);
 
-    for(let i=0; i<participateproducts.length; i++){
+    for (let i = 0; i < participateproducts.length; i++) {
         participateproducts[i].CountBids = await profileModel.countBids(participateproducts[i].prodID);
     }
 
@@ -46,8 +46,7 @@ router.get("/:uID/comment/:prodID", async function (req, res) {
     const prodID = req.params.prodID || 0;
 
     const list = await productModel.findByProdID(prodID);
-    const check = await profileModel.checkExistRating(userID,prodID);
-    console.log(check);
+    const check = await profileModel.checkExistRating(userID, prodID);
 
     res.render("account/product-comment", {
         product: list[0],
@@ -65,33 +64,47 @@ router.post("/:uID/comment/:prodID", async function (req, res) {
     const idSeller = await profileModel.getIDseller(prodID);
     console.log(userID + " " + prodID + " " + content + " " + idSeller);
 
-    if (type == "goodcmt") {
-        profileModel.bidderAddGoodRate(userID, idSeller, prodID, content);
+    if (content == "") {
+        const list = await productModel.findByProdID(prodID);
+        const check = await profileModel.checkExistRating(userID, prodID);
+
+        res.render("account/product-comment", {
+            product: list[0],
+            userID,
+            existRate: check,
+            error_message: 'Vui lòng nhập vào ô đánh giá'
+        });
     }
     else {
-        profileModel.bidderAddBadRate(userID, idSeller, prodID, content);
-    }
 
-    const id = userID;
-    const infor = await profileModel.getInforByID(id);
-    const typeUser = await profileModel.checkUserType(id);
-    const favoriteproducts = await profileModel.getFavoriteProd(id);
-    const participateproducts = await profileModel.getParticipatingProd(id);
-    const winproducts = await profileModel.getWinProd(id);
-    let newlistfavorite = productModel.getTimeRemain(favoriteproducts);
-    let newlistparticipate = productModel.getTimeRemain(participateproducts);
+        if (type == "goodcmt") {
+            profileModel.bidderAddGoodRate(userID, idSeller, prodID, content);
+        }
+        else {
+            profileModel.bidderAddBadRate(userID, idSeller, prodID, content);
+        }
 
-    if (typeUser == "seller") {
+        const id = userID;
+        const infor = await profileModel.getInforByID(id);
+        const typeUser = await profileModel.checkUserType(id);
+        const favoriteproducts = await profileModel.getFavoriteProd(id);
+        const participateproducts = await profileModel.getParticipatingProd(id);
+        const winproducts = await profileModel.getWinProd(id);
+        let newlistfavorite = productModel.getTimeRemain(favoriteproducts);
+        let newlistparticipate = productModel.getTimeRemain(participateproducts);
 
-    }
-    else {
-        res.render('account/profile', {
-            information: infor[0],
-            type: typeUser[0],
-            favorite: newlistfavorite,
-            participate: newlistparticipate,
-            win: winproducts
-        })
+        if (typeUser == "seller") {
+
+        }
+        else {
+            res.render('account/profile', {
+                information: infor[0],
+                type: typeUser[0],
+                favorite: newlistfavorite,
+                participate: newlistparticipate,
+                win: winproducts
+            })
+        }
     }
 });
 
@@ -102,13 +115,13 @@ router.get("/profile-comment/:id", async function (req, res) {
     const comment = await profileModel.getComment(id);
     const likeRate = await profileModel.getLikeOfBidder(id);
     const dislikeRate = await profileModel.getDislikeOfBidder(id);
-    
 
-    res.render("account/profile-comment",{
+
+    res.render("account/profile-comment", {
         comment,
         likeRate,
         dislikeRate,
-        infor:information[0]
+        infor: information[0]
     });
 });
 

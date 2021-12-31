@@ -50,6 +50,7 @@
             Đánh giá: {{existRate.cmt}}
         </div>
     {{else}}
+    {{#if error_message}}<div class="text-center text-danger mt-5">{{error_message}}</div> {{/if}}
     <form action="/profile/{{userID}}/comment/{{product.prodID}}" method="post">
         <select class="form-select" name="commentType" aria-label="Default select example">
             <option value="goodcmt" selected>Đánh giá tốt</option>
