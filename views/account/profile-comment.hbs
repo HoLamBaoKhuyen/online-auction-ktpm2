@@ -29,7 +29,7 @@
     {{#if comment}}
     {{#each comment}}
     <div class="media m-3">
-        <img class="d-flex mr-3 z-depth-1 " src="https://cdn2.olm.vn/images/avt/avt9/avt3029559_256by256.jpg?v=1"
+        <img class="d-flex mr-3 z-depth-1 " src="https://upload.wikimedia.org/wikipedia/commons/9/99/Sample_User_Icon.png"
             width="60" height="60" alt="Generic placeholder image">
         <div class="media-body">
             <div class="d-sm-flex justify-content-between">
@@ -37,10 +37,10 @@
                     <strong>{{nameofSeller}}</strong>
                 </p>
             </div>
-            <div><small>ID sản phẩm: {{prodID}}</small></div>
+            <div><small><a class="text-black" href="/detail/{{prodID}}">ID sản phẩm: {{prodID}}</a></small></div>
             
-            {{#if cmt.liked}}<div><i class="text-info fa fa-thumbs-up "></i></div>
-            {{else}}<div><i class="text-info fa fa-thumbs-down"></i></div>{{/if}}
+            {{#if liked}}<div><i class="text-info fa fa-thumbs-up "></i></div>
+            {{else}}<div><i class="text-danger fa fa-thumbs-down"></i></div>{{/if}}
             <hr align="left" width="20%">
             <p class="mb-2">{{cmt}}</p>
         </div>
@@ -50,23 +50,4 @@
     {{else}}
         <div class="text-center"><h3>Chưa có đánh giá</h3></div>
     {{/if}}
-
-    {{!-- <div class="media m-3">
-        <img class="d-flex mr-3 z-depth-1 "
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSMZD4vfXW7fE2Rc3cBqqKO8LezvwIipZ9SSw&usqp=CAU"
-            width="60" height="60" alt="Generic placeholder image">
-        <div class="media-body">
-            <div class="d-sm-flex justify-content-between">
-                <p class="mt-1 mb-0">
-                    <strong>Công chúa bông bống</strong>
-                </p>
-            </div>
-            <div><small>ID sản phẩm: 012344</small></div>
-            <div><i class="text-info fa fa-thumbs-up "></i></div>
-            <hr align="left" width="20%">
-            <p class="mb-2">Too nice to say anything about.</p>
-            <p style="font-size: 11px;">21/12/2021 14:30:21</p>
-        </div>
-    </div>
-    <hr width="80%"> --}}
 </div>

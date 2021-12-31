@@ -13,6 +13,8 @@ router.get("/", async function (req, res) {
     let newlist2 = productModel.getTimeRemain(top5End);
     let newlist3 = productModel.getTimeRemain(top5Bid);
 
+
+
     res.render('home', {
         top5Price: newlist1,
         top5End: newlist2,
@@ -317,6 +319,14 @@ router.get("/detail/:prodid", async function (req, res) {
 
     let newlist = productModel.getTimeRemain(product);
 
+    const uID = res.locals.authUser.uID;
+    const isProd = await productModel.checkProdOfSeller(uID, prodID);
+
+
+    if(res.locals.authUser.userType =="seller" && isProd != null){
+        newlist[0].isProdOfSeller = 1;
+    }
+
 
     const description = await productModel.getDescription(prodID);
 
@@ -324,12 +334,22 @@ router.get("/detail/:prodid", async function (req, res) {
     let newsimilar = productModel.getTimeRemain(similar);
 
     const historytable = await productModel.getHistoryBid(prodID);
+
     res.render('ProductView/detail', {
         product: newlist,
         description,
         similar: newsimilar,
         historytable
     });
+});
+
+router.post("/detail/:prodID/editDesc", async function(req,res){
+    const desc = req.body.AddDes;
+    const prodID = req.params.prodID;
+
+    const addDesc = productModel.addDesc(prodID,desc)
+    const link ='/detail/'+prodID;
+    res.redirect(link);
 });
 
 

@@ -36,7 +36,7 @@ export default {
                 }
             }
             else{
-                console.log((list[i].timeEnd));
+                //donothing
             }
         }
         return list;
@@ -58,36 +58,6 @@ export default {
         const list = await db('products').count({ amount: 'prodID' });
         return list[0].amount;
     },
-
-    countTime(list){
-        const oneDay = 24 * 60 * 60 * 1000; 
-        for(var i = 0; i < list.length ; i++){
-            const timeleft = Math.abs(new Date(list[i].timeEnd) - new Date());
-            const dayleft = Math.floor(timeleft/oneDay); 
-            
-            var minuteleft = Math.floor(((timeleft % oneDay) % 3600000) / 60000) + Math.floor(timeleft / oneDay) * 24 * 60 + Math.floor((timeleft % oneDay) / 3600000) * 60;
-            var hourleft = Math.floor(minuteleft / 60);
-            
-            var currentleft2 = (new Date() - new Date(list[i].timePosted));
-            var new_minute = Math.round(((currentleft2 % oneDay) % 3600000) / 60000) + Math.floor(currentleft2 / oneDay) * 24 * 60 + Math.floor((currentleft2 % oneDay) / 3600000) * 60;
-            if (dayleft >= 1 && dayleft <= 3) {
-                    console.log("Day "+dayleft);
-            }
-            else if (dayleft == 0) {
-                    if (hourleft > 0)
-                            console.log("Hour "+hourleft);
-                    else {
-                            console.log("minute" +minuteleft);
-                    }
-            }
-            else
-                    console.log(timeleft);
-            
-            if(new_minute < 60 )
-                    console.log(new_minute);
-        }
-    },
-
 
     
     //----------------------------------------------------------------------
@@ -393,6 +363,18 @@ export default {
         const raw = await db.raw(sql);
         return raw[0];
     },
+
+    async checkProdOfSeller(uID, prodID){
+        const list = await db('products').where('prodID',prodID).andWhere('selID',uID);
+        if(list.length === 0)
+            return null;
+        return list[0];
+    },
+
+    async addDesc(prodID,desc){
+        const sql=`insert into proddes values (${prodID}, concat(curDate()," ",curTime()),'${desc}')`
+        const raw = await db.raw(sql);
+    }
 
     
 }

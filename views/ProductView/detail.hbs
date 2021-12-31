@@ -1,3 +1,18 @@
+{{#section 'js'}}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#txtAddDes',
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor',
+        ],
+        entity_encoding : "raw"
+    });
+</script>
+{{/section}}
+
 <div class="container my-5">
     <div class="row">
         {{#each this.product}}
@@ -189,6 +204,29 @@
         </div>
     </div>
 
+    {{#each this.product}}
+    {{#if isProdOfSeller}}
+    <form action="/detail/{{prodID}}/editDesc" method="post">
+        <div class="mt-5">
+            <h4>
+                Thêm mô tả
+            </h4>
+            <div>
+                <div class="form-group">
+                    <textarea id="txtAddDes" name="AddDes">Thêm mô tả</textarea>
+                </div>
+            </div>
+            <div class="text-muted">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+            </div>
+        </div>
+    </form>
+    {{/if}}
+    {{/each}}
+
     <div class="container mb-5 " style="width: 90%;">
         <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post">
             <h4 class="m-3">
@@ -273,9 +311,9 @@
                         <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                             <span class="product-label">
                                 {{#if newpost}}
-                                    NEW
+                                NEW
                                 {{else}}
-                                    HOT
+                                HOT
                                 {{/if}}
                             </span>
                             <small class="text-muted">Bids: {{CountBids}}</small>
