@@ -8,10 +8,15 @@ router.get("/", async function (req, res) {
     const top5Price = await productModel.getTop5HighestPrice();
     const top5End = await productModel.getTop5End();
     const top5Bid = await productModel.getTop5HighestBids();
+
+    let newlist1 = productModel.getTimeRemain(top5Price);
+    let newlist2 = productModel.getTimeRemain(top5End);
+    let newlist3 = productModel.getTimeRemain(top5Bid);
+
     res.render('home', {
-        top5Price,
-        top5End,
-        top5Bid
+        top5Price: newlist1,
+        top5End: newlist2,
+        top5Bid: newlist3
     });
 });
 
@@ -35,11 +40,14 @@ router.get("/allproducts", async function (req, res) {
             value: i,
             isCurrent: +page === i
         });
-    }
+    };
+
+    let newlist = productModel.getTimeRemain(list);
+    
 
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         prev_page: +page - 1,
@@ -74,10 +82,13 @@ router.get("/byCat/:catID", async function (req, res) {
             isCurrent: +page === i
         });
     }
+
+    let newlist = productModel.getTimeRemain(list);
+
     const categoryName = await productModel.getCategoryName(catID);
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         categoryName,
@@ -111,11 +122,14 @@ router.get("/byCat/sortDate/:catID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const categoryName = await productModel.getCategoryName(catID);
     categoryName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         categoryName,
         pageNumbers,
@@ -147,13 +161,16 @@ router.get("/byCat/sortPrice/:catID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const categoryName = await productModel.getCategoryName(catID);
     categoryName[0].sortPrice = 1;
 
     categoryName[0].sortPrice = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         categoryName,
@@ -189,10 +206,13 @@ router.get("/byCat2/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         productName,
         pageNumbers,
@@ -224,11 +244,14 @@ router.get("/byCat2/sortDate/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
     productName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         productName,
         pageNumbers,
@@ -260,12 +283,15 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
 
     productName[0].sortPrice = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         productName,
@@ -289,13 +315,19 @@ router.get("/detail/:prodid", async function (req, res) {
         return res.redirect('/');
     }
 
+    let newlist = productModel.getTimeRemain(product);
+
+
     const description = await productModel.getDescription(prodID);
+
     const similar = await productModel.getSimilarProduct(prodID);
+    let newsimilar = productModel.getTimeRemain(similar);
+
     const historytable = await productModel.getHistoryBid(prodID);
     res.render('ProductView/detail', {
-        product,
+        product: newlist,
         description,
-        similar,
+        similar: newsimilar,
         historytable
     });
 });
@@ -329,13 +361,16 @@ router.get("/product/search", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const searchName = [{ search: "",cate: "" }];
 
     searchName[0].search = text;
     searchName[0].cate = category_search;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,
@@ -371,6 +406,9 @@ router.get("/product/sortPrice/search", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const searchName = [{ search: "",cate: "" }];
 
     searchName[0].search = text;
@@ -378,7 +416,7 @@ router.get("/product/sortPrice/search", async function (req, res) {
     searchName[0].sortPrice=1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,
@@ -410,7 +448,10 @@ router.get("/product/sortDate/search", async function (req, res) {
             value: i,
             isCurrent: +page === i
         });
-    }
+    };
+
+    let newlist = productModel.getTimeRemain(list);
+
 
     const searchName = [{ search: "",cate: "" }];
 
@@ -419,7 +460,7 @@ router.get("/product/sortDate/search", async function (req, res) {
     searchName[0].sortDate=1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,

@@ -45,6 +45,11 @@
         <span class="font-weight-bold">{{product.nameofSeller}}</span>
     </div>
     <!-- Your review -->
+    {{#if existRate}}
+        <div class="text-center my-5">
+            Đánh giá: {{existRate.cmt}}
+        </div>
+    {{else}}
     <form action="/profile/{{userID}}/comment/{{product.prodID}}" method="post">
         <select class="form-select" name="commentType" aria-label="Default select example">
             <option value="goodcmt" selected>Đánh giá tốt</option>
@@ -59,4 +64,5 @@
             <button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-up mr-3"></i>Gửi</button>
         </div>
     </form>
+    {{/if}}
 </div>

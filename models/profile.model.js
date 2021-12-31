@@ -5,7 +5,7 @@ export default {
 
 
     getInforByID(id) {
-        return db('users').where('UID', id);
+        return db('users').where('uID', id);
     },
 
     async getIDseller(prodID){
@@ -34,14 +34,25 @@ export default {
     },
 
     async getParticipatingProd(id) {
-        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, par.*
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
-                    where par.bidID= `+id+`
-                    group by p.prodID;`
+                    where par.bidID = `+id+
+                    ` group by p.prodID`;
         const raw = await db.raw(sql);
         return raw[0];
+    },
+
+    async countBids(prodID){
+        const sql = `select count(par.prodID) AS CountBids
+                        from products p
+                        left join participate par on par.prodID = p.prodID
+                        where par.prodID= `+prodID+`
+                        group by p.prodID`;
+                        
+        const raw = await db.raw(sql);
+        return raw[0][0].CountBids;
     },
 
     async getWinProd(id) {
@@ -55,77 +66,76 @@ export default {
         return raw[0];
     },
 
-    changeName(id,name){
-        const nameString=name.split(' ');
-        var firstname = name.split(' ').slice(0, -1).join(' ');
-        var lastname = name.split(' ').slice(-1).join(' ');
-        return db('users')
-        .where('UID', id)
-        .update({
-            firstName: firstname,
-            lastName: lastname
-        });
-    },
+    // changeName(id,name){
+    //     const nameString=name.split(' ');
+    //     var firstname = name.split(' ').slice(0, -1).join(' ');
+    //     var lastname = name.split(' ').slice(-1).join(' ');
+    //     return db('users')
+    //     .where('UID', id)
+    //     .update({
+    //         firstName: firstname,
+    //         lastName: lastname
+    //     });
+    // },
 
-    changePass(id,pass){
-        const newPass = pass;
-        return db('users')
-        .where('UID', id)
-        .update({
-            password: pass
-        });
-    },
+    // changePass(id,pass){
+    //     const newPass = pass;
+    //     return db('users')
+    //     .where('UID', id)
+    //     .update({
+    //         password: pass
+    //     });
+    // },
 
-    changeDOB(id,dob){
-        return db('users')
-        .where('UID', id)
-        .update({
-            DOB: dob
-        });
-    },
+    // changeDOB(id,dob){
+    //     return db('users')
+    //     .where('UID', id)
+    //     .update({
+    //         DOB: dob
+    //     });
+    // },
 
-    changeEmail(id,email){
-        return db('users')
-        .where('UID', id)
-        .update({
-            email: email
-        });
-    },
+    // changeEmail(id,email){
+    //     return db('users')
+    //     .where('UID', id)
+    //     .update({
+    //         email: email
+    //     });
+    // },
 
     async getComment(id){
-        const sql = `select r.*, concat(u.lastname,' ',u.firstname) AS nameofUser
+        const sql = `select r.*, concat(u.lastname,' ',u.firstname) AS nameofSeller
                     from rating r
-                    left join users u on r.bidID = u.UID 
-                    where r.sellID=`+ id;
+                    left join users u on r.selID = u.UID 
+                    where r.rateToBidder = true and r.bidID = `+ id;
         const raw = await db.raw(sql);
+        
+        if(raw.length===0)
+            return null;
         return raw[0];
     },
 
     async getLikeOfBidder(id){
-        const sql = `select count(liked) as like
+        const sql = `select count(liked) as likerate
                     from rating r
-                    where r.liked = TRUE and r.rateToBidder = TRUE`;
+                    where r.liked = TRUE and r.rateToBidder = TRUE and r.bidID=`+id;
         const raw = await db.raw(sql);
-        return raw[0];
+        return raw[0][0].likerate;
     },
 
     async getDislikeOfBidder(id){
-        const sql = `select count(liked) as dislike
+        const sql = `select count(liked) as dislikerate
                     from rating r
-                    where r.liked = FALSE and r.rateToBidder = TRUE`;
+                    where r.liked = FALSE and r.rateToBidder = TRUE and r.bidID=`+id;
         const raw = await db.raw(sql);
-        return raw[0];
+        return raw[0][0].dislikerate;
     },
 
-    async checkExistComment(uid,prodID){
-        // const sql= `select * from rating r
-        //            where r.bidID= `+uid+` and prodID=`+prodID+ 
-        //            ` and r.rateToBidder=false`;
-        //const raw = await db.raw(sql);
+    async checkExistRating(uid,prodID){
         const list = await db('rating').where('bidID',uid).andWhere('prodID',prodID);
         if (list.length === 0)
             return null;
-        return raw[0];
+        return list[0];
 
     },
 

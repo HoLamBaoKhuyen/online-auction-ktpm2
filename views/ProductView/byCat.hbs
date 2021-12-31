@@ -60,7 +60,11 @@
                     </div>
                     <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                         <span class="product-label">
-                            HOT
+                            {{#if newpost}}
+                                NEW
+                            {{else}}
+                                HOT
+                            {{/if}}
                         </span>
                         <small class="text-muted">Bids: {{CountBids}}</small>
                         <a href="#" class="product-name"> {{prodName}}</a>
@@ -81,7 +85,12 @@
                         </div>
                         <div class="remain-time">
                             <i class="fa fa-clock-o"></i>
-                            Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                            Còn lại: 
+                            {{#if remain}}
+                                {{remain}}
+                            {{else}}
+                                {{formatTime timeEnd "DD/MM/YYYY"}}
+                            {{/if}}
                         </div>
 
                         <br />

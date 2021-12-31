@@ -6,6 +6,43 @@ export default {
         return db('products')
     },
 
+    getTimeRemain(list){
+        for (let i = 0; i < list.length; i++) {
+            const oneDay = 24 * 60 * 60 * 1000;
+            const timeleft = Math.abs(new Date(list[i].timeEnd) - new Date());
+            const dayleft = Math.floor(timeleft / oneDay);
+    
+            var minuteleft = Math.floor(((timeleft % oneDay) % 3600000) / 60000) + Math.floor(timeleft / oneDay) * 24 * 60 + Math.floor((timeleft % oneDay) / 3600000) * 60;
+            var hourleft = Math.floor(minuteleft / 60);
+    
+            var currentleft = (new Date() - new Date(list[i].timePosted));
+            var postedMinute = Math.round(((currentleft % oneDay) % 3600000) / 60000) + Math.floor(currentleft / oneDay) * 24 * 60 + Math.floor((currentleft % oneDay) / 3600000) * 60;
+    
+            if(postedMinute < 60)
+                list[i].newpost = 1;
+    
+            if (dayleft >= 1 && dayleft <= 3) {
+                console.log("Day: " + dayleft);
+                list[i].remain = dayleft + " ngày";
+            }
+            else if (dayleft == 0) {
+                if (hourleft > 0){
+                    console.log("Hour: " + hourleft);
+                    list[i].remain = hourleft + " giờ";
+                }
+                else {
+                    console.log("minute:" + minuteleft);
+                    list[i].remain = minuteleft + " phút";
+                }
+            }
+            else{
+                console.log((list[i].timeEnd));
+            }
+        }
+        return list;
+    },
+
+
     async findPageAll(limit, offset) {
         const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p

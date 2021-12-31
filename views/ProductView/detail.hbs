@@ -85,7 +85,12 @@
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Kết thúc:</strong></th>
-                            <td>{{formatTime timeEnd 'DD/MM/YYYY -- HH:MM:SS'}}</td>
+                            <td>
+                                {{#if remain}} {{remain}}
+                                {{else}}
+                                {{formatTime timeEnd 'DD/MM/YYYY -- HH:MM:SS'}}
+                                {{/if}}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -106,13 +111,14 @@
             </h3>
         </div>
         <div class="col-md-6 ml-2 mt-3">
-            <a class="btn text-white"  style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào Watch List</i></a>
+            <a class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào Watch
+                    List</i></a>
         </div>
 
         <div class="p-2"></div>
-         {{/each}}
+        {{/each}}
     </div>
-   
+
 
 
     <div class="container mt-3 border-bottom">
@@ -229,16 +235,6 @@
                 </tr>
             </thead>
             <tbody>
-                {{!-- <tr>
-                    <td scope="row">27/02/2021</td>
-                    <th colspan="2">Nguyen Van Jee</th>
-                    <td>1.000.000</td>
-                </tr>
-                <tr>
-                    <td scope="row">27/02/2021</td>
-                    <th colspan="2">Hoang Van P</th>
-                    <td>3.500.000</td>
-                </tr> --}}
                 {{#if this.historytable}}
                 {{#each this.historytable}}
                 <tr>
@@ -276,7 +272,11 @@
                         </div>
                         <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                             <span class="product-label">
-                                HOT
+                                {{#if newpost}}
+                                    NEW
+                                {{else}}
+                                    HOT
+                                {{/if}}
                             </span>
                             <small class="text-muted">Bids: {{CountBids}}</small>
                             <a href="#" class="product-name"> {{prodName}}</a>
@@ -298,7 +298,11 @@
                             </div>
                             <div class="remain-time">
                                 <i class="fa fa-clock-o"></i>
-                                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                                Còn lại:
+                                {{#if remain}} {{remain}}
+                                {{else}}
+                                {{formatTime timeEnd "DD/MM/YYYY"}}
+                                {{/if}}
                             </div>
 
                             <br />

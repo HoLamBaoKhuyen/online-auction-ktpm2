@@ -60,6 +60,10 @@
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Profile
               </a>
+              <a class="dropdown-item" href="/profile/profile-comment/{{authUser.uID}}">
+                <i class="fa fa-comment" aria-hidden="true"></i>
+                Profile-comment
+              </a>
               <div class="dropdown-divider"></div>
               <form id="frmLogout" action="/account/logout" method="post"></form>
               <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">

@@ -236,12 +236,12 @@
     <div class="tab-content">
         <div id="productlike" class="container tab-pane active"><br>
             <div class="container ">
-                <div class="row justify-content-between">
+                <div class="row">
                     {{#each favorite}}
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                <button class="addFavoriteBtn" disabled><i class="fa fa-plus favoriteIcon"
                                         aria-hidden="true"></i>
                                     <span class="textFavorite"> Yêu thích</span>
                                 </button>
@@ -250,7 +250,11 @@
                                 </div>
                                 <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                                     <span class="product-label">
-                                        HOT
+                                        {{#if newpost}}
+                                            NEW
+                                        {{else}}
+                                            HOT
+                                        {{/if}}
                                     </span>
                                     <small class="text-muted">Bids: {{CountBids}}</small>
                                     <a href="#" class="product-name"> {{prodName}}</a>
@@ -272,7 +276,12 @@
                                     </div>
                                     <div class="remain-time">
                                         <i class="fa fa-clock-o"></i>
-                                        Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
                                     </div>
 
                                     <br />
@@ -293,7 +302,7 @@
 
         <div id="productjoin" class="container tab-pane fade "><br>
             <div class="container ">
-                <div class="row justify-content-between">
+                <div class="row">
                     {{#each participate}}
                     <div class="col-4 col-md-4">
                         <div class="ibox">
@@ -307,7 +316,11 @@
                                 </div>
                                 <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                                     <span class="product-label">
+                                        {{#if newpost}}
+                                        NEW
+                                        {{else}}
                                         HOT
+                                        {{/if}}
                                     </span>
                                     <small class="text-muted">Bids: {{CountBids}}</small>
                                     <a href="#" class="product-name"> {{prodName}}</a>
@@ -329,7 +342,12 @@
                                     </div>
                                     <div class="remain-time">
                                         <i class="fa fa-clock-o"></i>
-                                        Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
                                     </div>
 
                                     <br />
@@ -350,13 +368,14 @@
 
         <div id="productwin" class="container tab-pane fade "><br>
             <div class="container ">
-                <div class="row justify-content-between">
+                <div class="row">
                     {{#each win}}
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <a class="btn addFavoriteBtn" href="/profile/{{../information.uID}}/comment/{{prodID}}" ><i class="fa fa-plus favoriteIcon"
-                                        aria-hidden="true" href="/"></i>
+                                <a class="btn addFavoriteBtn"
+                                    href="/profile/{{../information.uID}}/comment/{{prodID}}"><i
+                                        class="fa fa-plus favoriteIcon" aria-hidden="true" href="/"></i>
                                     <span class="textFavorite"> Đánh giá </span>
                                 </a>
                                 <div class="product-imitation">
@@ -364,7 +383,11 @@
                                 </div>
                                 <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                                     <span class="product-label">
+                                        {{#if newpost}}
+                                        NEW
+                                        {{else}}
                                         HOT
+                                        {{/if}}
                                     </span>
                                     <small class="text-muted">Bids: {{CountBids}}</small>
                                     <a href="#" class="product-name"> {{prodName}}</a>
@@ -386,7 +409,12 @@
                                     </div>
                                     <div class="remain-time">
                                         <i class="fa fa-clock-o"></i>
-                                        Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
                                     </div>
 
                                     <br />
