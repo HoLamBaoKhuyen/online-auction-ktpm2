@@ -8,6 +8,8 @@ import activate_locals_middleware from './middlewares/locals.mdw.js';
 
 import viewMdw from "./middlewares/view.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
+import sessionMdw from "./middlewares/session.mdw.js";
+
 
 import * as path from "path";
 
@@ -25,8 +27,9 @@ app.use(
   })
 );
 app.use("/public", express.static("public"));
-activate_locals_middleware(app);
 
+sessionMdw(app);
+activate_locals_middleware(app);
 viewMdw(app);
 routesMdw(app);
 

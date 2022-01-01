@@ -1,6 +1,7 @@
 import express from 'express';
 
 import productModel from "../models/product.model.js";
+import profileModel from '../models/profile.model.js';
 
 const router = express.Router();
 
@@ -45,7 +46,7 @@ router.get("/allproducts", async function (req, res) {
     };
 
     let newlist = productModel.getTimeRemain(list);
-    
+
 
 
     res.render('ProductView/byCat', {
@@ -319,13 +320,33 @@ router.get("/detail/:prodid", async function (req, res) {
 
     let newlist = productModel.getTimeRemain(product);
 
-    const uID = res.locals.authUser.uID;
-    const isProd = await productModel.checkProdOfSeller(uID, prodID);
+    if (res.locals.authUser) {
+        const uID = res.locals.authUser.uID;
+        const isProd = await productModel.checkProdOfSeller(uID, prodID);
 
 
-    if(res.locals.authUser.userType =="seller" && isProd != null){
-        newlist[0].isProdOfSeller = 1;
+        if (res.locals.authUser.userType == "seller" && isProd != null) {
+            newlist[0].isProdOfSeller = 1;
+        }
+
+        const checkDecline = await productModel.checkDeclined(uID, prodID);
+        if (checkDecline != null) {
+            newlist[0].isDeclined = 1;
+        }
     }
+
+    newlist[0].minbid = newlist[0].curPrice + newlist[0].step;
+
+    if (req.session.bidUnsuccess) {
+        newlist[0].unsuccessBid = req.session.bidUnsuccess;
+        delete req.session.bidUnsuccess;
+    }
+
+    if (req.session.bidSuccess) {
+        newlist[0].successBid = req.session.bidSuccess;
+        delete req.session.bidSuccess;
+    }
+
 
 
     const description = await productModel.getDescription(prodID);
@@ -343,14 +364,53 @@ router.get("/detail/:prodid", async function (req, res) {
     });
 });
 
-router.post("/detail/:prodID/editDesc", async function(req,res){
+//---------------Xử lí đấu giá------------------------
+
+router.post('/detail/:prodID/makeBid', async function (req, res) {
+    const prodID = req.params.prodID;
+    const bidValue = req.body.bidPrice;
+    console.log(bidValue);
+    const product = await productModel.findByProdID(prodID);
+    if (new Date() > product[0].timeEnd) {
+        req.session.bidUnsuccess = 'Sản phẩm đã kết thúc';
+    }
+    else {
+        if (isNaN(bidValue)) {
+            req.session.bidUnsuccess = 'Vui lòng nhập giá là CHỮ SỐ';
+        }
+        else {
+            if (bidValue < product[0].curPrice + product[0].step) {
+                req.session.bidUnsuccess = 'Mức giá bạn đưa ra nhỏ hơn giá hiện tại của sản phẩm';
+            }
+            else {
+                const different = bidValue - product[0].curPrice;
+                if (Number.isInteger(different / product[0].step) == false) {
+                    req.session.bidUnsuccess = 'Vui lòng nhập giá tăng thêm là bội của bước giá';
+                }
+                else {
+                    req.session.bidSuccess = 'Bạn đã đấu giá thành công';
+                    productModel.addAuction(res.locals.authUser.uID,prodID,bidValue);
+                }
+            }
+        }
+    }
+
+    res.redirect('/detail/' + prodID);
+});
+
+
+// --------Edit description in detail----------------
+
+router.post("/detail/:prodID/editDesc", async function (req, res) {
     const desc = req.body.AddDes;
     const prodID = req.params.prodID;
 
-    const addDesc = productModel.addDesc(prodID,desc)
-    const link ='/detail/'+prodID;
+    const addDesc = productModel.addDesc(prodID, desc)
+    const link = '/detail/' + prodID;
     res.redirect(link);
 });
+
+
 
 
 //------------------------------------ Search-----------------------------------------------
@@ -359,16 +419,16 @@ router.post("/detail/:prodID/editDesc", async function(req,res){
 
 router.get("/product/search", async function (req, res) {
     const text = req.query.searchbox || 0;
-    const category_search= req.query.categorySearch || 0;
+    const category_search = req.query.categorySearch || 0;
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
 
-        const [list, total] = await Promise.all([
-            productModel.searchProd(text,category_search, limit, offset),
-            productModel.countsearchProd(text,category_search)
-        ]);
+    const [list, total] = await Promise.all([
+        productModel.searchProd(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
+    ]);
 
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
@@ -384,7 +444,7 @@ router.get("/product/search", async function (req, res) {
     let newlist = productModel.getTimeRemain(list);
 
 
-    const searchName = [{ search: "",cate: "" }];
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
     searchName[0].cate = category_search;
@@ -404,15 +464,15 @@ router.get("/product/search", async function (req, res) {
 
 router.get("/product/sortPrice/search", async function (req, res) {
     const text = req.query.searchbox || 0;
-    const category_search= req.query.categorySearch || 0;
+    const category_search = req.query.categorySearch || 0;
 
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortPrice(text,category_search, limit, offset),
-        productModel.countsearchProd(text,category_search)
+        productModel.searchProdSortPrice(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
     ])
 
     let nPages = Math.floor(total / limit);
@@ -429,11 +489,11 @@ router.get("/product/sortPrice/search", async function (req, res) {
     let newlist = productModel.getTimeRemain(list);
 
 
-    const searchName = [{ search: "",cate: "" }];
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
     searchName[0].cate = category_search;
-    searchName[0].sortPrice=1;
+    searchName[0].sortPrice = 1;
 
     res.render('ProductView/byCat', {
         products: newlist,
@@ -449,15 +509,15 @@ router.get("/product/sortPrice/search", async function (req, res) {
 
 router.get("/product/sortDate/search", async function (req, res) {
     const text = req.query.searchbox || 0;
-    const category_search= req.query.categorySearch || 0;
+    const category_search = req.query.categorySearch || 0;
 
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortDate(text,category_search, limit, offset),
-        productModel.countsearchProd(text,category_search)
+        productModel.searchProdSortDate(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
     ])
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
@@ -473,11 +533,11 @@ router.get("/product/sortDate/search", async function (req, res) {
     let newlist = productModel.getTimeRemain(list);
 
 
-    const searchName = [{ search: "",cate: "" }];
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
     searchName[0].cate = category_search;
-    searchName[0].sortDate=1;
+    searchName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
         products: newlist,
