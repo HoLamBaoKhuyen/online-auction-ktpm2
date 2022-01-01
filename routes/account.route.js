@@ -85,5 +85,8 @@ router.get('/is-available', async function (req, res) {
   }
   res.json(false);
 });
+router.get('/forgetpassword', function (req,res){
+  res.render("Authentication/forgetpassword", {layout: "authentication"});
+});
 
 export default router;
