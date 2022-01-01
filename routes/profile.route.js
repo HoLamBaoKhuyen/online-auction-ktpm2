@@ -56,6 +56,7 @@ router.get("/:uID/comment/:prodID", async function (req, res) {
 
 });
 
+
 router.post("/:uID/comment/:prodID", async function (req, res) {
     const userID = req.params.uID || 0;
     const prodID = req.params.prodID || 0;
@@ -84,27 +85,7 @@ router.post("/:uID/comment/:prodID", async function (req, res) {
             profileModel.bidderAddBadRate(userID, idSeller, prodID, content);
         }
 
-        const id = userID;
-        const infor = await profileModel.getInforByID(id);
-        const typeUser = await profileModel.checkUserType(id);
-        const favoriteproducts = await profileModel.getFavoriteProd(id);
-        const participateproducts = await profileModel.getParticipatingProd(id);
-        const winproducts = await profileModel.getWinProd(id);
-        let newlistfavorite = productModel.getTimeRemain(favoriteproducts);
-        let newlistparticipate = productModel.getTimeRemain(participateproducts);
-
-        if (typeUser == "seller") {
-
-        }
-        else {
-            res.render('account/profile', {
-                information: infor[0],
-                type: typeUser[0],
-                favorite: newlistfavorite,
-                participate: newlistparticipate,
-                win: winproducts
-            })
-        }
+        res.redirect('/profile/'+userID);
     }
 });
 

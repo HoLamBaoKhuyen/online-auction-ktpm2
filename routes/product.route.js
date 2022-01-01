@@ -3,6 +3,7 @@ import express from 'express';
 import productModel from "../models/product.model.js";
 import profileModel from '../models/profile.model.js';
 
+
 const router = express.Router();
 
 router.get("/", async function (req, res) {
@@ -324,17 +325,28 @@ router.get("/detail/:prodid", async function (req, res) {
         const uID = res.locals.authUser.uID;
         const isProd = await productModel.checkProdOfSeller(uID, prodID);
 
-
+        //Kiểm tra để hiện ô  thêm description cho seller
         if (res.locals.authUser.userType == "seller" && isProd != null) {
             newlist[0].isProdOfSeller = 1;
         }
-
+        //Kiểm tra id có nằm trong danh sách bị decline k
         const checkDecline = await productModel.checkDeclined(uID, prodID);
         if (checkDecline != null) {
             newlist[0].isDeclined = 1;
         }
+        else {
+            const getBidLike = await profileModel.getLikeOfBidder(uID);
+            const getBidDisLike = await profileModel.getDislikeOfBidder(uID);
+            const point = 0;
+            if(getBidLike != 0 && getBidDisLike != 0)
+                point = Math.round(((getBidLike) / (getBidLike + getBidDisLike)) * 10);
+            console.log("Điểm: "+ point);
+            if (newlist[0].approve == 0 && point < 8)
+                newlist[0].isDeclined = 1;
+        }
     }
 
+    //Lấy giá tối thiểu phải đặt
     newlist[0].minbid = newlist[0].curPrice + newlist[0].step;
 
     if (req.session.bidUnsuccess) {
@@ -356,6 +368,7 @@ router.get("/detail/:prodid", async function (req, res) {
 
     const historytable = await productModel.getHistoryBid(prodID);
 
+
     res.render('ProductView/detail', {
         product: newlist,
         description,
@@ -371,6 +384,8 @@ router.post('/detail/:prodID/makeBid', async function (req, res) {
     const bidValue = req.body.bidPrice;
     console.log(bidValue);
     const product = await productModel.findByProdID(prodID);
+
+
     if (new Date() > product[0].timeEnd) {
         req.session.bidUnsuccess = 'Sản phẩm đã kết thúc';
     }
@@ -389,7 +404,16 @@ router.post('/detail/:prodID/makeBid', async function (req, res) {
                 }
                 else {
                     req.session.bidSuccess = 'Bạn đã đấu giá thành công';
-                    productModel.addAuction(res.locals.authUser.uID,prodID,bidValue);
+                    productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
+                    const getMail = await productModel.getEmailinProduct(prodID);
+                    const getMailBid = await profileModel.getInforByID(res.locals.authUser.uID);
+                    console.log("Highest: "+getMail[0].currentHighestMail);
+                    productModel.sendAuctionEmail(getMail[0].sellerMail,'Update giá của sản phẩm '+product[0].prodName,"Giá mới được bid là: "+bidValue);
+                    if(getMail[0].currentHighestMail!=null)
+                        productModel.sendAuctionEmail(getMail[0].currentHighestMail,'Update giá của sản phẩm '+product[0].prodName,"Giá mới được bid là: "+bidValue);
+                    if(getMail[0].currentHighestMail != getMailBid[0].email)
+                        productModel.sendAuctionEmail(getMailBid[0].email,'Update giá của sản phẩm '+product[0].prodName,"Bạn vừa mới đấu giá thành công. Giá mới được bid là: "+bidValue);
+
                 }
             }
         }

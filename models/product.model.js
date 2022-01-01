@@ -1,5 +1,6 @@
 import e from "express";
 import db from "../utils/db.js";
+import nodemailer from 'nodemailer';
 
 export default {
     findAll() {
@@ -388,9 +389,44 @@ export default {
         return list[0];
     },
 
-    async addAuction(uID, prodID, bidPrice){
+    async addAuction(uID, prodID, bidPrice) {
         const sql = `insert into participate value(${uID},${prodID},${bidPrice},concat(curDate()," ",curTime()))`;
         const raw = await db.raw(sql);
+        const sql2 =`update products set highestBidID = ${uID}, curPrice = ${bidPrice} 
+                    where prodID = ${prodID}`;
+        const raw2 = await db.raw(sql2);
+    },
+
+
+    //-----------------Hàm cho Mail-------------------
+
+    sendAuctionEmail(recvEmail,subject,text) {
+        console.log(recvEmail+ " "+subject+" "+text);
+        let transporter = nodemailer.createTransport({
+            service: "Gmail",
+            auth: {
+                user: "auctiononline213@gmail.com",
+                pass: "p12345678@"
+            }
+        });
+
+        var mailOptions = {
+            from: "auctiononline213@gmail.com",
+            to: recvEmail,
+            subject: subject,
+            text: text
+        };
+        transporter.sendMail(mailOptions);
+    },
+
+    async getEmailinProduct(prodID){
+        const sql=` select u.email as sellerMail, u2.email as currentHighestMail
+                    from products p
+                    left join users u on p.SelID = u.uID
+                    left join users u2 on p.highestBidID =u2.uID
+                    where p.prodID = ${prodID} `;
+        const raw = await db.raw(sql);
+        return raw[0];
     }
 
 }
