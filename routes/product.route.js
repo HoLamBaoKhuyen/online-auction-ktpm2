@@ -419,4 +419,9 @@ router.get("/product/sortDate/search", async function (req, res) {
         can_go_prev: +page > 1
     });
 });
+//------------------------------------ Post-----------------------------------------------
+
+router.get('/post',function(req,res){
+    res.render('ProductView/postProduct');
+});
 export default router;
