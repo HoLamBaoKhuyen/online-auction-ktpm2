@@ -78,32 +78,35 @@
           <li>
             <a class="dropdown-item" tabindex="-1" href="/profile">
               <i class="fa fa-user" aria-hidden="true"></i>
-              Thông tin cá  nhân
+              Thông tin cá nhân
             </a>
           </li>
-           <li>
+          <li>
             <a class="dropdown-item" tabindex="-1" href="/profile">
-            <i class="fa fa-star" aria-hidden="true"></i>
+              <i class="fa fa-star" aria-hidden="true"></i>
               Điểm đánh giá
             </a>
           </li>
-           {{#if (isSeller authUser.userType) }}
-                <li>
+          {{#if (isSeller authUser.userType) }}
+          <li>
             <a class="dropdown-item" tabindex="-1" href="/profile">
-            <i class="fa fa-pencil-square" aria-hidden="true"></i>
+              <i class="fa fa-pencil-square" aria-hidden="true"></i>
               Đăng sản phẩm
             </a>
           </li>
-            {{/if}}
-      
-          
-  
+          {{/if}}
+            <li>
+            <a class="dropdown-item" tabindex="-1" href="/profile">
+              <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+              Đổi mật khẩu
+            </a>
+          </li>
           <li>
-            <form id = "frmLogout"action="/account/logout" method="post"></form>
-            <a class="dropdown-item" tabindex="-1"  href="javascript: $('#frmLogout').submit();">
+            <form id="frmLogout" action="/account/logout" method="post"></form>
+            <a class="dropdown-item" tabindex="-1" href="javascript: $('#frmLogout').submit();">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
               Đăng xuất
-              </a>
+            </a>
           </li>
         </ul>
       </div>
