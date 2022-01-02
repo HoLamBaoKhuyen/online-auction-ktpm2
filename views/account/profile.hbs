@@ -241,10 +241,11 @@
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn" disabled><i class="fa fa-plus favoriteIcon"
+                                <form action="/profile/deleteFavo/{{prodID}}" id="removeFavorite" method="post">
+                                <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i class="fa fa-minus favoriteIcon"
                                         aria-hidden="true"></i>
-                                    <span class="textFavorite"> Yêu thích</span>
-                                </button>
+                                    <span class="textFavorite"> Xóa khỏi yêu thích</span>
+                                </a></form>
                                 <div class="product-imitation">
                                     <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
                                 </div>

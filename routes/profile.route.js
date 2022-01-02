@@ -106,6 +106,11 @@ router.get("/profile-comment/:id", async function (req, res) {
     });
 });
 
+router.post('/deleteFavo/:delID',async function(req,res){
+    const delID = req.params.delID;
+    profileModel.deleteFavoriteProd(res.locals.authUser.uID,delID);
+    res.redirect('/profile/'+ res.locals.authUser.uID);
+});
 
 
 export default router;

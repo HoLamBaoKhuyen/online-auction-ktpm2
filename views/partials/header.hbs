@@ -58,17 +58,17 @@
             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" href="/profile/{{authUser.uID}}">
                 <i class="fa fa-user" aria-hidden="true"></i>
-                Profile 
+                Thông tin cá nhân
               </a>
               <a class="dropdown-item" href="/profile/profile-comment/{{authUser.uID}}">
                 <i class="fa fa-comment" aria-hidden="true"></i>
-                Profile-comment
+                Đánh giá của bản thân
               </a>
               <div class="dropdown-divider"></div>
               <form id="frmLogout" action="/account/logout" method="post"></form>
               <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
-                Sign Out
+                Đăng xuất
               </a>
             </div>
           </li>
