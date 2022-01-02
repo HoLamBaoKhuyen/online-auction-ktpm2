@@ -33,6 +33,11 @@ export default function (app){
             formatTime(date, format){
               var mmt = moment(date);
               return mmt.format(format);
+            },
+            isSeller(type){
+              if (type==='seller')
+                return true;
+              return false;
             }
           }
         }),
