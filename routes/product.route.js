@@ -425,7 +425,7 @@ router.get('/post',function(req,res){
     res.render('ProductView/postProduct');
 });
 router.post('/post',function(req,res){
-    console.log(req.body);
+    
     res.render('ProductView/postProduct');
 });
 export default router;
