@@ -16,23 +16,23 @@
 
 
 {{#each this.product}}
-    {{#if unsuccessBid}}
-    <div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
-        <strong>Đấu giá không thành công! </strong>{{unsuccessBid}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {{/if}}
+{{#if unsuccessBid}}
+<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+    <strong>Đấu giá không thành công! </strong>{{unsuccessBid}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
 
-    {{#if successBid}}
-    <div class="alert alert-success alert-dismissible fade show text-center" role="alert">
-        <strong>Chúc mừng !!! </strong> {{successBid}}
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-        </button>
-    </div>
-    {{/if}}
+{{#if successBid}}
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <strong>Chúc mừng !!! </strong> {{successBid}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
 {{/each}}
 
 <div class="container my-5">
@@ -89,8 +89,8 @@
                 <a class="font-weight-bold text-muted pl-5">{{nameofSeller}}</a>
             </p>
             <small class="pt-0">Điểm đánh giá:
-                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
-                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+                <span class="text-info font-weight-bold pl-5">{{likeSel}} <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">{{dislikeSel}} <i class="fa fa-thumbs-down"></i></span>
             </small>
 
             <hr>
@@ -118,14 +118,14 @@
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Đăng ngày:</strong></th>
-                            <td>{{formatTime timePosted 'DD/MM/YYYY -- HH:MM:SS'}}</td>
+                            <td>{{formatTime timePosted 'DD/MM/YYYY - HH:mm:ss'}}</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Kết thúc:</strong></th>
                             <td>
                                 {{#if remain}} {{remain}}
                                 {{else}}
-                                {{formatTime timeEnd 'DD/MM/YYYY -- HH:MM:SS'}}
+                                {{formatTime timeEnd 'DD/MM/YYYY - HH:mm:ss'}}
                                 {{/if}}
                             </td>
                         </tr>
@@ -133,24 +133,47 @@
                 </table>
             </div>
             <hr>
+            {{#if noHighestBid}}
+            {{else}}
             <p class="pt-2">Đặt giá cao nhất:
                 <a class="font-weight-bold text-danger pl-5">{{nameofUser}}</a>
             </p>
+
+
             <small class="pt-0">Điểm đánh giá: &nbsp &nbsp &nbsp &nbsp &nbsp
-                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
-                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+                <span class="text-info font-weight-bold pl-5">{{likeBid}} <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">{{dislikeBid}} <i class="fa fa-thumbs-down"></i></span>
             </small>
-            <div class="p-5"></div>
+            {{/if}}
+
+            {{#if ../authUser}}
+                <div class="pt-5 mb-3 d-flex">
+                <form action="" method="post">
+                    <a class="btn btn-success border"><i class="fa fa-plus-circle"> Thêm vào Watch List</i></a>
+                </form>
+                <div>&nbsp &nbsp &nbsp &nbsp &nbsp</div>
+                {{#if buyNowPrice}}
+                    {{#if isDeclined}}
+                    {{else}}
+                    {{#if isAvailable}}
+                        <span class="mr-5">
+                        <form id="buyNowForm" action="/detail/{{prodID}}/buyNow" method="post">
+                            <a class="btn btn-warning border" href="javascript: $('#buyNowForm').submit()"><i class="fa fa-cc-mastercard"> Mua ngay: {{format_price buyNowPrice}} </i></a>
+                        </form></span>{{/if}}
+                    {{/if}}
+                {{/if}}
+                </div>
+            {{/if}}
         </div>
+        </div>
+
+        
         <div class="col-md-6 mt-3 ml-2">
             <h3 class="text-center">
                 Giá hiện tại: <span>{{format_price curPrice}}</span>
             </h3>
         </div>
-        <div class="col-md-6 ml-2 mt-3">
-            <a class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào Watch
-                    List</i></a>
-        </div>
+
 
         <div class="p-2"></div>
         {{/each}}
@@ -250,50 +273,52 @@
     {{/each}}
 
 
-    {{#if authUser}}
     <div class="container mb-5 " style="width: 90%;">
+        {{#if authUser}}
         {{#each this.product}}
-        {{#if isDeclined}}
-        <h4 class="text-center mt-5">Bạn không có quyền đấu giá sản phẩm này</h4>
-        </br>
-        {{else}}
-        <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post"
-            action="/detail/{{prodID}}/makeBid">
-            <h4 class="m-3">
-                Ra giá
-            </h4>
+            {{#if isDeclined}}
+            <h4 class="text-center mt-5">Bạn không có quyền đấu giá sản phẩm này</h4>
+            </br>
+            {{else}}
+            <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post"
+                action="/detail/{{prodID}}/makeBid">
+                <h4 class="m-3">
+                    Ra giá
+                </h4>
 
-            <div class="form-group">
-                <label for="AuctionExecute" class="sr-only">Giá đấu</label>
-                <input type="text" class="form-control" id="AuctionExecute" name="bidPrice" placeholder="Nhập giá đấu">
-            </div>
-            <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
-                data-target="#auctionmodal">Đấu giá</a>
+                <div class="form-group">
+                    <label for="AuctionExecute" class="sr-only">Giá đấu</label>
+                    <input type="text" class="form-control" id="AuctionExecute" name="bidPrice" placeholder="Nhập giá đấu">
+                </div>
+                <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
+                    data-target="#auctionmodal">Đấu giá</a>
 
             {{/if}}
 
-            <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Đấu Giá</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div>Giá tối thiểu mà bạn phải đặt: <strong>{{format_price minbid}}</strong></div>
-                            <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                            <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
+                <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Đấu Giá</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>Giá tối thiểu mà bạn phải đặt: <strong>{{format_price minbid}}</strong></div>
+                                <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </form>
+            </form>
         {{/each}}
+        {{else}}
+            <h4 class="text-center mt-5"><a href="/account/login">Đăng nhập</a> để mở tính năng đấu giá</h4>
         {{/if}}
 
 

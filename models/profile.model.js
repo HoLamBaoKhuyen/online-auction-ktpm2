@@ -131,6 +131,23 @@ export default {
         return raw[0][0].dislikerate;
     },
 
+
+    async getLikeOfSeller(id){
+        const sql = `select count(liked) as likerate
+                    from rating r
+                    where r.liked = TRUE and r.rateToBidder = FALSE and r.selID=`+id;
+        const raw = await db.raw(sql);
+        return raw[0][0].likerate;
+    },
+
+    async getDislikeOfSeller(id){
+        const sql = `select count(liked) as dislikerate
+                    from rating r
+                    where r.liked = FALSE and r.rateToBidder = FALSE and r.selID=`+id;
+        const raw = await db.raw(sql);
+        return raw[0][0].dislikerate;
+    },
+
     async checkExistRating(uid,prodID){
         const list = await db('rating').where('bidID',uid).andWhere('prodID',prodID);
         if (list.length === 0)

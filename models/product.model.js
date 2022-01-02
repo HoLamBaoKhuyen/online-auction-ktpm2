@@ -52,6 +52,7 @@ export default {
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
                         group by p.prodID
+                        order by p.timePosted desc
                         limit `+ limit + ` offset ` + offset;
         const raw = await db.raw(sql);
         return raw[0];
@@ -73,6 +74,7 @@ export default {
                     left join producttype pt on p.prodtype = pt.typeID 
                     where pt.category = `+ catID + `
                     group by p.prodID
+                    order by p.timePosted desc
                     limit ` + limit + ` offset ` + offset;
         const raw = await db.raw(sql);
         return raw[0];
@@ -132,6 +134,7 @@ export default {
                         left join participate par on par.prodID = p.prodID
                         where p.prodType = `+ typeID + `
                         group by p.prodID
+                        order by p.timePosted desc
                         limit ` + limit + ` offset ` + offset;
         const raw = await db.raw(sql);
         return raw[0];
@@ -225,6 +228,7 @@ export default {
                         from participate par
                         left join products p on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
+                        where p.timeEnd > now()
                         group by par.prodID
                         order by p.curPrice DESC
                         limit 5 offset 0`;
@@ -237,8 +241,9 @@ export default {
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
+                    where p.timeEnd > now()
                     group by par.prodID
-                    order by count(par.prodID)
+                    order by count(par.prodID) desc
                     limit 5 offset 0`;
 
         const raw = await db.raw(sql);
@@ -250,6 +255,7 @@ export default {
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
+                    where p.timeEnd > now()
                     group by par.prodID
                     order by p.timeEnd ASC
                     limit 5 offset 0`;
@@ -270,6 +276,7 @@ export default {
                         where
                             match(p.prodName) AGAINST('`+ text + `')
                         group by p.prodID
+                        order by p.timePosted desc
                         limit `+ limit + ` offset ` + offset;
         }
         else {
@@ -281,6 +288,7 @@ export default {
                         where
                             match(p.prodName) AGAINST('`+ text + `') AND p.prodtype=` + category_search + ` 
                         group by p.prodID
+                        order by p.timePosted desc
                         limit `+ limit + ` offset ` + offset;
         }
         const raw = await db.raw(sql);
@@ -390,9 +398,17 @@ export default {
     },
 
     async addAuction(uID, prodID, bidPrice) {
-        const sql = `insert into participate value(${uID},${prodID},${bidPrice},concat(curDate()," ",curTime()))`;
+        const sql = `insert into participate value(${uID},${prodID},${bidPrice},now())`;
         const raw = await db.raw(sql);
         const sql2 =`update products set highestBidID = ${uID}, curPrice = ${bidPrice} 
+                    where prodID = ${prodID}`;
+        const raw2 = await db.raw(sql2);
+    },
+
+    async buyNowAuction(uID, prodID, buyNowPrice) {
+        const sql = `insert into participate value(${uID},${prodID},${buyNowPrice}, now())`;
+        const raw = await db.raw(sql);
+        const sql2 =`update products set highestBidID = ${uID}, curPrice = ${buyNowPrice}, timeEnd = now()
                     where prodID = ${prodID}`;
         const raw2 = await db.raw(sql2);
     },

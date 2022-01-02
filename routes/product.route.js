@@ -321,6 +321,27 @@ router.get("/detail/:prodid", async function (req, res) {
 
     let newlist = productModel.getTimeRemain(product);
 
+    //Kiểm tra thời gian sản phẩm còn hiệu lực hay không
+    if (new Date() < product[0].timeEnd) {
+        product[0].isAvailable = 1;
+    }
+
+    if (newlist[0].highestBidID != null) {
+        const highestUserBidLike = await profileModel.getLikeOfBidder(newlist[0].highestBidID);
+        const highestUserBidDisLike = await profileModel.getDislikeOfBidder(newlist[0].highestBidID);
+        newlist[0].likeBid = highestUserBidLike;
+        newlist[0].dislikeBid= highestUserBidDisLike
+    }
+    else{
+        newlist[0].noHighestBid = 1;
+    }
+
+    const SelLike = await profileModel.getLikeOfSeller(newlist[0].selID);
+    const SelDisLike = await profileModel.getDislikeOfSeller(newlist[0].selID);
+    newlist[0].likeSel = SelLike;
+    newlist[0].dislikeSel= SelDisLike;
+
+
     if (res.locals.authUser) {
         const uID = res.locals.authUser.uID;
         const isProd = await productModel.checkProdOfSeller(uID, prodID);
@@ -338,9 +359,9 @@ router.get("/detail/:prodid", async function (req, res) {
             const getBidLike = await profileModel.getLikeOfBidder(uID);
             const getBidDisLike = await profileModel.getDislikeOfBidder(uID);
             const point = 0;
-            if(getBidLike != 0 && getBidDisLike != 0)
+            if (getBidLike != 0 && getBidDisLike != 0)
                 point = Math.round(((getBidLike) / (getBidLike + getBidDisLike)) * 10);
-            console.log("Điểm: "+ point);
+            console.log("Điểm: " + point);
             if (newlist[0].approve == 0 && point < 8)
                 newlist[0].isDeclined = 1;
         }
@@ -382,7 +403,6 @@ router.get("/detail/:prodid", async function (req, res) {
 router.post('/detail/:prodID/makeBid', async function (req, res) {
     const prodID = req.params.prodID;
     const bidValue = req.body.bidPrice;
-    console.log(bidValue);
     const product = await productModel.findByProdID(prodID);
 
 
@@ -407,12 +427,11 @@ router.post('/detail/:prodID/makeBid', async function (req, res) {
                     productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
                     const getMail = await productModel.getEmailinProduct(prodID);
                     const getMailBid = await profileModel.getInforByID(res.locals.authUser.uID);
-                    console.log("Highest: "+getMail[0].currentHighestMail);
-                    productModel.sendAuctionEmail(getMail[0].sellerMail,'Update giá của sản phẩm '+product[0].prodName,"Giá mới được bid là: "+bidValue);
-                    if(getMail[0].currentHighestMail!=null)
-                        productModel.sendAuctionEmail(getMail[0].currentHighestMail,'Update giá của sản phẩm '+product[0].prodName,"Giá mới được bid là: "+bidValue);
-                    if(getMail[0].currentHighestMail != getMailBid[0].email)
-                        productModel.sendAuctionEmail(getMailBid[0].email,'Update giá của sản phẩm '+product[0].prodName,"Bạn vừa mới đấu giá thành công. Giá mới được bid là: "+bidValue);
+                    productModel.sendAuctionEmail(getMail[0].sellerMail, 'Update giá của sản phẩm ' + product[0].prodName, "Giá mới được bid là: " + bidValue);
+                    if (getMail[0].currentHighestMail != null)
+                        productModel.sendAuctionEmail(getMail[0].currentHighestMail, 'Update giá của sản phẩm ' + product[0].prodName, "Giá mới được bid là: " + bidValue);
+                    if (getMailBid[0].email != getMail[0].currentHighestMail)
+                        productModel.sendAuctionEmail(getMailBid[0].email, 'Update giá của sản phẩm ' + product[0].prodName, "Bạn vừa mới đấu giá thành công. Giá mới được bid là: " + bidValue);
 
                 }
             }
@@ -420,6 +439,24 @@ router.post('/detail/:prodID/makeBid', async function (req, res) {
     }
 
     res.redirect('/detail/' + prodID);
+});
+
+//Mua ngay
+router.post('/detail/:prodID/buyNow', async function (req, res) {
+    const prodID = req.params.prodID;
+    req.session.bidSuccess = 'Bạn đã mua ngay sản phẩm thành công';
+    const product = await productModel.findByProdID(prodID);
+
+    productModel.buyNowAuction(res.locals.authUser.uID, prodID, product[0].buyNowPrice);
+    const getMail = await productModel.getEmailinProduct(prodID);
+    const getMailBid = await profileModel.getInforByID(res.locals.authUser.uID);
+    productModel.sendAuctionEmail(getMail[0].sellerMail, 'Sản phẩm ' + product[0].prodName + ' đã được mua ngay', "Giá mua ngay là: " + product[0].buyNowPrice);
+    if (getMail[0].currentHighestMail != null)
+        productModel.sendAuctionEmail(getMail[0].currentHighestMail, 'Sản phẩm ' + product[0].prodName + ' đã được mua ngay', "Giá mua ngay là: " + product[0].buyNowPrice);
+    if (getMailBid[0].email != getMail[0].currentHighestMail)
+        productModel.sendAuctionEmail(getMailBid[0].email, 'Sản phẩm ' + product[0].prodName, "Bạn vừa mua ngay thành công. Giá mua ngay là: " + product[0].buyNowPrice);
+    res.redirect('/detail/' + prodID);
+
 });
 
 
