@@ -4,7 +4,7 @@
         </h1>
     <div class="row">
         <div class="col-md-10 mx-auto">
-            <form>
+            <form id="frmPostProduct" method="post">
                 <div class="form-group row">
                     <div class="col-sm-6">
                         <label >Tên sản phẩm</label>
@@ -38,11 +38,11 @@
                     </div>
                     <div class="col-sm-3">
                         <label>Ngày kết thúc</label>
-                        <input type="date" class="form-control" id="step" name="step">
+                        <input type="date" class="form-control" id="date" name="date">
                     </div>
                      <div class="col-sm-3">
                         <label>Giờ kết thúc</label>
-                        <input type="time" class="form-control" id="step" name="step">
+                        <input type="time" class="form-control" id="time" name="time">
                     </div>
                 </div>
                 <div class="form-group row">
@@ -51,7 +51,7 @@
                         <textarea name="des" id="prodDes" class="form-control" style="min-width: 100%" rows=8></textarea>
                     </div>
                 </div>
-                <button type="button" class="btn btn-light px-4 float-right">Save</button>
+                <button type="text" class="btn btn-light px-4 float-right" >Đăng</button>
             </form>
         </div>
     </div>
