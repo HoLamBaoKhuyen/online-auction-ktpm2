@@ -1,3 +1,19 @@
+{{#section "js"}}
+  <script>
+    $('#frmAddCate').on('submit',function(e){ e.preventDefault(); const catName
+    = $('#txtCatName').val(); if (!catName){ alert("Vui lòng điền tên danh mục!"); return; }
+    $.getJSON(`/admin/categories/is-available?catName=${catName}`,function(data){
+    if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã
+    thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
+    });
+  </script>
+  <script>
+    $('.deleteUserBtn').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Đã xóa người dùng ${uID}`);
+    $("#txtDelUserID").val(uID); $("#frmDelUser").submit(); } )
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -20,100 +36,79 @@
     <div class="adminBtnText">THÊM DANH MỤC</div>
   </a></div>
 {{! table  }}
-<div class="table-responsive">
-  <table class="table adminTable">
-    <thead class="adminTable_header">
-      <tr>
-        <th scope="col">
-          <div class="d-flex justify-content-between">
-            <div>Điện tử</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-                data-toggle="modal"
-                data-target="#modalAddSmallCategory"
-              >
-                <i class="fa fa-plus" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
+{{#each this.cateList}}
+  <div class="table-responsive">
+    <table class="table adminTable">
+      <thead class="adminTable_header">
+        <tr>
+          <th scope="col">
+            <div class="d-flex justify-content-between">
+              <div>{{level1}}</div>
+              <div>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                  data-toggle="modal"
+                  data-target="#modalAddSmallCategory"
+                >
+                  <i class="fa fa-plus" aria-hidden="true"></i></a>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                >
+                  <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                <a
+                  name=""
+                  id=""
+                  class="btn btn-light adminTable_deleteBtn adminCategory_btn mx-1"
+                  href="#"
+                  role="button"
+                >
+                  <i class="fa fa-trash" aria-hidden="true"></i></a>
+              </div>
             </div>
-          </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each level2}}
+          <tr>
+            <td class="text-left px-5">
+              <div class="d-flex justify-content-between">
+                <div>{{typeName}}</div>
+                <div>
+                  <a
+                    name=""
+                    id=""
+                    class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
+                    href="#"
+                    role="button"
+                  >
+                    <i class="fa fa-pencil" aria-hidden="true"></i></a>
+                  <a
+                    name=""
+                    id=""
+                    class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
+                    href="#"
+                    role="button"
+                  >
+                    <i class="fa fa-trash" aria-hidden="true"></i></a>
+                </div>
+              </div></td>
+          </tr>
+        {{/each}}
 
-        </th>
-      </tr>
-    </thead>
+      </tbody>
+    </table></div>
+{{/each}}
 
-    <tbody>
-      <tr>
-        <td class="text-left px-5">
-          <div class="d-flex justify-content-between">
-            <div>Điện thoại</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
-            </div>
-          </div></td>
-      </tr>
-      <tr>
-        <td class="text-left px-5">
-          <div class="d-flex justify-content-between">
-            <div>Máy tính</div>
-            <div>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-pencil" aria-hidden="true"></i></a>
-              <a
-                name=""
-                id=""
-                class="btn btn-light adminTable_deleteBtn adminSmallCategory_btn mx-1"
-                href="#"
-                role="button"
-              >
-                <i class="fa fa-trash" aria-hidden="true"></i></a>
-            </div>
-          </div></td>
-      </tr>
-    </tbody>
-  </table></div>
-
-<!-- Modal -->
+<!-- Modal thêm danh mục lớn -->
 <div
   class="modal fade"
   id="modalAddCategory"
@@ -136,30 +131,23 @@
         </button>
       </div>
       <div class="modal-body">
-        <div class="form-group">
+        <form id="frmAddCate" method="post" class="form">
           <label for=""></label>
           <input
             type="text"
             class="form-control"
-            name=""
-            id=""
+            id="txtCatName"
+            name="catName"
             aria-describedby="helpId"
             placeholder="Danh mục mới"
           />
+          <button
+            type="submit"
+            class="btn btn-warning text-light mt-4 addCategory_btnSave"
+          >Lưu</button>
+        </form>
+      </div>
 
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          data-dismiss="modal"
-        >Hủy</button>
-        <button
-          type="button"
-          class="btn btn-light addCategory_btnSave"
-        >Lưu</button>
-      </div>
     </div>
   </div>
 </div>
@@ -214,3 +202,24 @@
     </div>
   </div>
 </div>
+
+{{! pagination  }}
+<nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>

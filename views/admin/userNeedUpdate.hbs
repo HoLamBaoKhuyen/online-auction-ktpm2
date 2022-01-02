@@ -1,3 +1,17 @@
+{{#section "js"}}
+
+  <script>
+    $('.declineUpgrade').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Từ chối nâng cấp người dùng ${uID}`);
+    $("#txtDeclineUserID").val(uID); $("#frmDeclineUpgrade").submit(); } )
+  </script>
+
+  <script>
+    $('.approveUpgrade').on('click', function (e){ const uID =
+    $(this).data('id'); alert(`Đã nâng cấp người dùng ${uID}`);
+    $("#txtApproveUserID").val(uID); $("#frmAppoveUpgrade").submit(); } )
+  </script>
+{{/section}}
 <a
   class="mx-4"
   id="menuBtn"
@@ -8,10 +22,10 @@
 >
   <i class="fa fa-list fa-2x" aria-hidden="true"></i>
 </a>
-<h3 class="my-4 adminTitle">DANH SÁCH BIDDER XIN NÂNG CẤP TÀI KHOẢN</h3>
+<h4 class="my-4 adminTitle">DANH SÁCH BIDDER XIN NÂNG CẤP TÀI KHOẢN</h4>
 
 {{! search }}
-<form class="form-search" action="action_page.php">
+<form class="form-search" action="/admin/user-update/search">
   <input type="text" placeholder="Tìm theo tên" name="search" />
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
@@ -29,33 +43,67 @@
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>Mark</td>
-        <td>
-          <div class="d-inline-flex">
-            <a
-              name=""
-              id=""
-              class="btn btn-success adminTable_updateBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-check" aria-hidden="true"></i></a>
-            <a
-              name=""
-              id=""
-              class="btn btn-danger adminTable_deleteBtn mx-1"
-              href="#"
-              role="button"
-            >
-              <i class="fa fa-window-close" aria-hidden="true"></i></a></div>
-        </td>
-      </tr>
+
+      {{#each this.userUpdateList}}
+        <tr>
+          <td>{{uID}}</td>
+          <td>{{fullName}}</td>
+          <td>{{email}}</td>
+          <td>{{formatTime dob "YYYY-MM-DD"}}</td>
+          <td>{{formatTime reqTime "YYYY-MM-DD HH:mm:ss"}}</td>
+          <td>
+            <div class="d-inline-flex">
+              <a
+                class="btn btn-success adminTable_updateBtn mx-1 approveUpgrade"
+                href="javascript:;"
+                role="button"
+                data-id="{{uID}}"
+              >
+                <i class="fa fa-check" aria-hidden="true"></i></a>
+              <a
+                class="btn btn-danger adminTable_deleteBtn mx-1 declineUpgrade"
+                href="javascript:;"
+                role="button"
+                data-id="{{uID}}"
+              >
+                <i class="fa fa-window-close" aria-hidden="true"></i></a>
+              <form
+                action="/admin/user-update/approve"
+                method="post"
+                id="frmAppoveUpgrade"
+              >
+                <input type="hidden" id="txtApproveUserID" name="uID" /></form>
+              <form
+                action="/admin/user-update/decline"
+                method="post"
+                id="frmDeclineUpgrade"
+              >
+                <input type="hidden" id="txtDeclineUserID" name="uID" /></form>
+            </div>
+          </td>
+        </tr>
+      {{/each}}
 
     </tbody>
   </table></div>
+
+{{! pagination  }}
+<nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>

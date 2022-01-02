@@ -1,3 +1,11 @@
+{{#section "js"}}
+  <script>
+    $('.adminTable_deleteBtn').on('click', function (e){const prodID =
+    $(this).data('id'); alert(`Đã xóa sản phẩm ${prodID}`);
+    $("#txtDelProdID").val(prodID); $("#frmDelProd").submit(); } )
+  </script>
+{{/section}}
+
 <a
   class="mx-4"
   id="menuBtn"
@@ -8,11 +16,11 @@
 >
   <i class="fa fa-list fa-2x" aria-hidden="true"></i>
 </a>
-<h3 class="my-4 adminTitle">QUẢN LÝ SẢN PHẨM</h3>
+<h4 class="my-4 adminTitle">QUẢN LÝ SẢN PHẨM</h4>
 
 {{! search }}
-<form class="form-search" action="action_page.php">
-  <input type="text" placeholder="Tìm theo tên" name="search" />
+<form class="form-search" action="/admin/products/search">
+  <input type="text" placeholder="Tìm sản phẩm" name="search" />
   <button type="submit"><i class="fa fa-search"></i></button>
 </form>
 {{! table  }}
@@ -24,91 +32,66 @@
         <th scope="col">Danh mục</th>
         <th scope="col">Tên sản phẩm</th>
         <th scope="col">Người đấu giá</th>
-        <th scope="col">Xem chi tiết</th>
+        <th scope="col">Giá hiện tại</th>
+        <th scope="col">Bắt đầu</th>
+        <th scope="col">Kết thúc</th>
+        <th scope="col">Chi tiết</th>
         <th scope="col">Xóa</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>
-          <a
-            name=""
-            id=""
-            class="btn btn-success adminTable_updateBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
-        <td>
+      {{#each this.productList}}
+        <tr>
+          {{! <th scope="row">1</th> }}
+          <td>{{prodID}}</td>
+          <td>{{typeName}}</td>
+          <td>{{prodName}}</td>
+          <td>{{nameofSeller}}</td>
+          <td>{{format_price curPrice}}</td>
+          <td>{{formatTime timePosted "YYYY-MM-DD hh:mm:ss"}}</td>
+          <td>{{formatTime timeEnd "YYYY-MM-DD hh:mm:ss"}}</td>
+          <td>
+            <a
+              class="btn btn-success adminTable_updateBtn mx-1"
+              href="/detail/{{prodID}}"
+              role="button"
+            >
+              <i class="fa fa-eye" aria-hidden="true"></i></a></td>
+          <td>
 
-          <a
-            name=""
-            id=""
-            class="btn btn-danger adminTable_deleteBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i></a>
-        </td>
-      </tr>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>
-          <a
-            name=""
-            id=""
-            class="btn btn-success adminTable_updateBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
-        <td>
+            <a
+              class="btn btn-danger adminTable_deleteBtn mx-1"
+              href="#"
+              role="button"
+              data-id="{{prodID}}"
+            >
+              <i class="fa fa-trash" aria-hidden="true"></i></a>
+            <form action="/admin/products/delete" method="post" id="frmDelProd">
+              <input type="hidden" id="txtDelProdID" name="prodID" /></form>
+          </td>
+        </tr>
+      {{/each}}
 
-          <a
-            name=""
-            id=""
-            class="btn btn-danger adminTable_deleteBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i></a>
-        </td>
-      </tr>
-      <tr>
-        {{! <th scope="row">1</th> }}
-        <td>Mark</td>
-        <td>Otto</td>
-        <td>@mdo</td>
-        <td>Mark</td>
-        <td>
-          <a
-            name=""
-            id=""
-            class="btn btn-success adminTable_updateBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-eye" aria-hidden="true"></i></a></td>
-        <td>
-
-          <a
-            name=""
-            id=""
-            class="btn btn-danger adminTable_deleteBtn mx-1"
-            href="#"
-            role="button"
-          >
-            <i class="fa fa-trash" aria-hidden="true"></i></a>
-        </td>
-      </tr>
     </tbody>
   </table></div>
+
+{{! pagination  }}
+<nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>
