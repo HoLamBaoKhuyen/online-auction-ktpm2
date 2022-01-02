@@ -10,17 +10,17 @@
             <tbody>
                 <tr>
                     <th scope="row">Họ và tên</th>
-                    <td colspan="2">Nguyen Van Jee</td>
+                    <td colspan="2">{{concatName information.firstName information.lastName}}</td>
                     <td><a href="javascript:/" data-toggle="modal" data-target="#namemodal">Chỉnh sửa</a></td>
                 </tr>
                 <tr>
                     <th scope="row">Email</th>
-                    <td colspan="2">Jeeghetcovid@gmail.com</td>
+                    <td colspan="2">{{information.email}}</td>
                     <td><a href="javascript:/" data-toggle="modal" data-target="#emailmodal">Chỉnh sửa</a></td>
                 </tr>
                 <tr>
                     <th scope="row">Ngày sinh</th>
-                    <td colspan="2">30/02/1989</td>
+                    <td colspan="2">{{formatTime information.dob "DD/MM/YYYY"}}</td>
                     <td><a href="javascript:/" data-toggle="modal" data-target="#dobmodal">Chỉnh sửa</a></td>
                 </tr>
             </tbody>
@@ -39,7 +39,7 @@
                 </button>
             </div>
             <div class="modal-body">
-                <form action="" method="post">
+                <form action="/profile/{{information.uID}}" method="post" id="frmChange">
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-append">
@@ -66,7 +66,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <a type="submit" class="btn btn-primary" href="javascript: $('#frmChange').submit();">Lưu</a>
             </div>
         </div>
     </div>
@@ -109,7 +109,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                <button type="button" class="btn btn-primary">Lưu</button>
+                <button type="submit" class="btn btn-primary">Lưu</button>
             </div>
         </div>
     </div>
@@ -158,6 +158,8 @@
     </div>
 </div>
 
+
+{{!-- ----------Change password------------- --}}
 <div class="container my-5">
     <a class="btn" onclick="showInforTable1()">
         <h4>Đổi mật khẩu
@@ -234,46 +236,59 @@
     <div class="tab-content">
         <div id="productlike" class="container tab-pane active"><br>
             <div class="container ">
-                <div class="row justify-content-between">
+                <div class="row">
+                    {{#each favorite}}
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                <form action="/profile/deleteFavo/{{prodID}}" id="removeFavorite" method="post">
+                                <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i class="fa fa-minus favoriteIcon"
                                         aria-hidden="true"></i>
-                                    <span class="textFavorite"> Yêu thích</span>
-                                </button>
+                                    <span class="textFavorite"> Xóa khỏi yêu thích</span>
+                                </a></form>
                                 <div class="product-imitation">
-                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                        class="responsive-img" />
+                                    <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
                                 </div>
-                                <div class="product-desc" onclick="location.href='/detail'">
+                                <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                                     <span class="product-label">
-                                        HOT
+                                        {{#if newpost}}
+                                            NEW
+                                        {{else}}
+                                            HOT
+                                        {{/if}}
                                     </span>
-                                    <small class="text-muted">Bids: 10</small>
-                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
+                                    <small class="text-muted">Bids: {{CountBids}}</small>
+                                    <a href="#" class="product-name"> {{prodName}}</a>
 
                                     <div class="price">
-                                        <div>NguoiSaoHoa:
-                                            <span class="font-weight-bold">1.000.000</span>
+                                        {{#if nameofUser}}
+                                        <div>{{nameofUser}}:
+                                            <span class="font-weight-bold">{{format_price curPrice}}</span>
                                         </div>
+                                        {{else}}
+                                        <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price
+                                                curPrice}}</span></div>
+                                        {{/if}}
                                     </div>
                                     <div class="textPrice">
                                         <div>Giá mua ngay:
-                                            <span class="font-weight-bold">20.000.000d</span>
+                                            <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
                                         </div>
                                     </div>
                                     <div class="remain-time">
                                         <i class="fa fa-clock-o"></i>
-                                        Còn lại: 10:30:44
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
                                     </div>
 
                                     <br />
-
-
                                     <div class="text-right">
                                         <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                                            21/10/2021
+                                            {{formatTime timePosted "DD/MM/YYYY"}}
                                         </small>
                                     </div>
 
@@ -281,107 +296,142 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-4 col-md-4">
-                        <div class="ibox">
-                            <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
-                                        aria-hidden="true"></i>
-                                    <span class="textFavorite"> Yêu thích</span>
-                                </button>
-                                <div class="product-imitation">
-                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                        class="responsive-img" />
-                                </div>
-                                <div class="product-desc" onclick="location.href='/detail'">
-                                    <span class="product-label">
-                                        HOT
-                                    </span>
-                                    <small class="text-muted">Bids: 10</small>
-                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
-
-                                    <div class="price">
-                                        <div>NguoiSaoHoa:
-                                            <span class="font-weight-bold">1.000.000</span>
-                                        </div>
-                                    </div>
-                                    <div class="textPrice">
-                                        <div>Giá mua ngay:
-                                            <span class="font-weight-bold">20.000.000d</span>
-                                        </div>
-                                    </div>
-                                    <div class="remain-time">
-                                        <i class="fa fa-clock-o"></i>
-                                        Còn lại: 10:30:44
-                                    </div>
-
-                                    <br />
-
-                                    <div class="text-right">
-                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                                            21/10/2021
-                                        </small>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-4 col-md-4">
-                        <div class="ibox">
-                            <div class="ibox-content product-box">
-                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
-                                        aria-hidden="true"></i>
-                                    <span class="textFavorite"> Yêu thích</span>
-                                </button>
-                                <div class="product-imitation">
-                                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg"
-                                        class="responsive-img" />
-                                </div>
-                                <div class="product-desc" onclick="location.href='/detail'">
-                                    <span class="product-label">
-                                        HOT
-                                    </span>
-                                    <small class="text-muted">Bids: 10</small>
-                                    <a href="#" class="product-name"> Samsung Galaxy A52s</a>
-
-                                    <div class="price">
-                                        <div>NguoiSaoHoa:
-                                            <span class="font-weight-bold">1.000.000</span>
-                                        </div>
-                                    </div>
-                                    <div class="textPrice">
-                                        <div>Giá mua ngay:
-                                            <span class="font-weight-bold">20.000.000d</span>
-                                        </div>
-                                    </div>
-                                    <div class="remain-time">
-                                        <i class="fa fa-clock-o"></i>
-                                        Còn lại: 10:30:44
-                                    </div>
-
-                                    <br />
-
-
-                                    <div class="text-right">
-                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                                            21/10/2021
-                                        </small>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {{/each}}
                 </div>
             </div>
         </div>
 
-        <div id="productjoin" class="container tab-pane fade"><br>
+        <div id="productjoin" class="container tab-pane fade "><br>
+            <div class="container ">
+                <div class="row">
+                    {{#each participate}}
+                    <div class="col-4 col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+                                <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon"
+                                        aria-hidden="true"></i>
+                                    <span class="textFavorite"> Yêu thích</span>
+                                </button>
+                                <div class="product-imitation">
+                                    <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                                </div>
+                                <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                                    <span class="product-label">
+                                        {{#if newpost}}
+                                        NEW
+                                        {{else}}
+                                        HOT
+                                        {{/if}}
+                                    </span>
+                                    <small class="text-muted">Bids: {{CountBids}}</small>
+                                    <a href="#" class="product-name"> {{prodName}}</a>
 
+                                    <div class="price">
+                                        {{#if nameofUser}}
+                                        <div>{{nameofUser}}:
+                                            <span class="font-weight-bold">{{format_price curPrice}}</span>
+                                        </div>
+                                        {{else}}
+                                        <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price
+                                                curPrice}}</span></div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="textPrice">
+                                        <div>Giá mua ngay:
+                                            <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i>
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
+                                    </div>
+
+                                    <br />
+                                    <div class="text-right">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            {{formatTime timePosted "DD/MM/YYYY"}}
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
         </div>
 
-        <div id="productwin" class="container tab-pane fade"><br>
+        <div id="productwin" class="container tab-pane fade "><br>
+            <div class="container ">
+                <div class="row">
+                    {{#each win}}
+                    <div class="col-4 col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+                                <a class="btn addFavoriteBtn"
+                                    href="/profile/{{../information.uID}}/comment/{{prodID}}"><i
+                                        class="fa fa-plus favoriteIcon" aria-hidden="true" href="/"></i>
+                                    <span class="textFavorite"> Đánh giá </span>
+                                </a>
+                                <div class="product-imitation">
+                                    <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                                </div>
+                                <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                                    <span class="product-label">
+                                        {{#if newpost}}
+                                        NEW
+                                        {{else}}
+                                        HOT
+                                        {{/if}}
+                                    </span>
+                                    <small class="text-muted">Bids: {{CountBids}}</small>
+                                    <a href="#" class="product-name"> {{prodName}}</a>
 
+                                    <div class="price">
+                                        {{#if nameofUser}}
+                                        <div>{{nameofUser}}:
+                                            <span class="font-weight-bold">{{format_price curPrice}}</span>
+                                        </div>
+                                        {{else}}
+                                        <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price
+                                                curPrice}}</span></div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="textPrice">
+                                        <div>Giá mua ngay:
+                                            <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i>
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
+                                    </div>
+
+                                    <br />
+                                    <div class="text-right">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            {{formatTime timePosted "DD/MM/YYYY"}}
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
         </div>
     </div>
 </div>

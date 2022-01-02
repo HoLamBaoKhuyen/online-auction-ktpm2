@@ -1,3 +1,40 @@
+{{#section 'js'}}
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+    tinymce.init({
+        selector: '#txtAddDes',
+        plugins: 'paste image link autolink lists table media',
+        menubar: false,
+        toolbar: [
+            'undo redo | bold italic underline strikethrough | numlist bullist | alignleft aligncenter alignright | forecolor backcolor',
+        ],
+        entity_encoding: "raw"
+    });
+</script>
+{{/section}}
+
+
+
+{{#each this.product}}
+{{#if unsuccessBid}}
+<div class="alert alert-danger alert-dismissible fade show text-center" role="alert">
+    <strong>Đấu giá không thành công! </strong>{{unsuccessBid}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+
+{{#if successBid}}
+<div class="alert alert-success alert-dismissible fade show text-center" role="alert">
+    <strong>Chúc mừng !!! </strong> {{successBid}}
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+{{/if}}
+{{/each}}
+
 <div class="container my-5">
     <div class="row">
         {{#each this.product}}
@@ -5,13 +42,14 @@
             <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
                 <!-- slides -->
                 <div class="carousel-inner">
-                    <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg"
-                            alt="A52" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg"
-                            alt="{{prodName}}" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg"
-                            alt="A52" style=" width:400px; height: 500px;"> </div>
-                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg" style=" width:400px; height: 500px;">
+                    <div class="carousel-item active"> <img src="/public/images/{{prodID}}/main.jpg" alt="{{prodName}}"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb1.jpg" alt="{{prodName}}"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb2.jpg" alt="{{prodName}}"
+                            style=" width:400px; height: 500px;"> </div>
+                    <div class="carousel-item"> <img src="/public/images/{{prodID}}/thumb3.jpg" alt="{{prodName}}"
+                            style=" width:400px; height: 500px;">
                     </div>
 
                 </div>
@@ -24,26 +62,24 @@
                 <!-- Thumbnails -->
                 <ol class="carousel-indicators list-inline pb-5">
                     <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/main.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/main.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb1.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb1.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                     <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb2.jpg" class="img-fluid carousel-thumbnail"> </a>
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb2.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
-                    <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2"
-                            data-target="#custCarousel"> <img
-                                src="/public/images/{{prodID}}/thumb3.jpg" class="img-fluid carousel-thumbnail"> </a>
+                    <li class="list-inline-item"> <a id="carousel-selector-3" data-slide-to="3"
+                            data-target="#custCarousel"> <img src="/public/images/{{prodID}}/thumb3.jpg"
+                                class="img-fluid carousel-thumbnail"> </a>
                     </li>
                 </ol>
             </div>
         </div>
-
-
 
         <div class="col-md-6">
             <p class="mb-2 text-muted text-uppercase small">{{typeName}}</p>
@@ -53,8 +89,8 @@
                 <a class="font-weight-bold text-muted pl-5">{{nameofSeller}}</a>
             </p>
             <small class="pt-0">Điểm đánh giá:
-                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
-                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+                <span class="text-info font-weight-bold pl-5">{{likeSel}} <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">{{dislikeSel}} <i class="fa fa-thumbs-down"></i></span>
             </small>
 
             <hr>
@@ -78,42 +114,71 @@
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Bước giá:</strong></th>
-                            <td>{{step}}</td>
+                            <td>{{format_price step}}</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Đăng ngày:</strong></th>
-                            <td>{{formatTime timePosted 'DD/MM/YYYY -- HH:MM:SS'}}</td>
+                            <td>{{formatTime timePosted 'DD/MM/YYYY - HH:mm:ss'}}</td>
                         </tr>
                         <tr>
                             <th class="pl-0 w-25" scope="row"><strong>Kết thúc:</strong></th>
-                            <td>{{formatTime timeEnd 'DD/MM/YYYY -- HH:MM:SS'}}</td>
+                            <td>
+                                {{#if remain}} {{remain}}
+                                {{else}}
+                                {{formatTime timeEnd 'DD/MM/YYYY - HH:mm:ss'}}
+                                {{/if}}
+                            </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <hr>
+            {{#if noHighestBid}}
+            {{else}}
             <p class="pt-2">Đặt giá cao nhất:
                 <a class="font-weight-bold text-danger pl-5">{{nameofUser}}</a>
             </p>
+
+
             <small class="pt-0">Điểm đánh giá: &nbsp &nbsp &nbsp &nbsp &nbsp
-                <span class="text-info font-weight-bold pl-5">8 <i class="fa fa-thumbs-up"></i>&nbsp</span>
-                <span class="text-danger font-weight-bold pl-2">10 <i class="fa fa-thumbs-down"></i></span>
+                <span class="text-info font-weight-bold pl-5">{{likeBid}} <i class="fa fa-thumbs-up"></i>&nbsp</span>
+                <span class="text-danger font-weight-bold pl-2">{{dislikeBid}} <i class="fa fa-thumbs-down"></i></span>
             </small>
-            <div class="p-5"></div>
+            {{/if}}
+
+            {{#if ../authUser}}
+                <div class="pt-5 mb-3 d-flex">
+                <form action="" method="post">
+                    <a class="btn btn-success border"><i class="fa fa-plus-circle"> Thêm vào Watch List</i></a>
+                </form>
+                <div>&nbsp &nbsp &nbsp &nbsp &nbsp</div>
+                {{#if buyNowPrice}}
+                    {{#if isDeclined}}
+                    {{else}}
+                    {{#if isAvailable}}
+                        <span class="mr-5">
+                        <form id="buyNowForm" action="/detail/{{prodID}}/buyNow" method="post">
+                            <a class="btn btn-warning border" href="javascript: $('#buyNowForm').submit()"><i class="fa fa-cc-mastercard"> Mua ngay: {{format_price buyNowPrice}} </i></a>
+                        </form></span>{{/if}}
+                    {{/if}}
+                {{/if}}
+                </div>
+            {{/if}}
         </div>
+        </div>
+
+        
         <div class="col-md-6 mt-3 ml-2">
-            <h3>
+            <h3 class="text-center">
                 Giá hiện tại: <span>{{format_price curPrice}}</span>
             </h3>
         </div>
-        <div class="col-md-6 ml-2 mt-3">
-            <button class="btn text-white" style="background-color: #FF8A00;"><i class="fa fa-plus-circle"> Thêm vào
-                    Watch List</i></button>
-        </div>
+
 
         <div class="p-2"></div>
         {{/each}}
     </div>
+
 
 
     <div class="container mt-3 border-bottom">
@@ -137,7 +202,8 @@
                         <tbody>
                             {{#each this.description}}
                             <tr>
-                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime modifyTime
+                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
+                                        modifyTime
                                         'DD-MM-YYYY'}}</strong></th>
                                 <td>{{{des}}}</td>
                             </tr>
@@ -183,39 +249,77 @@
         </div>
     </div>
 
-    <div class="container mb-5 " style="width: 90%;">
-        <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post">
-            <h4 class="m-3">
-                Ra giá
+    {{#each this.product}}
+    {{#if isProdOfSeller}}
+    <form action="/detail/{{prodID}}/editDesc" method="post">
+        <div class="mt-5">
+            <h4>
+                Thêm mô tả
             </h4>
-
-            <div class="form-group">
-                <label for="AuctionExecute" class="sr-only">Giá đấu</label>
-                <input type="text" class="form-control" id="AuctionExecute" placeholder="Nhập giá đấu">
-            </div>
-            <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
-                data-target="#auctionmodal">Đấu giá</a>
-        </form>
-
-        <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">Đấu Giá</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                        <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
-                    </div>
+            <div>
+                <div class="form-group">
+                    <textarea id="txtAddDes" name="AddDes">Thêm mô tả</textarea>
                 </div>
             </div>
+            <div class="text-muted">
+                <button type="submit" class="btn btn-primary">
+                    <i class="fa fa-check" aria-hidden="true"></i>
+                    Save
+                </button>
+            </div>
         </div>
+    </form>
+    {{/if}}
+    {{/each}}
+
+
+    <div class="container mb-5 " style="width: 90%;">
+        {{#if authUser}}
+        {{#each this.product}}
+            {{#if isDeclined}}
+            <h4 class="text-center mt-5">Bạn không có quyền đấu giá sản phẩm này</h4>
+            </br>
+            {{else}}
+            <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post"
+                action="/detail/{{prodID}}/makeBid">
+                <h4 class="m-3">
+                    Ra giá
+                </h4>
+
+                <div class="form-group">
+                    <label for="AuctionExecute" class="sr-only">Giá đấu</label>
+                    <input type="text" class="form-control" id="AuctionExecute" name="bidPrice" placeholder="Nhập giá đấu">
+                </div>
+                <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
+                    data-target="#auctionmodal">Đấu giá</a>
+
+            {{/if}}
+
+                <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Đấu Giá</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <div>Giá tối thiểu mà bạn phải đặt: <strong>{{format_price minbid}}</strong></div>
+                                <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                                <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        {{/each}}
+        {{else}}
+            <h4 class="text-center mt-5"><a href="/account/login">Đăng nhập</a> để mở tính năng đấu giá</h4>
+        {{/if}}
 
 
 
@@ -229,20 +333,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{!-- <tr>
-                    <td scope="row">27/02/2021</td>
-                    <th colspan="2">Nguyen Van Jee</th>
-                    <td>1.000.000</td>
-                </tr>
-                <tr>
-                    <td scope="row">27/02/2021</td>
-                    <th colspan="2">Hoang Van P</th>
-                    <td>3.500.000</td>
-                </tr> --}}
                 {{#if this.historytable}}
                 {{#each this.historytable}}
                 <tr>
-                    <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:MM:SS'}}</td>
+                    <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:mm:ss'}}</td>
                     <th colspan="2">{{userName}}</th>
                     <td>{{format_price price}}</td>
                 </tr>
@@ -257,12 +351,13 @@
         </table>
     </div>
 
-    <div class="p-3">
-        <h4>Sản phẩm tương tự</h4>
-    </div>
+
 
 
     <div class="container ">
+        <div class="p-3">
+            <h4>Sản phẩm tương tự</h4>
+        </div>
         <div class="row justify-content-between">
             {{#each this.similar}}
             <div class="col-4 col-lg-4">
@@ -276,7 +371,11 @@
                         </div>
                         <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                             <span class="product-label">
+                                {{#if newpost}}
+                                NEW
+                                {{else}}
                                 HOT
+                                {{/if}}
                             </span>
                             <small class="text-muted">Bids: {{CountBids}}</small>
                             <a href="#" class="product-name"> {{prodName}}</a>
@@ -298,7 +397,11 @@
                             </div>
                             <div class="remain-time">
                                 <i class="fa fa-clock-o"></i>
-                                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                                Còn lại:
+                                {{#if remain}} {{remain}}
+                                {{else}}
+                                {{formatTime timeEnd "DD/MM/YYYY"}}
+                                {{/if}}
                             </div>
 
                             <br />

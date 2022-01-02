@@ -26,6 +26,6 @@ function showInforTable1() {
 
 function confirmAuction(){
     var x = $("#AuctionExecute").val();
-    var numPrice = new Intl.NumberFormat("it-IT",{style: 'currency', currency: 'VND'})
+    var numPrice = new Intl.NumberFormat();
     document.getElementById("auctionPriceConfirm").innerHTML= numPrice.format(x);
 }

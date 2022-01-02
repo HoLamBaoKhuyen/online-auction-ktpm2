@@ -1,0 +1,69 @@
+<div class="container mt-5">
+
+    <div id="custCarousel" class="carousel slide" data-ride="carousel" align="center">
+        <!-- slides -->
+        <div class="carousel-inner">
+            <div class="carousel-item active"> <img src="/public/images/{{product.prodID}}/main.jpg"
+                    alt="{{product.prodName}}" style=" width:400px; height: 400px;"> </div>
+            <div class="carousel-item"> <img src="/public/images/{{product.prodID}}/thumb1.jpg"
+                    alt="{{product.prodName}}" style=" width:400px; height: 400px;"> </div>
+            <div class="carousel-item"> <img src="/public/images/{{product.prodID}}/thumb2.jpg"
+                    alt="{{product.prodName}}" style=" width:400px; height: 400px;"> </div>
+            <div class="carousel-item"> <img src="/public/images/{{product.prodID}}/thumb3.jpg"
+                    alt="{{product.prodName}}" style=" width:400px; height: 400px;">
+            </div>
+
+        </div>
+        <!-- Left right -->
+        <a class="carousel-control-prev" href="#custCarousel" data-slide="prev">
+            <span class="carousel-control-prev-icon"></span> </a>
+        <a class="carousel-control-next" href="#custCarousel" data-slide="next"> <span
+                class="carousel-control-next-icon"></span> </a>
+
+        <!-- Thumbnails -->
+        <ol class="carousel-indicators list-inline pb-5" align="center">
+            <li class="list-inline-item active"> <a id="carousel-selector-0" class="selected" data-slide-to="0"
+                    data-target="#custCarousel"> <img src="/public/images/{{product.prodID}}/main.jpg"
+                        class="img-fluid carousel-thumbnail"> </a>
+            </li>
+            <li class="list-inline-item"> <a id="carousel-selector-1" data-slide-to="1" data-target="#custCarousel">
+                    <img src="/public/images/{{product.prodID}}/thumb1.jpg" class="img-fluid carousel-thumbnail"> </a>
+            </li>
+            <li class="list-inline-item"> <a id="carousel-selector-2" data-slide-to="2" data-target="#custCarousel">
+                    <img src="/public/images/{{product.prodID}}/thumb2.jpg" class="img-fluid carousel-thumbnail"> </a>
+            </li>
+            <li class="list-inline-item"> <a id="carousel-selector-3" data-slide-to="3" data-target="#custCarousel">
+                    <img src="/public/images/{{product.prodID}}/thumb3.jpg" class="img-fluid carousel-thumbnail"> </a>
+            </li>
+        </ol>
+    </div>
+    <div class="text-center mt-5">
+        <h3>{{product.prodName}}</h3>
+    </div>
+    <div class="text-center mt-2">
+        <span class="text-primary">Người bán: &nbsp;</span>
+        <span class="font-weight-bold">{{product.nameofSeller}}</span>
+    </div>
+    <!-- Your review -->
+    {{#if existRate}}
+        <div class="text-center my-5">
+            Đánh giá: {{existRate.cmt}}
+        </div>
+    {{else}}
+    {{#if error_message}}<div class="text-center text-danger mt-5">{{error_message}}</div> {{/if}}
+    <form action="/profile/{{userID}}/comment/{{product.prodID}}" method="post">
+        <select class="form-select" name="commentType" aria-label="Default select example">
+            <option value="goodcmt" selected>Đánh giá tốt</option>
+            <option value="badcmt">Đánh giá xấu</option>
+        </select>
+        <div class="md-form md-outline mt-3">
+            <textarea id="form76" class="md-textarea form-control pr-6" rows="4" name="commentwinprod"></textarea>
+            <label for="form76">Đánh giá</label>
+        </div>
+
+        <div class="text-right pb-2">
+            <button type="submit" class="btn btn-primary"><i class="fa fa-thumbs-up mr-3"></i>Gửi</button>
+        </div>
+    </form>
+    {{/if}}
+</div>

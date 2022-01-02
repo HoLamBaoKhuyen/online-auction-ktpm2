@@ -1,6 +1,8 @@
 import express from 'express';
 
 import productModel from "../models/product.model.js";
+import profileModel from '../models/profile.model.js';
+
 
 const router = express.Router();
 
@@ -8,10 +10,17 @@ router.get("/", async function (req, res) {
     const top5Price = await productModel.getTop5HighestPrice();
     const top5End = await productModel.getTop5End();
     const top5Bid = await productModel.getTop5HighestBids();
+
+    let newlist1 = productModel.getTimeRemain(top5Price);
+    let newlist2 = productModel.getTimeRemain(top5End);
+    let newlist3 = productModel.getTimeRemain(top5Bid);
+
+
+
     res.render('home', {
-        top5Price,
-        top5End,
-        top5Bid
+        top5Price: newlist1,
+        top5End: newlist2,
+        top5Bid: newlist3
     });
 });
 
@@ -35,11 +44,14 @@ router.get("/allproducts", async function (req, res) {
             value: i,
             isCurrent: +page === i
         });
-    }
+    };
+
+    let newlist = productModel.getTimeRemain(list);
+
 
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         prev_page: +page - 1,
@@ -64,7 +76,6 @@ router.get("/byCat/:catID", async function (req, res) {
         productModel.countByCatID(catID)
     ]);
 
-    console.log(total);
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -75,10 +86,13 @@ router.get("/byCat/:catID", async function (req, res) {
             isCurrent: +page === i
         });
     }
+
+    let newlist = productModel.getTimeRemain(list);
+
     const categoryName = await productModel.getCategoryName(catID);
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         categoryName,
@@ -112,11 +126,14 @@ router.get("/byCat/sortDate/:catID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const categoryName = await productModel.getCategoryName(catID);
     categoryName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         categoryName,
         pageNumbers,
@@ -148,13 +165,16 @@ router.get("/byCat/sortPrice/:catID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const categoryName = await productModel.getCategoryName(catID);
     categoryName[0].sortPrice = 1;
 
     categoryName[0].sortPrice = 1;
-    console.log(categoryName);
+
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         categoryName,
@@ -190,10 +210,13 @@ router.get("/byCat2/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         productName,
         pageNumbers,
@@ -225,11 +248,14 @@ router.get("/byCat2/sortDate/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
     productName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         productName,
         pageNumbers,
@@ -261,12 +287,15 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
         });
     }
 
+    let newlist = productModel.getTimeRemain(list);
+
+
     const productName = await productModel.getProductName(typeID);
 
     productName[0].sortPrice = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         productName,
@@ -285,21 +314,164 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
 router.get("/detail/:prodid", async function (req, res) {
     const prodID = req.params.prodid;
     const product = await productModel.findByProdID(prodID);
-    console.log(product);
+
     if (product == null) {
         return res.redirect('/');
     }
 
+    let newlist = productModel.getTimeRemain(product);
+
+    //Kiểm tra thời gian sản phẩm còn hiệu lực hay không
+    if (new Date() < product[0].timeEnd) {
+        product[0].isAvailable = 1;
+    }
+
+    if (newlist[0].highestBidID != null) {
+        const highestUserBidLike = await profileModel.getLikeOfBidder(newlist[0].highestBidID);
+        const highestUserBidDisLike = await profileModel.getDislikeOfBidder(newlist[0].highestBidID);
+        newlist[0].likeBid = highestUserBidLike;
+        newlist[0].dislikeBid= highestUserBidDisLike
+    }
+    else{
+        newlist[0].noHighestBid = 1;
+    }
+
+    const SelLike = await profileModel.getLikeOfSeller(newlist[0].selID);
+    const SelDisLike = await profileModel.getDislikeOfSeller(newlist[0].selID);
+    newlist[0].likeSel = SelLike;
+    newlist[0].dislikeSel= SelDisLike;
+
+
+    if (res.locals.authUser) {
+        const uID = res.locals.authUser.uID;
+        const isProd = await productModel.checkProdOfSeller(uID, prodID);
+
+        //Kiểm tra để hiện ô  thêm description cho seller
+        if (res.locals.authUser.userType == "seller" && isProd != null) {
+            newlist[0].isProdOfSeller = 1;
+        }
+        //Kiểm tra id có nằm trong danh sách bị decline k
+        const checkDecline = await productModel.checkDeclined(uID, prodID);
+        if (checkDecline != null) {
+            newlist[0].isDeclined = 1;
+        }
+        else {
+            const getBidLike = await profileModel.getLikeOfBidder(uID);
+            const getBidDisLike = await profileModel.getDislikeOfBidder(uID);
+            const point = 0;
+            if (getBidLike != 0 && getBidDisLike != 0)
+                point = Math.round(((getBidLike) / (getBidLike + getBidDisLike)) * 10);
+            console.log("Điểm: " + point);
+            if (newlist[0].approve == 0 && point < 8)
+                newlist[0].isDeclined = 1;
+        }
+    }
+
+    //Lấy giá tối thiểu phải đặt
+    newlist[0].minbid = newlist[0].curPrice + newlist[0].step;
+
+    if (req.session.bidUnsuccess) {
+        newlist[0].unsuccessBid = req.session.bidUnsuccess;
+        delete req.session.bidUnsuccess;
+    }
+
+    if (req.session.bidSuccess) {
+        newlist[0].successBid = req.session.bidSuccess;
+        delete req.session.bidSuccess;
+    }
+
+
+
     const description = await productModel.getDescription(prodID);
+
     const similar = await productModel.getSimilarProduct(prodID);
+    let newsimilar = productModel.getTimeRemain(similar);
+
     const historytable = await productModel.getHistoryBid(prodID);
+
+
     res.render('ProductView/detail', {
-        product,
+        product: newlist,
         description,
-        similar,
+        similar: newsimilar,
         historytable
     });
 });
+
+//---------------Xử lí đấu giá------------------------
+
+router.post('/detail/:prodID/makeBid', async function (req, res) {
+    const prodID = req.params.prodID;
+    const bidValue = req.body.bidPrice;
+    const product = await productModel.findByProdID(prodID);
+
+
+    if (new Date() > product[0].timeEnd) {
+        req.session.bidUnsuccess = 'Sản phẩm đã kết thúc';
+    }
+    else {
+        if (isNaN(bidValue)) {
+            req.session.bidUnsuccess = 'Vui lòng nhập giá là CHỮ SỐ';
+        }
+        else {
+            if (bidValue < product[0].curPrice + product[0].step) {
+                req.session.bidUnsuccess = 'Mức giá bạn đưa ra nhỏ hơn giá hiện tại của sản phẩm';
+            }
+            else {
+                const different = bidValue - product[0].curPrice;
+                if (Number.isInteger(different / product[0].step) == false) {
+                    req.session.bidUnsuccess = 'Vui lòng nhập giá tăng thêm là bội của bước giá';
+                }
+                else {
+                    req.session.bidSuccess = 'Bạn đã đấu giá thành công';
+                    productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
+                    const getMail = await productModel.getEmailinProduct(prodID);
+                    const getMailBid = await profileModel.getInforByID(res.locals.authUser.uID);
+                    productModel.sendAuctionEmail(getMail[0].sellerMail, 'Update giá của sản phẩm ' + product[0].prodName, "Giá mới được bid là: " + bidValue);
+                    if (getMail[0].currentHighestMail != null)
+                        productModel.sendAuctionEmail(getMail[0].currentHighestMail, 'Update giá của sản phẩm ' + product[0].prodName, "Giá mới được bid là: " + bidValue);
+                    if (getMailBid[0].email != getMail[0].currentHighestMail)
+                        productModel.sendAuctionEmail(getMailBid[0].email, 'Update giá của sản phẩm ' + product[0].prodName, "Bạn vừa mới đấu giá thành công. Giá mới được bid là: " + bidValue);
+
+                }
+            }
+        }
+    }
+
+    res.redirect('/detail/' + prodID);
+});
+
+//Mua ngay
+router.post('/detail/:prodID/buyNow', async function (req, res) {
+    const prodID = req.params.prodID;
+    req.session.bidSuccess = 'Bạn đã mua ngay sản phẩm thành công';
+    const product = await productModel.findByProdID(prodID);
+
+    productModel.buyNowAuction(res.locals.authUser.uID, prodID, product[0].buyNowPrice);
+    const getMail = await productModel.getEmailinProduct(prodID);
+    const getMailBid = await profileModel.getInforByID(res.locals.authUser.uID);
+    productModel.sendAuctionEmail(getMail[0].sellerMail, 'Sản phẩm ' + product[0].prodName + ' đã được mua ngay', "Giá mua ngay là: " + product[0].buyNowPrice);
+    if (getMail[0].currentHighestMail != null)
+        productModel.sendAuctionEmail(getMail[0].currentHighestMail, 'Sản phẩm ' + product[0].prodName + ' đã được mua ngay', "Giá mua ngay là: " + product[0].buyNowPrice);
+    if (getMailBid[0].email != getMail[0].currentHighestMail)
+        productModel.sendAuctionEmail(getMailBid[0].email, 'Sản phẩm ' + product[0].prodName, "Bạn vừa mua ngay thành công. Giá mua ngay là: " + product[0].buyNowPrice);
+    res.redirect('/detail/' + prodID);
+
+});
+
+
+// --------Edit description in detail----------------
+
+router.post("/detail/:prodID/editDesc", async function (req, res) {
+    const desc = req.body.AddDes;
+    const prodID = req.params.prodID;
+
+    const addDesc = productModel.addDesc(prodID, desc)
+    const link = '/detail/' + prodID;
+    res.redirect(link);
+});
+
+
 
 
 //------------------------------------ Search-----------------------------------------------
@@ -308,14 +480,17 @@ router.get("/detail/:prodid", async function (req, res) {
 
 router.get("/product/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search = req.query.categorySearch || 0;
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
+
     const [list, total] = await Promise.all([
-        productModel.searchProd(text, limit, offset),
-        productModel.countsearchProd(text)
-    ])
+        productModel.searchProd(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
+    ]);
+
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -327,12 +502,16 @@ router.get("/product/search", async function (req, res) {
         });
     }
 
-    const searchName = [{ search: "" }];
+    let newlist = productModel.getTimeRemain(list);
+
+
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
+    searchName[0].cate = category_search;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,
@@ -346,14 +525,17 @@ router.get("/product/search", async function (req, res) {
 
 router.get("/product/sortPrice/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search = req.query.categorySearch || 0;
+
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortPrice(text, limit, offset),
-        productModel.countsearchProd(text)
+        productModel.searchProdSortPrice(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
     ])
+
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
 
@@ -365,13 +547,17 @@ router.get("/product/sortPrice/search", async function (req, res) {
         });
     }
 
-    const searchName = [{ search: "" }];
+    let newlist = productModel.getTimeRemain(list);
+
+
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
-    searchName[0].sortPrice=1;
+    searchName[0].cate = category_search;
+    searchName[0].sortPrice = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,
@@ -384,13 +570,15 @@ router.get("/product/sortPrice/search", async function (req, res) {
 
 router.get("/product/sortDate/search", async function (req, res) {
     const text = req.query.searchbox || 0;
+    const category_search = req.query.categorySearch || 0;
+
 
     const limit = 8;
     const page = req.query.page || 1;
     const offset = (page - 1) * limit;
     const [list, total] = await Promise.all([
-        productModel.searchProdSortDate(text, limit, offset),
-        productModel.countsearchProd(text)
+        productModel.searchProdSortDate(text, category_search, limit, offset),
+        productModel.countsearchProd(text, category_search)
     ])
     let nPages = Math.floor(total / limit);
     if (total % limit > 0) nPages++;
@@ -401,15 +589,19 @@ router.get("/product/sortDate/search", async function (req, res) {
             value: i,
             isCurrent: +page === i
         });
-    }
+    };
 
-    const searchName = [{ search: "" }];
+    let newlist = productModel.getTimeRemain(list);
+
+
+    const searchName = [{ search: "", cate: "" }];
 
     searchName[0].search = text;
-    searchName[0].sortDate=1;
+    searchName[0].cate = category_search;
+    searchName[0].sortDate = 1;
 
     res.render('ProductView/byCat', {
-        products: list,
+        products: newlist,
         empty: list.length === 0,
         pageNumbers,
         searchName,

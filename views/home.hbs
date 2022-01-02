@@ -63,7 +63,7 @@
     <h4>Top 5 sản phẩm đang có giá cao nhất</h4>
   </div>
   <div class="containItem">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center row-eq-height">
       {{#each this.top5Price}}
       <div class="col-4 col-lg-2">
         <div class="ibox">
@@ -79,7 +79,7 @@
                 HOT
               </span>
               <small class="text-muted">Bids: {{CountBids}}</small>
-              <a href="#" class="product-name"> {{prodName}}</a>
+              <a href="#" class="product-name" style=" "> {{prodName}}</a>
 
               <div class="price">
                 {{#if nameofUser}}

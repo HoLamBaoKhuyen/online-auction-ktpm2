@@ -1,5 +1,7 @@
 import accountRouter from "../routes/account.route.js";
 import adminRouter from "../routes/admin.route.js";
+import productRoute from "../routes/product.route.js";
+import profileRoute from "../routes/profile.route.js";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
 
@@ -9,19 +11,8 @@ export default function (app) {
   //     res.render("home");
   //   });
 
-  //   app.get("/detail", function (req, res) {
-  //     res.render("ProductView/detail");
-  //   });
-
-  //   app.get("/profile-comment", function (req, res) {
-  //     res.render("account/profile-comment.hbs");
-  //   });
-
-  //   app.get('/profile', function (req, res) {
-  //     res.render('account/profile.hbs');
-  //   });
-
-  app.use("/admin", adminRouter);
-
   app.use("/account", accountRouter);
+  app.use("/", productRoute);
+  app.use("/profile", profileRoute);
+  app.use("/admin", adminRouter);
 }
