@@ -21,7 +21,15 @@ router.get("/:id", async function (req, res) {
     let newlistparticipate = productModel.getTimeRemain(participateproducts);
 
     if (typeUser == "seller") {
-
+        // thêm thông tin bên seller
+        res.render('account/profile', {
+            information: infor[0],
+            type: typeUser[0],
+            favorite: newlistfavorite,
+            participate: newlistparticipate,
+            win: winproducts
+            //thêm thông tin bên seller
+        })
     }
     else {
         res.render('account/profile', {
