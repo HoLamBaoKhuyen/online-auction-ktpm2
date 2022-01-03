@@ -528,4 +528,14 @@ export default {
     const raw = await db.raw(sql);
     return raw[0];
   },
+
+  addProduct(entity) {
+    return db("products").insert(entity);
+  },
+  async searchForDes(sellerID, proName) {
+    const ret = await db("products")
+      .where("prodName", proName)
+      .andWhere("selID", sellerID);
+    return ret[0];
+  },
 };
