@@ -20,11 +20,11 @@
             <form id="frmPostProduct" method="post">
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label >Tên sản phẩm</label>
+                        <label ><strong> Tên sản phẩm</strong></label>
                         <input type="text" class="form-control" id="txtProdName" name ="prodName" autofocus>
                     </div>
                     <div class="col-sm-6">
-                        <label >Danh mục</label>
+                        <label ><strong> Danh mục</strong></label>
                         <select class="browser-default custom-select" name="prodType">
                             <option disabled selected="">Chọn danh mục cho sản phẩm</option>
                             {{#each ./lv2Categories }}
@@ -35,32 +35,38 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label >Giá khởi điểm</label>
+                        <label ><strong> Giá khởi điểm</strong></label>
                         <input type="number" class="form-control" id="txtPrice" name="curPrice" >
                     </div>
                     <div class="col-sm-6">
-                        <label>Giá mua ngay</label>
+                        <label><strong> Giá mua ngay</strong> </label>
                         <input type="number" class="form-control" id="txtBuyNowPrice" name="buyNowPrice" >
                     </div>
                     
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-6">
-                        <label>Bước giá</label>
+                        <label><strong> Bước giá</strong> </label>
                         <input type="number" class="form-control" id="step" name="step">
                     </div>
                     <div class="col-sm-3">
-                        <label>Ngày kết thúc</label>
+                        <label><strong> Ngày kết thúc</strong></label>
                         <input type="date" class="form-control" id="date" name="date">
                     </div>
                      <div class="col-sm-3">
-                        <label>Giờ kết thúc</label>
+                        <label><strong> Giờ kết thúc </strong></label>
                         <input type="time" class="form-control" id="time" name="time">
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col-sm-12">
-                        <label>Mô tả</label>
+                        <label><strong>Hình ảnh</strong></label>
+                        
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-12">
+                        <label><strong> Mô tả </strong></label>
                         <textarea name="des" id="prodDes" class="form-control" style="min-width: 100%" rows=10></textarea>
                     </div>
                 </div>
