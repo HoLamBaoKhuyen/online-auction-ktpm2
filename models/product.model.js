@@ -279,4 +279,7 @@ export default {
         const raw = await db.raw(sql);
         return raw[0];
     },
+    addProduct(entity){
+        return db('products').insert(entity);
+    }
 }
