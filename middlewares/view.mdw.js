@@ -39,6 +39,10 @@ export default function (app) {
           var fullName = firstName + " " + lastName;
           return fullName;
         },
+        isSeller(type) {
+          if (type === "seller") return true;
+          return false;
+        },
       },
     })
   );
