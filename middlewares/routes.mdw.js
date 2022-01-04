@@ -7,22 +7,21 @@ import { fileURLToPath } from "url";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 export default function (app) {
-  // app.get("/", function (req, res) {
-  //     res.render("home");
-  //   });
+  // app.get("/err", function (req, res) {
+  //   throw new Error("Error!");
+  // });
 
   app.use("/account", accountRouter);
   app.use("/", productRoute);
   app.use("/profile", profileRoute);
   app.use("/admin", adminRouter);
 
-
   app.use(function (req, res, next) {
-    res.render('404', { layout: false });
+    res.render("404", { layout: false });
   });
 
   app.use(function (err, req, res, next) {
-    console.error(err.stack)
-    res.render('500', { layout: false });
+    console.error(err.stack);
+    res.render("500", { layout: false });
   });
 }
