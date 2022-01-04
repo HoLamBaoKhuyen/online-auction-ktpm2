@@ -31,8 +31,10 @@ router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
       address: req.body.address,
       userType: "bidder",
     };
+    console.log(user);
     await userModel.add(user);
-    res.render("Authentication/login", { layout: "authentication" });
+    res.redirect('/account/login');
+    //res.render("Authentication/login", { layout: "authentication" });
   } else {
     // error code
     res.render("Authentication/signup", {
@@ -44,6 +46,7 @@ router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
 router.post("/login", recaptcha.middleware.verify, async function (req, res) {
   if (!req.recaptcha.error) {
     const user = await userModel.findByEmail(req.body.email);
+    console.log(user);
     if (user === null) {
       res.render("Authentication/login", {
         layout: "authentication",
