@@ -1,12 +1,15 @@
 import express from "express";
 import profileModel from "../models/profile.model.js";
 import productModel from "../models/product.model.js";
+import auth from "../middlewares/auth.mdw.js";
 import e from "express";
 
 const router = express.Router();
 
-router.get("/:id", async function (req, res) {
-  const id = req.params.id;
+router.get("/", auth, async function (req, res) {
+  //const id = req.params.id;
+  
+  const id = res.locals.authUser.uID;
   const infor = await profileModel.getInforByID(id);
   const typeUser = await profileModel.checkUserType(id);
   const favoriteproducts = await profileModel.getFavoriteProd(id);
@@ -43,13 +46,10 @@ router.get("/:id", async function (req, res) {
   }
 });
 
-router.post("/:id", async function (req, res) {
-  const email = req.body;
-  console.log(email);
-});
 
-router.get("/:uID/comment/:prodID", async function (req, res) {
-  const userID = req.params.uID || 0;
+router.get("/comment/:prodID", auth, async function (req, res) {
+  //const userID = req.params.uID || 0;
+  const userID = res.locals.authUser.uID;
   const prodID = req.params.prodID || 0;
 
   const list = await productModel.findByProdID(prodID);
@@ -62,8 +62,9 @@ router.get("/:uID/comment/:prodID", async function (req, res) {
   });
 });
 
-router.post("/:uID/comment/:prodID", async function (req, res) {
-  const userID = req.params.uID || 0;
+router.post("/comment/:prodID", async function (req, res) {
+  //const userID = req.params.uID || 0;
+  const userID = res.locals.authUser.uID;
   const prodID = req.params.prodID || 0;
   const content = req.body.commentwinprod;
   const type = req.body.commentType;
@@ -87,12 +88,13 @@ router.post("/:uID/comment/:prodID", async function (req, res) {
       profileModel.bidderAddBadRate(userID, idSeller, prodID, content);
     }
 
-    res.redirect("/profile/" + userID);
+    res.redirect("/profile");
   }
 });
 
-router.get("/profile-comment/:id", async function (req, res) {
-  const id = req.params.id || 0;
+router.get("/profile-comment", auth, async function (req, res) {
+  //const id = req.params.id || 0;
+  const id = res.locals.authUser.uID;
 
   const information = await profileModel.getInforByID(id);
   const comment = await profileModel.getComment(id);
@@ -110,7 +112,7 @@ router.get("/profile-comment/:id", async function (req, res) {
 router.post("/deleteFavo/:delID", async function (req, res) {
   const delID = req.params.delID;
   profileModel.deleteFavoriteProd(res.locals.authUser.uID, delID);
-  res.redirect("/profile/" + res.locals.authUser.uID);
+  res.redirect("/profile");
 });
 
 export default router;
