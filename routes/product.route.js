@@ -604,7 +604,7 @@ router.get("/product/sortDate/search", async function (req, res) {
 });
 //------------------------------------ Post-----------------------------------------------
 
-router.get("/post", function (req, res) {
+router.get("/postProduct", function (req, res) {
   if (
     typeof req.session.auth === "undefined" ||
     req.session.auth === false ||
@@ -614,7 +614,7 @@ router.get("/post", function (req, res) {
   }
   res.render("ProductView/postProduct");
 });
-router.post("/post", async function (req, res) {
+router.post("/postProduct", async function (req, res) {
   const timeEnd = moment(req.body.date + " " + req.body.time).format(
     "YYYY-MM-DD hh:mm:ss"
   );
