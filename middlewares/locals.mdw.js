@@ -8,7 +8,8 @@ export default function (app) {
     next();
   });
   app.use(function (req, res, next) {
-    if (typeof req.session.auth === "undefined") {
+    if (typeof (req.session.auth) === 'undefined') {
+      req.session.auth = false;
       res.locals.auth = false;
       res.locals.authUser = null;
     }

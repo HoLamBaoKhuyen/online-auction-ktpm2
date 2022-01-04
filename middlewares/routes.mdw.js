@@ -15,4 +15,14 @@ export default function (app) {
   app.use("/", productRoute);
   app.use("/profile", profileRoute);
   app.use("/admin", adminRouter);
+
+
+  app.use(function (req, res, next) {
+    res.render('404', { layout: false });
+  });
+
+  app.use(function (err, req, res, next) {
+    console.error(err.stack)
+    res.render('500', { layout: false });
+  });
 }

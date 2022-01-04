@@ -7,7 +7,6 @@ import e from "express";
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
-  //const id = req.params.id;
   
   const id = res.locals.authUser.uID;
   const infor = await profileModel.getInforByID(id);
