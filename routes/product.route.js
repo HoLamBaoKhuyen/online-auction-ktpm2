@@ -408,13 +408,13 @@ router.post("/detail/:prodID/makeBid", async function (req, res) {
           productModel.sendAuctionEmail(
             getMail[0].sellerMail,
             "Update giá của sản phẩm " + product[0].prodName,
-            `Giá mới được bid là: ${numeral(bidValue).format("0,0")}`
+            `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
           );
           if (getMail[0].currentHighestMail != null)
             productModel.sendAuctionEmail(
               getMail[0].currentHighestMail,
               "Update giá của sản phẩm " + product[0].prodName,
-              `Giá mới được bid là: ${numeral(bidValue).format("0,0")}`
+              `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
             );
           if (getMailBid[0].email != getMail[0].currentHighestMail)
             productModel.sendAuctionEmail(
@@ -422,7 +422,7 @@ router.post("/detail/:prodID/makeBid", async function (req, res) {
               "Update giá của sản phẩm " + product[0].prodName,
               `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(
                 bidValue
-              ).format("0,0")}`
+              ).format("0,0")} VND`
             );
         }
       }
@@ -448,13 +448,13 @@ router.post("/detail/:prodID/buyNow", async function (req, res) {
   productModel.sendAuctionEmail(
     getMail[0].sellerMail,
     "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-    `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")}`
+    `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
   );
   if (getMail[0].currentHighestMail != null)
     productModel.sendAuctionEmail(
       getMail[0].currentHighestMail,
       "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-      `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")}`
+      `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
     );
   if (getMailBid[0].email != getMail[0].currentHighestMail)
     productModel.sendAuctionEmail(
@@ -462,7 +462,7 @@ router.post("/detail/:prodID/buyNow", async function (req, res) {
       "Sản phẩm " + product[0].prodName,
       `Bạn vừa mua ngay thành công. Giá mua ngay là: ${numeral(
         product[0].buyNowPrice
-      ).format("0,0")}`
+      ).format("0,0")} VND`
     );
   res.redirect("/detail/" + prodID);
 });
