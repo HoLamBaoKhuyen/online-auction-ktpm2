@@ -22,6 +22,7 @@
     "express-handlebars-sections": "^1.0.1",
     "express-recaptcha": "^5.0.2",
     "express-session": "^1.17.2",
+    "fs-extra": "^10.0.0",
     "knex": "^0.95.14",
     "moment": "^2.29.1",
     "morgan": "^1.10.0",
