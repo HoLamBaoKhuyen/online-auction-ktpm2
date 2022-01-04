@@ -185,16 +185,16 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs nav-justified">
             <li class="nav-item">
-                <a class="nav-link active font-weight-bold bg-transparent" data-toggle="tab" href="#description">Thông
+                <a class="nav-link active font-weight-bold bg-warning border-dark text-tab" data-toggle="tab" href="#description">Thông
                     Tin</a>
             </li>
-            <li class="nav-item font-weight-bold ">
-                <a class="nav-link bg-transparent" data-toggle="tab" href="#review">Đánh giá</a>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link bg-warning border-dark text-tab" data-toggle="tab" href="#review">Đánh giá</a>
             </li>
         </ul>
 
         <!-- Tab panes -->
-        <div class="tab-content">
+        <div class="tab-content detailProd">
             <div id="description" class="container tab-pane active"><br>
                 <div class="table-responsive">
                     <table class="table table-sm table-borderless mb-0 "
@@ -318,14 +318,15 @@
             </form>
         {{/each}}
         {{else}}
-            <h4 class="text-center mt-5"><a href="/account/login">Đăng nhập</a> để mở tính năng đấu giá</h4>
+            <h4 class="text-center mt-5"><a href="/account/login" class="text-decoration-none text-login">Đăng nhập</a> để mở tính năng đấu giá</h4>
         {{/if}}
 
 
 
         <h4 class="text-center mt-5">Lịch sử đấu giá</h4>
-        <table class="table table-hover table-bordered text-center">
-            <thead class="bg-warning">
+        <div  class="table-responsive"></div>
+        <table class="table table-striped adminTable">
+            <thead class="adminTable_header">
                 <tr>
                     <th scope="col">Thời điểm</th>
                     <th scope="col" colspan="2">Người mua</th>
