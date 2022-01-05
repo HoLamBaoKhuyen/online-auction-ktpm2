@@ -60,6 +60,7 @@ router.post("/login", recaptcha.middleware.verify, async function (req, res) {
         layout: "authentication",
         err_message: "Invalid email or password.",
       });
+      return;
     }
 
     req.session.auth = true;

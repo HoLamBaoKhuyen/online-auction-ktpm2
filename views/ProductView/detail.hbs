@@ -147,10 +147,15 @@
             {{/if}}
 
             {{#if ../authUser}}
-                <div class="pt-5 mb-3 d-flex">
-                <form action="" method="post">
-                    <a class="btn btn-success border"><i class="fa fa-plus-circle"> Thêm vào Watch List</i></a>
-                </form>
+            <div class="pt-5 mb-3 d-flex">
+                {{#if inWatchlist}}
+                <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i
+                        class="fa fa-minus-circle" aria-hidden="true"></i> Xóa khỏi Watch List</a>
+                {{else}}
+                <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i
+                        class="fa fa-plus-circle" aria-hidden="true"></i> Thêm vào Watch List</a>
+                {{/if}}
+
                 <div>&nbsp &nbsp &nbsp &nbsp &nbsp</div>
                 {{#if buyNowPrice}}
                 {{#if isDeclined}}
@@ -185,259 +190,269 @@
                         </div>
                     </form>
                 </span>{{/if}}
-                    {{/if}}
+                
                 {{/if}}
-                </div>
-            {{/if}}
-        </div>
-        </div>
+                {{/if}}
 
-        
-        <div class="col-md-6 mt-3 ml-2">
-            <h3 class="text-center">
-                Giá hiện tại: <span>{{format_price curPrice}}</span>
-            </h3>
-        </div>
-
-
-        <div class="p-2"></div>
-        {{/each}}
-    </div>
-
-
-
-    <div class="container mt-3 border-bottom">
-        <!-- Nav tabs -->
-        <ul class="nav nav-tabs nav-justified">
-            <li class="nav-item">
-                <a class="nav-link active font-weight-bold bg-transparent" data-toggle="tab" href="#description">Thông
-                    Tin</a>
-            </li>
-            <li class="nav-item font-weight-bold ">
-                <a class="nav-link bg-transparent" data-toggle="tab" href="#review">Đánh giá</a>
-            </li>
-        </ul>
-
-        <!-- Tab panes -->
-        <div class="tab-content">
-            <div id="description" class="container tab-pane active"><br>
-                <div class="table-responsive">
-                    <table class="table table-sm table-borderless mb-0 "
-                        style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
-                        <tbody>
-                            {{#each this.description}}
-                            <tr>
-                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
-                                        modifyTime
-                                        'DD-MM-YYYY'}}</strong></th>
-                                <td>{{{des}}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
-                </div>
             </div>
-
-            <div id="review" class="container tab-pane fade"><br>
-                <h5><span>1</span> review(s) cho <span>{{this.product.prodName}}</span></h5>
-                <div class="media mt-3 mb-4">
-                    <img class="d-flex mr-3 z-depth-1 " src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
-                        width="62" alt="Generic placeholder image">
-                    <div class="media-body">
-                        <div class="d-sm-flex justify-content-between">
-                            <p class="mt-1 mb-2">
-                                <strong>Hoàng Tử Gió</strong>
-                                <span>– </span><span>January 28, 2020</span>
-                            </p>
-                        </div>
-                        <p class="mb-0">Nice one, love it!</p>
-                    </div>
-                </div>
-                <hr>
-                <h5 class="mt-4">Bình luận</h5>
-                <div class="my-3">
-                </div>
-                <div>
-                    <!-- Your review -->
-                    <div class="md-form md-outline">
-                        <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
-                        <label for="form76">Comment</label>
-                    </div>
-                    <div class="container">
-                        <span id="rateMe2" class="empty-stars"></span>
-                    </div>
-                    <div class="text-right pb-2">
-                        <button type="button" class="btn btn-primary">Gửi</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{#each this.product}}
-    {{#if isProdOfSeller}}
-    <form action="/detail/{{prodID}}/editDesc" method="post">
-        <div class="container mt-5">
-            <h4>
-                Thêm mô tả
-            </h4>
-            <div>
-                <div class="form-group">
-                    <textarea id="txtAddDes" name="AddDes">Thêm mô tả</textarea>
-                </div>
-            </div>
-            <div class="text-muted">
-                <button type="submit" class="btn btn-primary">
-                    <i class="fa fa-check" aria-hidden="true"></i>
-                    Save
-                </button>
-            </div>
-        </div>
-    </form>
-    {{/if}}
-    {{/each}}
-
-
-    <div class="container mb-5 " style="width: 90%;">
-        {{#if authUser}}
-        {{#each this.product}}
-            {{#if isDeclined}}
-            <h4 class="text-center mt-5">Bạn không có quyền đấu giá sản phẩm này</h4>
-            </br>
-            {{else}}
-            <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post"
-                action="/detail/{{prodID}}/makeBid">
-                <h4 class="m-3">
-                    Ra giá
-                </h4>
-
-                <div class="form-group">
-                    <label for="AuctionExecute" class="sr-only">Giá đấu</label>
-                    <input type="text" class="form-control" id="AuctionExecute" name="bidPrice" placeholder="Nhập giá đấu">
-                </div>
-                <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
-                    data-target="#auctionmodal">Đấu giá</a>
-
-            {{/if}}
-
-                <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Đấu Giá</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-                            </div>
-                            <div class="modal-body">
-                                <div>Giá tối thiểu mà bạn phải đặt: <strong>{{format_price minbid}}</strong></div>
-                                <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
-                                <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
-                            </div>
-                        </div>
+            <form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
+                <div class="row form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="uid" id="uid" value="{{../authUser.uID}}">
+                        <input type="text" class="form-control" name="id" id="id" value="{{prodID}}">
                     </div>
                 </div>
             </form>
-        {{/each}}
-        {{else}}
-            <h4 class="text-center mt-5"><a href="/account/login">Đăng nhập</a> để mở tính năng đấu giá</h4>
-        {{/if}}
+            {{/if}}
 
-
-
-        <h4 class="text-center mt-5">Lịch sử đấu giá</h4>
-        <table class="table table-hover table-bordered text-center">
-            <thead class="bg-warning">
-                <tr>
-                    <th scope="col">Thời điểm</th>
-                    <th scope="col" colspan="2">Người mua</th>
-                    <th scope="col">Giá</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#if this.historytable}}
-                {{#each this.historytable}}
-                <tr>
-                    <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:mm:ss'}}</td>
-                    <th colspan="2">{{userName}}</th>
-                    <td>{{format_price price}}</td>
-                </tr>
-                {{/each}}
-                {{else}}
-                <tr>
-                    <td scope="row"></td>
-                    <th colspan="2">Chưa có lịch sử đấu giá</th>
-                </tr>
-                {{/if}}
-            </tbody>
-        </table>
+        </div>
     </div>
 
-    <div class="container ">
-        <div class="p-3">
-            <h4>Sản phẩm tương tự</h4>
+
+    <div class="col-md-6 mt-3 ml-2">
+        <h3 class="text-center">
+            Giá hiện tại: <span>{{format_price curPrice}}</span>
+        </h3>
+    </div>
+
+
+    <div class="p-2"></div>
+    {{/each}}
+</div>
+
+
+
+<div class="container mt-3 border-bottom">
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs nav-justified">
+        <li class="nav-item">
+            <a class="nav-link active font-weight-bold bg-transparent" data-toggle="tab" href="#description">Thông
+                Tin</a>
+        </li>
+        <li class="nav-item font-weight-bold ">
+            <a class="nav-link bg-transparent" data-toggle="tab" href="#review">Đánh giá</a>
+        </li>
+    </ul>
+
+    <!-- Tab panes -->
+    <div class="tab-content">
+        <div id="description" class="container tab-pane active"><br>
+            <div class="table-responsive">
+                <table class="table table-sm table-borderless mb-0 "
+                    style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
+                    <tbody>
+                        {{#each this.description}}
+                        <tr>
+                            <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
+                                    modifyTime
+                                    'DD-MM-YYYY'}}</strong></th>
+                            <td>{{{des}}}</td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="row justify-content-between">
-            {{#each this.similar}}
-            <div class="col-4 col-lg-4">
-                <div class="ibox">
-                    <div class="ibox-content product-box">
-                        <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
-                            <span class="textFavorite"> Yêu thích</span>
+
+        <div id="review" class="container tab-pane fade"><br>
+            <h5><span>1</span> review(s) cho <span>{{this.product.prodName}}</span></h5>
+            <div class="media mt-3 mb-4">
+                <img class="d-flex mr-3 z-depth-1 " src="https://mdbootstrap.com/img/Photos/Others/placeholder1.jpg"
+                    width="62" alt="Generic placeholder image">
+                <div class="media-body">
+                    <div class="d-sm-flex justify-content-between">
+                        <p class="mt-1 mb-2">
+                            <strong>Hoàng Tử Gió</strong>
+                            <span>– </span><span>January 28, 2020</span>
+                        </p>
+                    </div>
+                    <p class="mb-0">Nice one, love it!</p>
+                </div>
+            </div>
+            <hr>
+            <h5 class="mt-4">Bình luận</h5>
+            <div class="my-3">
+            </div>
+            <div>
+                <!-- Your review -->
+                <div class="md-form md-outline">
+                    <textarea id="form76" class="md-textarea form-control pr-6" rows="4"></textarea>
+                    <label for="form76">Comment</label>
+                </div>
+                <div class="container">
+                    <span id="rateMe2" class="empty-stars"></span>
+                </div>
+                <div class="text-right pb-2">
+                    <button type="button" class="btn btn-primary">Gửi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{{#each this.product}}
+{{#if isProdOfSeller}}
+<form action="/detail/{{prodID}}/editDesc" method="post">
+    <div class="container mt-5">
+        <h4>
+            Thêm mô tả
+        </h4>
+        <div>
+            <div class="form-group">
+                <textarea id="txtAddDes" name="AddDes">Thêm mô tả</textarea>
+            </div>
+        </div>
+        <div class="text-muted">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Save
+            </button>
+        </div>
+    </div>
+</form>
+{{/if}}
+{{/each}}
+
+
+<div class="container mb-5 " style="width: 90%;">
+    {{#if authUser}}
+    {{#each this.product}}
+    {{#if isDeclined}}
+    <h4 class="text-center mt-5">Bạn không có quyền đấu giá sản phẩm này</h4>
+    </br>
+    {{else}}
+    <form class="form-inline pt-sm-5 d-flex justify-content-between" method="post" action="/detail/{{prodID}}/makeBid">
+        <h4 class="m-3">
+            Ra giá
+        </h4>
+
+        <div class="form-group">
+            <label for="AuctionExecute" class="sr-only">Giá đấu</label>
+            <input type="text" class="form-control" id="AuctionExecute" name="bidPrice" placeholder="Nhập giá đấu">
+        </div>
+        <a class="btn btn-warning border" onclick="confirmAuction()" style="width: 110px;" data-toggle="modal"
+            data-target="#auctionmodal">Đấu giá</a>
+
+        {{/if}}
+
+        <div class="modal fade" id="auctionmodal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Đấu Giá</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
                         </button>
-                        <div class="product-imitation">
-                            <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
-                        </div>
-                        <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
-                            <span class="product-label">
-                                {{#if newpost}}
-                                NEW
-                                {{else}}
-                                HOT
-                                {{/if}}
-                            </span>
-                            <small class="text-muted">Bids: {{CountBids}}</small>
-                            <a href="#" class="product-name"> {{prodName}}</a>
-
-                            <div class="price">
-                                {{#if nameofUser}}
-                                <div>{{nameofUser}}:
-                                    <span class="font-weight-bold">{{format_price curPrice}}</span>
-                                </div>
-                                {{else}}
-                                <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price curPrice}}</span>
-                                </div>
-                                {{/if}}
-                            </div>
-                            <div class="textPrice">
-                                <div>Giá mua ngay:
-                                    <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
-                                </div>
-                            </div>
-                            <div class="remain-time">
-                                <i class="fa fa-clock-o"></i>
-                                Còn lại:
-                                {{#if remain}} {{remain}}
-                                {{else}}
-                                {{formatTime timeEnd "DD/MM/YYYY"}}
-                                {{/if}}
-                            </div>
-
-                            <br />
-                            <div class="text-right">
-                                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                                    {{formatTime timePosted "DD/MM/YYYY"}}
-                                </small>
-                            </div>
-
-                        </div>
+                    </div>
+                    <div class="modal-body">
+                        <div>Giá tối thiểu mà bạn phải đặt: <strong>{{format_price minbid}}</strong></div>
+                        <div>Bạn có chắc muốn đấu giá với giá: <strong id="auctionPriceConfirm"></strong></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                        <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng ý</button>
                     </div>
                 </div>
             </div>
-            {{/each}}
         </div>
+    </form>
+    {{/each}}
+    {{else}}
+    <h4 class="text-center mt-5"><a href="/account/login">Đăng nhập</a> để mở tính năng đấu giá</h4>
+    {{/if}}
+
+
+
+    <h4 class="text-center mt-5">Lịch sử đấu giá</h4>
+    <table class="table table-hover table-bordered text-center">
+        <thead class="bg-warning">
+            <tr>
+                <th scope="col">Thời điểm</th>
+                <th scope="col" colspan="2">Người mua</th>
+                <th scope="col">Giá</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#if this.historytable}}
+            {{#each this.historytable}}
+            <tr>
+                <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:mm:ss'}}</td>
+                <th colspan="2">{{userName}}</th>
+                <td>{{format_price price}}</td>
+            </tr>
+            {{/each}}
+            {{else}}
+            <tr>
+                <td scope="row"></td>
+                <th colspan="2">Chưa có lịch sử đấu giá</th>
+            </tr>
+            {{/if}}
+        </tbody>
+    </table>
+</div>
+
+<div class="container ">
+    <div class="p-3">
+        <h4>Sản phẩm tương tự</h4>
     </div>
+    <div class="row justify-content-between">
+        {{#each this.similar}}
+        <div class="col-4 col-lg-4">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+                        <span class="textFavorite"> Yêu thích</span>
+                    </button>
+                    <div class="product-imitation">
+                        <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                    </div>
+                    <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                        <span class="product-label">
+                            {{#if newpost}}
+                            NEW
+                            {{else}}
+                            HOT
+                            {{/if}}
+                        </span>
+                        <small class="text-muted">Bids: {{CountBids}}</small>
+                        <a href="#" class="product-name"> {{prodName}}</a>
+
+                        <div class="price">
+                            {{#if nameofUser}}
+                            <div>{{nameofUser}}:
+                                <span class="font-weight-bold">{{format_price curPrice}}</span>
+                            </div>
+                            {{else}}
+                            <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price curPrice}}</span>
+                            </div>
+                            {{/if}}
+                        </div>
+                        <div class="textPrice">
+                            <div>Giá mua ngay:
+                                <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                            </div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i>
+                            Còn lại:
+                            {{#if remain}} {{remain}}
+                            {{else}}
+                            {{formatTime timeEnd "DD/MM/YYYY"}}
+                            {{/if}}
+                        </div>
+
+                        <br />
+                        <div class="text-right">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                {{formatTime timePosted "DD/MM/YYYY"}}
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
 </div>
