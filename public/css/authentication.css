@@ -30,9 +30,7 @@ body {
   background-color: transparent;
   border-radius: 20px;
   box-sizing: border-box;
-  /* padding: 0 1em; */
   margin: auto;
-  /* width: 50%; */
 }
 .form_textField {
   padding: 0 4em;
@@ -162,7 +160,10 @@ body {
 .submit:active {
   background-color: #e27a00;
 }
-
+/* ------------FORM POST PRODUCT------------- */
+.form_post_product {
+  width: 75%;
+}
 /*Responsive*/
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1200px) {

@@ -1,131 +1,183 @@
-<div class="form_contain">
-  <div class="form">
-    <div class="form_textField">
-      <h4 class="text-center font-weight-bold">ĐĂNG SẢN PHẨM</h4>
-      <div class="dropdown input-container ic1" id="category">
-        <button
-          class="dropdown-toggle border-0 categoryBtn"
-          type="button"
-          id="dropdownMenu2"
-          data-toggle="dropdown"
-          aria-haspopup="true"
-          aria-expanded="false"
-        >
-          Danh mục
-        </button>
-        <ul
-          class="dropdown-menu dropdown-menu-dark"
-          aria-labelledby="dropdownMenuButton2"
-        >
-          <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Đồ điện tử</a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a
-                  tabindex="-1"
-                  class="text-dark text-decoration-none"
-                  href="#"
-                >Điện thoại</a></li>
-              <li class="dropdown-item"><a
-                  class="text-dark text-decoration-none"
-                  href="#"
-                >Máy tính</a>
-              </li>
-            </ul>
-          </li>
-          <li class="dropdown-submenu">
-            <a class="dropdown-item" tabindex="-1" href="#">Quần áo</a>
-            <ul class="dropdown-menu">
-              <li class="dropdown-item"><a
-                  tabindex="-1"
-                  class="text-dark text-decoration-none"
-                  href="#"
-                >Áo khoác</a></li>
-              <li class="dropdown-item"><a
-                  class="text-dark text-decoration-none"
-                  href="#"
-                >Quần Jean</a>
-              </li>
-              <li class="dropdown-item"><a
-                  class="text-dark text-decoration-none"
-                  href="#"
-                >Áo sơ mi</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
+{{#section "css"}}
+  <link
+    href="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/css/fileinput.min.css"
+    media="all"
+    rel="stylesheet"
+    type="text/css"
+  />
+
+{{/section}}
+{{#section "js"}}
+  <script
+    src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.7/js/locales/vi.min.js"
+  ></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/5.2.7/themes/fa/theme.min.js"
+  ></script>
+
+  <script>
+    $("#fileUpload").fileinput({ showUpload: false, maxFileCount: 10,
+    inputGroupClass: "input-group-sm", dropZoneEnabled: false,
+    allowedFileExtensions:["png", "jpg", "gif"], theme: "fa", language:"vi" });
+  </script>
+
+  <script
+    src="https://cdn.tiny.cloud/1/uv9nci01hx5niurqaw6mllzkhbo7vbmcuaojaphu0bf9h1iy/tinymce/5/tinymce.min.js"
+    referrerpolicy="origin"
+  ></script>
+  <script>
+    tinymce.init({ selector: '#prodDes', plugins: `paste image link autolink
+    lists table media`, menubar: false, toolbar: [` undo redo | bold italic
+    underline strikethrough | numlist bullist | alignleft aligncenter
+    alignright| forecolor backcolor| table link image media`], entity_encoding :
+    "raw", });
+  </script>
+
+{{/section}}
+<div class="container mt-4">
+  <form method="post" enctype="multipart/form-data">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="text-center font-weight-bold">ĐĂNG SẢN PHẨM</h4>
       </div>
-      <div class="row">
-        <div class="col-6">
-          <div class="input-container ic1">
-            {{! <input id="category" class="input" type="text" placeholder=" " /> }}
+      <div class="card-body">
 
-            <div class="cut"></div>
-            <label for="category" class="placeholder">Danh mục</label>
-          </div>
-          <div class="input-container ic1">
-            <input id="productName" class="input" type="text" placeholder=" " />
-            <div class="cut"></div>
-            <label for="productName" class="placeholder">Tên sản phẩm</label>
-          </div>
-          <div class="input-container ic1">
-            <input
-              id="category"
-              class="input"
-              type="number"
-              min="0"
-              placeholder=" "
-            />
-            <div class="cut"></div>
-            <label for="category" class="placeholder">Giá khởi điểm</label>
-          </div>
-          <div class="input-container ic1">
-            <input
-              id="productName"
-              class="input"
-              type="number"
-              min="0"
-              placeholder=" "
-            />
-            <div class="cut"></div>
-            <label for="productName" class="placeholder">Bước giá</label>
-          </div>
+        <div class="row">
+          <div class="col-6">
 
-          <div class="input-container ic1">
-            <input
-              id="productName"
-              class="input"
-              type="number"
-              min="0"
-              placeholder=" "
-            />
+            <div class="input-container ic1">
+              <input
+                id="txtProdName"
+                class="input postPro-input"
+                type="text"
+                placeholder=" "
+                name="prodName"
+                autofocus
+                required
+              />
+              <div class="cut"></div>
+              <label for="productName" class="placeholder postPro-label">Tên sản
+                phẩm</label>
+            </div>
+            <div class="input-container ic1">
+              {{! <input id="category" class="input postPro-input" type="text" placeholder=" " /> }}
+              <select
+                class="browser-default custom-select"
+                name="prodType"
+                required
+              >
+                <option disabled selected>Danh mục</option>
+                {{#each ./lv2Categories}}
+                  <option value="{{typeID}}">{{typeName}}</option>
+                {{/each}}
+              </select>
+              <div class="cut"></div>
+              {{! <label for="category" class="placeholder postPro-label">Danh mục</label> }}
+            </div>
+            <div class="input-container ic1">
+              <input
+                id="txtPrice"
+                class="input postPro-input"
+                type="number"
+                min="0"
+                placeholder=" "
+                name="curPrice"
+                required
+              />
+              <div class="cut"></div>
+              <label for="category" class="placeholder postPro-label">Giá khởi
+                điểm</label>
+            </div>
+            <div class="input-container ic1">
+              <input
+                id="step"
+                name="step"
+                required
+                class="input postPro-input"
+                type="number"
+                min="0"
+                placeholder=" "
+              />
+              <div class="cut"></div>
+              <label for="productName" class="placeholder postPro-label">Bước
+                giá</label>
+            </div>
+
+            <div class="input-container ic1">
+              <input
+                id="txtBuyNowPrice"
+                name="buyNowPrice"
+                class="input postPro-input"
+                type="number"
+                min="0"
+                placeholder=" "
+              />
+              <div class="cut"></div>
+              <label for="productName" class="placeholder postPro-label">Giá mua
+                ngay</label>
+            </div>
+
+            <div class="input-container ic1">
+              {{!-- <label><strong> Ngày kết thúc</strong></label>
+              <input
+                type="date"
+                class="form-control"
+                id="date"
+                name="date"
+                required
+              /> --}}
+
+
+ <!-- Date input -->
+          <input class="form-control input postPro-input" id="date"
+                name="date" type="date" placeholder=" " required/>
+          <div class="cut"></div>
+          <label for="date" class="placeholder postPro-label">Ngày kết thúc</label>
+
+            </div>
+            <div class="input-container ic1">
+              {{!-- <label><strong> Giờ kết thúc </strong></label> --}}
+              <input
+                type="time"
+                class="form-control"
+                id="time"
+                name="time"
+                placeholder=" "
+                required
+              />
+               <div class="cut"></div>
+          {{!-- <label for="time" class="placeholder postPro-label">Giờ kết thúc</label> --}}
+            </div>
+
+          </div>
+          <div class="col-6">
+            <div class="input-container ic1">
+              <textarea
+                name="des"
+                id="prodDes"
+                class="form-control"
+                style="min-width: 100%"
+                rows="12"
+              ></textarea>
+              <div class="cut"></div>
+              <label for="prodDes" class="placeholder postPro-label">Mô tả</label>
+            </div>
+          </div>
+          <div class="col-12 ic1">
+            <input type="file" id="fileUpload" name="fileUpload" multiple />
             <div class="cut"></div>
-            <label for="productName" class="placeholder">Giá mua ngay</label>
+            {{! <label for="fileUpload" class="placeholder postPro-label">Hình ảnh</label> }}
           </div>
         </div>
-        <div class="col-6">
-          <div class="input-container ic1">
-            <input id="username" class="input" type="text" placeholder=" " />
-            <div class="cut"></div>
-            <label for="username" class="placeholder">Tên tài khoản</label>
-          </div>
-          <div class="input-container ic1">
-            <input
-              id="password"
-              class="input"
-              type="password"
-              placeholder=" "
-            />
-            <div class="cut"></div>
-            <label for="password" class="placeholder">Mật khẩu</label>
-          </div></div>
+
       </div>
+      <div class="card-footer text-muted">
 
-      <div> <button type="text" class="submit">XÁC NHẬN</button></div>
-
+        <button type="text" class="submit">ĐĂNG</button>
+      </div>
     </div>
-    <div class="d-flex justify-content-between mt-4">
-      <a name="" id="" class="option" href="#" role="button">Chưa có tài khoản</a>
-      <a name="" id="" class="option" href="#" role="button">Quên mật khẩu</a>
-    </div>
-  </div>
+  </form>
 </div>

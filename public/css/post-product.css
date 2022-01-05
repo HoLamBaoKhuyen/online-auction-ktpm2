@@ -1,0 +1,12 @@
+.postPro-input {
+  border-color: rgb(199, 199, 199);
+  border-radius: 0;
+  height: 36px;
+}
+.postPro-label {
+  color: #6d6d6d;
+  top: 12px;
+}
+.postPro-input:focus ~ .postPro-label {
+  color: #6d6d6d;
+}
