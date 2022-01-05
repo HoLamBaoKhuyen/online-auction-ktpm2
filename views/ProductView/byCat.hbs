@@ -1,8 +1,8 @@
-<div class="container-fluid">
+<div class="container-fluid" style="min-height: 100%;">
     <div class="m-5 d-flex justify-content-between">
         {{#if productName}}
         {{#each productName}}
-        <h4>Danh mục   {{typeName}}:</h4>
+        <h4>Danh mục {{typeName}}:</h4>
         <form method="GET">
             <select class="form-select" aria-label="Default select example" onchange="location = this.value;">
                 <option value="/byCat2/{{typeID}}">Sắp xếp</option>
@@ -16,7 +16,7 @@
 
         {{#if categoryName}}
         {{#each categoryName}}
-        <h4>Danh mục   {{catName}}:</h4>
+        <h4>Danh mục {{catName}}:</h4>
         <form method="GET">
             <select class="form-select" aria-label="Default select example" onchange="location = this.value;">
                 <option value="/byCat/{{typeID}}">Sắp xếp</option>
@@ -30,12 +30,14 @@
 
         {{#if searchName}}
         {{#each searchName}}
-        <h4>Tìm kiếm:   {{search}}</h4>
+        <h4>Tìm kiếm: {{search}}</h4>
         <form method="GET">
             <select class="form-select" aria-label="Default select example" onchange="location = this.value;">
-                <option value="/product/search?searchbox={{search}}">Sắp xếp</option>
-                <option value="/product/sortPrice/search?searchbox={{search}}" {{#if sortPrice}}selected{{/if}}>Theo giá tăng dần</option>
-                <option value="/product/sortDate/search?searchbox={{search}}" {{#if sortDate}}selected{{/if}}>Theo thời gian kết thúc giảm
+                <option value="/product/search?categorySearch={{cate}}&searchbox={{search}}">Sắp xếp</option>
+                <option value="/product/sortPrice/search?categorySearch={{cate}}&searchbox={{search}}" {{#if
+                    sortPrice}}selected{{/if}}>Theo giá tăng dần</option>
+                <option value="/product/sortDate/search?categorySearch={{cate}}&searchbox={{search}}" {{#if
+                    sortDate}}selected{{/if}}>Theo thời gian kết thúc giảm
                     dần</option>
             </select>
         </form>
@@ -43,11 +45,26 @@
         {{/if}}
     </div>
 
+    
 
+    {{#if this.empty}}
+    <h5 class="card-title text-center">Không có sản phẩm</h5>
+    <br>
+    <div class="col-md-4 text-center d-flex justify-content-center" style="visibility: hidden;">
+        <div class="ibox">
+            <div class="ibox-content product-box">
+                <div class="product-imitation">
+                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img">
+                </div>
+                <div class="product-desc">
+                    <a href="#" class="product-name"> No Infor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{else}}
     <div class="row d-flex justify-content-center ">
-        {{#if this.empty}}
-        <h5 class="card-title">Không có sản phẩm</h5>
-        {{else}}
         {{#each this.products}}
         <div class="col-lg-3">
             <div class="ibox">
@@ -60,7 +77,11 @@
                     </div>
                     <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                         <span class="product-label">
+                            {{#if newpost}}
+                            NEW
+                            {{else}}
                             HOT
+                            {{/if}}
                         </span>
                         <small class="text-muted">Bids: {{CountBids}}</small>
                         <a href="#" class="product-name"> {{prodName}}</a>
@@ -81,7 +102,12 @@
                         </div>
                         <div class="remain-time">
                             <i class="fa fa-clock-o"></i>
-                            Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
+                            Còn lại:
+                            {{#if remain}}
+                            {{remain}}
+                            {{else}}
+                            {{formatTime timeEnd "DD/MM/YYYY"}}
+                            {{/if}}
                         </div>
 
                         <br />
@@ -99,13 +125,11 @@
     </div>
 
 
-
-
     <div class="d-flex justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{prev_page}}">Previous</a>
+                    <a class="page-link" href="?page={{prev_page}}">&laquo;</a>
                 </li>
                 {{#each this.pageNumbers}}
                 {{#if isCurrent}}
@@ -119,7 +143,7 @@
                 {{/if}}
                 {{/each}}
                 <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{next_page}}">Next</a>
+                    <a class="page-link" href="?page={{next_page}}">&raquo;</a>
                 </li>
             </ul>
         </nav>
