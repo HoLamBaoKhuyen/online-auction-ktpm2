@@ -1,6 +1,5 @@
-<div class="container-fluid" style="min-height: 100%;">
-    <div class="m-5 d-flex justify-content-between">
-        {{#section 'js'}}
+
+ {{#section 'js'}}
         <script>
             $('.addFavoriteBtn').on('click', function (e) {
                 const id = $(this).data('id');
@@ -10,6 +9,9 @@
 
         </script>
         {{/section}}
+<div class="container-fluid" style="min-height: 100%;">
+    <div class="m-5 d-flex justify-content-between">
+       
         <form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
             <div class="row form-group">
                 <div class="input-group">
