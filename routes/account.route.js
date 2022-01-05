@@ -13,7 +13,7 @@ router.get("/login", function (req, res) {
   res.render("Authentication/login", { layout: "authentication" });
 });
 router.get("/signup", function (req, res) {
-  res.render("Authentication/signup", { layout: "authentication" });
+  res.render("Authentication/signup_edit", { layout: "authentication" });
 });
 router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
   if (!req.recaptcha.error) {

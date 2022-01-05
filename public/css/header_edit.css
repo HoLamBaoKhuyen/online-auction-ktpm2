@@ -15,7 +15,7 @@ header {
 .categoryBtn:hover {
   color: rgb(19, 19, 19);
   transition: 0.3s;
-} 
+}
 /*-----------category search Button-----------*/
 .categorySearchBtn {
   font-weight: 400;
@@ -64,4 +64,8 @@ header {
   font-weight: 500;
   background-color: #ff8a00;
   transition: 0.4s;
+}
+
+.footer {
+  background-color: #ff8a00;
 }

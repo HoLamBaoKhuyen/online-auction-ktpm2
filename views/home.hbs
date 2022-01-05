@@ -27,14 +27,14 @@
   <div class="containItem">
     <div class="row justify-content-center">
       {{#each this.top5Bid}}
-      <div class="col-4 col-lg-2">
+       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
-            {{#if ../authUser}}
+             {{#if ../authUser}}
             {{!-- <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
               <span class="textFavorite"> Yêu thích</span>
             </button> --}}
-            {{#if inWatchlist }}
+           {{#if inWatchlist }}
             <button data-id="{{prodID}}"  class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus " aria-hidden="true"></i>
               <span class="textFavorite"> Bỏ yêu thích</span>
             </button>
@@ -54,35 +54,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name"> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 
@@ -121,35 +131,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name" style=" "> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 
@@ -189,35 +209,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name"> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 

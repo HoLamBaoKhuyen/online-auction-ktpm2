@@ -220,37 +220,36 @@
     {{/each}}
 </div>
 
+    <div class="container mt-3 border-bottom">
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs nav-justified">
+            <li class="nav-item">
+                <a class="nav-link active font-weight-bold bg-warning border-dark text-tab" data-toggle="tab" href="#description">Thông
+                    Tin</a>
+            </li>
+            <li class="nav-item font-weight-bold">
+                <a class="nav-link bg-warning border-dark text-tab" data-toggle="tab" href="#review">Đánh giá</a>
+            </li>
+        </ul>
 
-
-<div class="container mt-3 border-bottom">
-    <!-- Nav tabs -->
-    <ul class="nav nav-tabs nav-justified">
-        <li class="nav-item">
-            <a class="nav-link active font-weight-bold bg-transparent" data-toggle="tab" href="#description">Thông
-                Tin</a>
-        </li>
-        <li class="nav-item font-weight-bold ">
-            <a class="nav-link bg-transparent" data-toggle="tab" href="#review">Đánh giá</a>
-        </li>
-    </ul>
-
-    <!-- Tab panes -->
-    <div class="tab-content">
-        <div id="description" class="container tab-pane active"><br>
-            <div class="table-responsive">
-                <table class="table table-sm table-borderless mb-0 "
-                    style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
-                    <tbody>
-                        {{#each this.description}}
-                        <tr>
-                            <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
-                                    modifyTime
-                                    'DD-MM-YYYY'}}</strong></th>
-                            <td>{{{des}}}</td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
+        <!-- Tab panes -->
+        <div class="tab-content detailProd">
+            <div id="description" class="container tab-pane active"><br>
+                <div class="table-responsive">
+                    <table class="table table-sm table-borderless mb-0 "
+                        style="font-family: 'Times New Roman', Times, serif; font-size: larger;">
+                        <tbody>
+                            {{#each this.description}}
+                            <tr>
+                                <th colspan="2" class="pl-0 w-25 text-center col-7" scope="row"><strong>{{formatTime
+                                        modifyTime
+                                        'DD-MM-YYYY'}}</strong></th>
+                                <td>{{{des}}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+               
             </div>
         </div>
 

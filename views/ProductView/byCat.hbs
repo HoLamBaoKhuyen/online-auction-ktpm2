@@ -84,9 +84,10 @@
     </div>
 
     {{else}}
+    <div class="container">
     <div class="row d-flex justify-content-center ">
         {{#each this.products}}
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
             <div class="ibox">
                 <div class="ibox-content product-box">
                     {{#if ../authUser}}
@@ -156,9 +157,9 @@
         </div>
         {{/each}}
     </div>
+</div>
 
-
-    <div class="d-flex justify-content-center">
+    {{!-- <div class="d-flex justify-content-center">
         <nav aria-label="Page navigation example">
             <ul class="pagination justify-content-end">
                 <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
@@ -180,6 +181,26 @@
                 </li>
             </ul>
         </nav>
-    </div>
+    </div> --}}
+
+    <nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>
     {{/if}}
 </div>

@@ -1,0 +1,89 @@
+/*--------------ADMIN TABLE----------------------------*/
+.adminTable_scroll {
+  overflow-x: scroll;
+  white-space: nowrap;
+}
+.adminTable {
+  border: 1px solid #000;
+  border-radius: 6px;
+  margin-top: 10px;
+}
+.adminTable_header {
+  background-color: #ff8a00;
+}
+.adminTable_header th {
+  border: none;
+}
+.adminTable_header td {
+  border: none;
+}
+.adminTable_updateBtn {
+  transition: 0.3s;
+  border: none;
+  /* border-radius: 50%; */
+  font-size: 1.3em;
+  padding: 0.1rem 0.4rem;
+  color: rgb(0, 128, 43);
+  background-color: transparent;
+}
+.adminTable_updateBtn:hover {
+  background-color: #cabfa180;
+  color: rgb(0, 128, 43);
+}
+.adminTable_deleteBtn {
+  transition: 0.3s;
+  border: none;
+  padding: 0.1rem 0.4rem;
+  font-size: 1.3em;
+  color: red;
+  background-color: transparent;
+}
+.adminTable_deleteBtn:hover {
+  background-color: #cabfa180;
+  color: red;
+}
+/* -----------CHI TIẾT MÔ TẢ SẢN PHẨM -------------*/
+.text-tab:hover {
+  color: black;
+  transition: 0.3s;
+}
+
+.detailProd {
+  border: 1px solid #000;
+}
+/* --------------TEXT ĐĂNG NHẬP MỞ TÍNH NĂNG ĐẤU GIÁ------------------- */
+.text-login {
+  color: #ff8a00;
+}
+.text-login:hover {
+  color: #b96300;
+  transition: 0.3s;
+}
+/*-----------PAGINATION BUTTON---------------*/
+.pagi_btn {
+  /* border-radius: 6px; */
+  color: #ffffff;
+  font-size: 12px;
+  font-weight: 600;
+  /* padding: 4px 12px; */
+  text-decoration: none;
+}
+.pagi_btn.active .pagi_btn_text {
+  background: #e27a00;
+}
+.pagi_btn:hover {
+  color: #fff;
+  text-decoration: none;
+}
+.pagi_btn .pagi_btn_text {
+  align-items: center;
+  text-decoration: none;
+  color: #fff;
+  padding: 4px 10px;
+  background: #ffad4c;
+}
+.pagi_btn:hover .pagi_btn_text {
+  background: #e27a00;
+
+  transition: 0.2s;
+}
