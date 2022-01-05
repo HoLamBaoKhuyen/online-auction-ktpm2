@@ -29,7 +29,7 @@ export default {
         //   limit +
         //   ` offset ` +
         //   offset;
-          const sql =`select p.*, u.firstName as highestBidder, count(pa.prodID) as countBid
+          const sql =`select p.*,  concat('***** ',u.firstname) AS nameofUser, count(pa.prodID) as CountBids
           from products p right join favoriteproducts f on p.prodID = f.prodID
                   left join users u on p.highestBidID = u.uID
                   left join participate pa on p.prodID = pa.prodID
