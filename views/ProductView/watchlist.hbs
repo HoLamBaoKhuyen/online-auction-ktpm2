@@ -1,23 +1,5 @@
 <div class="container-fluid" style="min-height: 100%;">
     <div class="m-5 d-flex justify-content-between">
-        {{#section 'js'}}
-        <script>
-            $('.addFavoriteBtn').on('click', function (e) {
-                const id = $(this).data('id');
-                $('#id').val(id);
-                $('#watchlistForm').submit();
-            });
-
-        </script>
-        {{/section}}
-        <form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
-            <div class="row form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
-                    <input type="text" class="form-control" name="id" id="id">
-                </div>
-            </div>
-        </form>
         {{#if productName}}
         {{#each productName}}
         <h4>Danh mục {{typeName}}:</h4>
@@ -63,7 +45,7 @@
         {{/if}}
     </div>
 
-
+    
 
     {{#if this.empty}}
     <h5 class="card-title text-center">Không có sản phẩm</h5>
@@ -87,22 +69,9 @@
         <div class="col-lg-3">
             <div class="ibox">
                 <div class="ibox-content product-box">
-                    {{#if ../authUser}}
-                    {{!-- <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
-                        <span class="textFavorite"> Yêu thích</span>
-                    </button> --}}
-                    {{#if inWatchlist }}
-                    <button data-id="{{prodID}}" class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus "
-                            aria-hidden="true"></i>
-                        <span class="textFavorite"> Bỏ yêu thích</span>
-                    </button>
-                    {{else}}
-                    <button data-id="{{prodID}}" class="addFavoriteBtn" id="addFavoriteBtn"><i
-                            class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+                    <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
                         <span class="textFavorite"> Yêu thích</span>
                     </button>
-                    {{/if}}
-                    {{/if}}
                     <div class="product-imitation">
                         <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
                     </div>

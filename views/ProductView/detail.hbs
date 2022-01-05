@@ -148,12 +148,14 @@
 
             {{#if ../authUser}}
             <div class="pt-5 mb-3 d-flex">
-                    {{#if inWatchlist}}
-                           <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i class="fa fa-minus-circle" aria-hidden="true"></i> Xóa khỏi Watch List</a>
-                        {{else}}
-                           <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i class="fa fa-plus-circle" aria-hidden="true"></i> Thêm vào Watch List</a>
-                        {{/if}}
-                    
+                {{#if inWatchlist}}
+                <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i
+                        class="fa fa-minus-circle" aria-hidden="true"></i> Xóa khỏi Watch List</a>
+                {{else}}
+                <a type="submit" class="btn btn-success border" href="javascript: $('#watchlistForm').submit()"><i
+                        class="fa fa-plus-circle" aria-hidden="true"></i> Thêm vào Watch List</a>
+                {{/if}}
+
                 <div>&nbsp &nbsp &nbsp &nbsp &nbsp</div>
                 {{#if buyNowPrice}}
                 {{#if isDeclined}}
@@ -167,24 +169,18 @@
                 </span>{{/if}}
                 {{/if}}
                 {{/if}}
-                
+
             </div>
             <form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
                 <div class="row form-group">
-                    <div class="col-sm-4"></div>
                     <div class="input-group">
                         <input type="text" class="form-control" name="uid" id="uid" value="{{../authUser.uID}}">
                         <input type="text" class="form-control" name="id" id="id" value="{{prodID}}">
-                        {{#if inWatchlist}}
-                            <input type="text" class="form-control" name="in" id="in" value="1">
-                        {{else}}
-                            <input type="text" class="form-control" name="in" id="in" value="0">
-                        {{/if}}
                     </div>
                 </div>
             </form>
             {{/if}}
-            
+
         </div>
     </div>
 

@@ -15,5 +15,6 @@ export default {
     },
     remove(uid, prodid){
         return db('favoriteproducts').where("bidID", uid).andWhere('prodID', prodid).del();
-    }
+    },
+   
 }
