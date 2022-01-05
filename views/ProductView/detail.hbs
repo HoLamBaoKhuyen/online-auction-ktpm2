@@ -153,13 +153,38 @@
                 </form>
                 <div>&nbsp &nbsp &nbsp &nbsp &nbsp</div>
                 {{#if buyNowPrice}}
-                    {{#if isDeclined}}
-                    {{else}}
-                    {{#if isAvailable}}
-                        <span class="mr-5">
-                        <form id="buyNowForm" action="/detail/{{prodID}}/buyNow" method="post">
-                            <a class="btn btn-warning border" href="javascript: $('#buyNowForm').submit()"><i class="fa fa-cc-mastercard"> Mua ngay: {{format_price buyNowPrice}} </i></a>
-                        </form></span>{{/if}}
+                {{#if isDeclined}}
+                {{else}}
+                {{#if isAvailable}}
+                <span class="mr-5">
+                    <form id="buyNowForm" action="/detail/{{prodID}}/buyNow" method="post">
+                        <a class="btn btn-warning border" data-toggle="modal" data-target="#buyNow">
+                            <i class="fa fa-cc-mastercard"> Mua ngay: {{format_price buyNowPrice}} </i></a>
+                        <div class="modal fade" id="buyNow" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Mua ngay</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div>Bạn có muốn mua ngay <strong>{{prodName}}</strong>
+                                        </div>
+                                        <div>Giá mua ngay: <strong>{{format_price buyNowPrice}}</strong></div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-dismiss="modal">Thoát</button>
+                                        <button type="submit" class="btn btn-primary" name="auctionPrice" value="">Đồng
+                                            ý</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </span>{{/if}}
                     {{/if}}
                 {{/if}}
                 </div>
