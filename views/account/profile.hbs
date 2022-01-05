@@ -242,19 +242,20 @@
                         <div class="ibox">
                             <div class="ibox-content product-box">
                                 <form action="/profile/deleteFavo/{{prodID}}" id="removeFavorite" method="post">
-                                <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i class="fa fa-minus favoriteIcon"
-                                        aria-hidden="true"></i>
-                                    <span class="textFavorite"> Xóa khỏi yêu thích</span>
-                                </a></form>
+                                    <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i
+                                            class="fa fa-minus favoriteIcon" aria-hidden="true"></i>
+                                        <span class="textFavorite"> Xóa khỏi yêu thích</span>
+                                    </a>
+                                </form>
                                 <div class="product-imitation">
                                     <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
                                 </div>
                                 <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
                                     <span class="product-label">
                                         {{#if newpost}}
-                                            NEW
+                                        NEW
                                         {{else}}
-                                            HOT
+                                        HOT
                                         {{/if}}
                                     </span>
                                     <small class="text-muted">Bids: {{CountBids}}</small>
@@ -298,6 +299,32 @@
                     </div>
                     {{/each}}
                 </div>
+                {{#if non_empty}}
+                    <div class="d-flex justify-content-center">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-end">
+                            <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
+                                <a class="page-link" href="?page={{prev_page}}">&laquo;</a>
+                            </li>
+                            {{#each this.pageNumbers}}
+                            {{#if isCurrent}}
+                            <li class="page-item active">
+                                <a class="page-link" href="javascript:;">{{value}}</a>
+                            </li>
+                            {{else}}
+                            <li class="page-item">
+                                <a class="page-link" href="?page={{value}}">{{value}}</a>
+                            </li>
+                            {{/if}}
+                            {{/each}}
+                            <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                                <a class="page-link" href="?page={{next_page}}">&raquo;</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                {{/if}}
+                
             </div>
         </div>
 
@@ -364,6 +391,7 @@
                     </div>
                     {{/each}}
                 </div>
+                
             </div>
         </div>
 
@@ -374,8 +402,7 @@
                     <div class="col-4 col-md-4">
                         <div class="ibox">
                             <div class="ibox-content product-box">
-                                <a class="btn addFavoriteBtn"
-                                    href="/profile/comment/{{prodID}}"><i
+                                <a class="btn addFavoriteBtn" href="/profile/comment/{{prodID}}"><i
                                         class="fa fa-plus favoriteIcon" aria-hidden="true" href="/"></i>
                                     <span class="textFavorite"> Đánh giá </span>
                                 </a>

@@ -1,22 +1,21 @@
+{{#section 'js'}}
+<script>
+    $('.addFavoriteBtn').on('click', function (e) {
+        const id = $(this).data('id');
+        $('#id').val(id);
+        $('#watchlistForm').submit();
+    });
 
- {{#section 'js'}}
-        <script>
-            $('.addFavoriteBtn').on('click', function (e) {
-                const id = $(this).data('id');
-                $('#id').val(id);
-                $('#watchlistForm').submit();
-            });
-
-        </script>
-        {{/section}}
-  <form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
-            <div class="row form-group">
-                <div class="input-group">
-                    <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
-                    <input type="text" class="form-control" name="id" id="id">
-                </div>
-            </div>
-        </form>
+</script>
+{{/section}}
+<form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
+    <div class="row form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
+            <input type="text" class="form-control" name="id" id="id">
+        </div>
+    </div>
+</form>
 <h3 class="row d-flex justify-content-center mt-5"><b>Danh sách yêu thích</b></h3>
 <div class="container-fluid mt-2" style="min-height: 100%;">
     {{#if this.empty}}
@@ -41,7 +40,7 @@
         <div class="col-lg-3">
             <div class="ibox">
                 <div class="ibox-content product-box">
-                   {{#if ../authUser}}
+                    {{#if ../authUser}}
                     {{#if inWatchlist }}
                     <button data-id="{{prodID}}" class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus "
                             aria-hidden="true"></i>
