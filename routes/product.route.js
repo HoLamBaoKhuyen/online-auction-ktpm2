@@ -5,6 +5,7 @@ import profileModel from "../models/profile.model.js";
 
 import userModel from "../models/user.model.js";
 import prodDesModel from "../models/productdes.model.js";
+import watchlistModel from "../models/watchlist.model.js";
 const router = express.Router();
 
 router.get("/", async function (req, res) {
@@ -295,6 +296,7 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
 router.get("/detail/:prodid", async function (req, res) {
   const prodID = req.params.prodid;
   const product = await productModel.findByProdID(prodID);
+  
 
   if (product == null) {
     return res.redirect("/");
@@ -307,6 +309,13 @@ router.get("/detail/:prodid", async function (req, res) {
     product[0].isAvailable = 1;
   }
 
+  if (req.session.authUser){
+    const wlist = await watchlistModel.findByUidProID(req.session.authUser.uID,prodID);
+    if (wlist!== null){
+      product[0].inWatchlist=1;
+    }  
+    }
+ 
   if (newlist[0].highestBidID != null) {
     const highestUserBidLike = await profileModel.getLikeOfBidder(
       newlist[0].highestBidID
