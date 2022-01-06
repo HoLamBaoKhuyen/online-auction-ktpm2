@@ -13,6 +13,7 @@ import sessionMdw from "./middlewares/session.mdw.js";
 import * as path from "path";
 
 import { create } from "express-handlebars";
+import nodecronMdw from "./middlewares/nodecron.mdw.js";
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
@@ -27,6 +28,7 @@ app.use(
 
 app.use("/public", express.static("public"));
 
+nodecronMdw;
 sessionMdw(app);
 activate_locals_middleware(app);
 viewMdw(app);
