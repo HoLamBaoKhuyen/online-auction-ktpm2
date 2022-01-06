@@ -1,6 +1,7 @@
 import e from "express";
 import db from "../utils/db.js";
 import nodemailer from "nodemailer";
+import { fromMail, transporter } from "../utils/transporter.js";
 
 export default {
   findAll() {
@@ -502,21 +503,27 @@ export default {
 
   sendAuctionEmail(recvEmail, subject, text) {
     console.log(recvEmail + " " + subject + " " + text);
-    let transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: "auctiononline213@gmail.com",
-        pass: "p12345678@",
-      },
-    });
+    // let transporter = nodemailer.createTransport({
+    //   service: "Gmail",
+    //   auth: {
+    //     user: "auctiononline213@gmail.com",
+    //     pass: "p12345678@",
+    //   },
+    // });
 
     var mailOptions = {
-      from: "auctiononline213@gmail.com",
+      from: fromMail,
       to: recvEmail,
       subject: subject,
       text: text,
     };
-    transporter.sendMail(mailOptions);
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
   },
 
   async getEmailinProduct(prodID) {
