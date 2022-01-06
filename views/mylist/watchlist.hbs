@@ -8,7 +8,7 @@
 
 </script>
 {{/section}}
-<form id="watchlistForm" action="/watchlist/edit" method="post" hidden>
+<form id="watchlistForm" action="/mylist/favorite/edit" method="post" hidden>
     <div class="row form-group">
         <div class="input-group">
             <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
@@ -35,9 +35,10 @@
     </div>
 
     {{else}}
+        <div class="container">
     <div class="row d-flex justify-content-center ">
         {{#each this.products}}
-        <div class="col-lg-3">
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
             <div class="ibox">
                 <div class="ibox-content product-box">
                     {{#if ../authUser}}
@@ -104,30 +105,26 @@
         </div>
         {{/each}}
     </div>
+</div>
+{{!-- pagination  --}}
+    <nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
 
+    {{/each}}
 
-    <div class="d-flex justify-content-center">
-        <nav aria-label="Page navigation example">
-            <ul class="pagination justify-content-end">
-                <li class="page-item {{#unless can_go_prev}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{prev_page}}">&laquo;</a>
-                </li>
-                {{#each this.pageNumbers}}
-                {{#if isCurrent}}
-                <li class="page-item active">
-                    <a class="page-link" href="javascript:;">{{value}}</a>
-                </li>
-                {{else}}
-                <li class="page-item">
-                    <a class="page-link" href="?page={{value}}">{{value}}</a>
-                </li>
-                {{/if}}
-                {{/each}}
-                <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
-                    <a class="page-link" href="?page={{next_page}}">&raquo;</a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+  </ul>
+</nav>
     {{/if}}
 </div>

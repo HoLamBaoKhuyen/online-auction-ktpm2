@@ -70,12 +70,28 @@
                 <i class="fa fa-comment" aria-hidden="true"></i>
                 Đánh giá của bản thân
               </a>
+                <a class="dropdown-item" href="/mylist/favorite">
+               <i class="fa fa-heart" aria-hidden="true"></i>
+               Sản phẩm yêu thích
+              </a>
+                <a class="dropdown-item" href="/mylist/participating">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Sản phẩm đang tham gia
+              </a>
+                <a class="dropdown-item" href="/mylist/winning">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                Sản phẩm đã thắng
+              </a>
           {{#if (isSeller authUser.userType) }}
-          
+          <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts">
+              <i class="fa fa-gavel" aria-hidden="true"></i>
+              Sản phẩm đang đấu giá
+            </a>
             <a class="dropdown-item" tabindex="-1" href="/postProduct">
               <i class="fa fa-pencil-square" aria-hidden="true"></i>
               Đăng sản phẩm
             </a>
+            
        
           {{/if}}
          

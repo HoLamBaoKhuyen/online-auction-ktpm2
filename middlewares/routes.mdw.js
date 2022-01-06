@@ -20,7 +20,7 @@ export default function (app) {
   app.use("/", postProductRoute);
   app.use("/profile", profileRoute);
   app.use("/admin", adminRouter);
-  app.use("/watchlist", auth, watchlistRoute);
+  app.use("/mylist", auth, watchlistRoute);
 
   app.use(function (req, res, next) {
     res.render("404", { layout: false });
