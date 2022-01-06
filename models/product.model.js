@@ -256,9 +256,11 @@ export default {
       `select pt.*, concat('***** ',u.firstname) as userName
                     from participate pt
                     left join users u on u.uID = pt.bidID
-                    where pt.prodID = ` +
-      prodID +
-      ` order by ptime asc`;
+                    where pt.prodID = ` +prodID + ` 
+                    and pt.bidID not in (select d.bidID
+                                        from declined d 
+                                        where d.prodID=pt.prodID)
+                    order by ptime asc`;
     const raw = await db.raw(sql);
     return raw[0];
   },
