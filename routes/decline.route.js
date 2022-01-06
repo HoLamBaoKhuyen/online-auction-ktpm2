@@ -12,20 +12,20 @@ router.post('/declineBid', async function(req,res){
     console.log(highest[0]);
    await declineBidModel.add(entity);
    const tmp = await declineBidModel.highestAfterDec(proID);
-   console.log(tmp[0]);
+    
     if (tmp[0]){
-        
-        if (tmp[0].highestBidID != highest[0].highestBidID){
-             declineBidModel.updateHighest(tmp[0],proID);
-             console.log('1');
+        let newtmp = {
+            highestBidID: tmp[0].highestBidID.toString(),
+            curPrice:tmp[0].curPrice.toString()
+        }
+        if (tmp[0].highestBidID !== highest[0].highestBidID){
+              declineBidModel.updateHighest(newtmp,proID);
         }
     }
     else{
          declineBidModel.resetPrice(proID);
          declineBidModel.resetHighestBid(proID);
-        console.log('2');
     }
-  
 
     const link = "/detail/" + req.body.proDEC;
     res.redirect(link);
