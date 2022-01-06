@@ -3,6 +3,7 @@ import profileModel from "../models/profile.model.js";
 import productModel from "../models/product.model.js";
 import auth from "../middlewares/auth.mdw.js";
 import watchlistModel from "../models/watchlist.model.js";
+import sellerProductModel from "../models/seller-product.model.js";
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
@@ -10,7 +11,7 @@ router.get("/", auth, async function (req, res) {
   const page = req.query.page || 1;
   const offset = (page - 1) * limit;
   const [list, total] = await Promise.all([
-    watchlistModel.findPageAll(limit, offset,req.session.authUser.uID),
+    watchlistModel.findPageAll(limit, offset, req.session.authUser.uID),
     watchlistModel.countAll(req.session.authUser.uID),
   ]);
 
@@ -44,6 +45,8 @@ router.get("/", auth, async function (req, res) {
 
   if (typeUser == "seller") {
     // thêm thông tin bên seller
+    const productsposted = await sellerProductModel.findBySelID(id);
+    let newpostedprod = productModel.getTimeRemain(productsposted);
     res.render("account/profile", {
       information: infor[0],
       type: typeUser[0],
@@ -52,10 +55,12 @@ router.get("/", auth, async function (req, res) {
       participate: newlistparticipate,
       win: winproducts,
       pageNumbers,
-        prev_page: +page - 1,
-        next_page: +page + 1,
-        can_go_next: +page < nPages,
-        can_go_prev: +page > 1,
+      prev_page: +page - 1,
+      next_page: +page + 1,
+      can_go_next: +page < nPages,
+      can_go_prev: +page > 1,
+      postedproducts: newpostedprod,
+
       //thêm thông tin bên seller
     });
   } else {
@@ -67,14 +72,13 @@ router.get("/", auth, async function (req, res) {
       participate: newlistparticipate,
       win: winproducts,
       pageNumbers,
-        prev_page: +page - 1,
-        next_page: +page + 1,
-        can_go_next: +page < nPages,
-        can_go_prev: +page > 1,
+      prev_page: +page - 1,
+      next_page: +page + 1,
+      can_go_next: +page < nPages,
+      can_go_prev: +page > 1,
     });
   }
 });
-
 
 router.get("/comment/:prodID", auth, async function (req, res) {
   //const userID = req.params.uID || 0;
