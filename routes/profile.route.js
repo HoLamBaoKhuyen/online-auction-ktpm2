@@ -3,7 +3,7 @@ import profileModel from "../models/profile.model.js";
 import productModel from "../models/product.model.js";
 import auth from "../middlewares/auth.mdw.js";
 import e from "express";
-
+import sellerProductModel from "../models/seller-product.model.js";
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
@@ -14,7 +14,7 @@ router.get("/", auth, async function (req, res) {
   const favoriteproducts = await profileModel.getFavoriteProd(id);
   const participateproducts = await profileModel.getParticipatingProd(id);
   const winproducts = await profileModel.getWinProd(id);
-
+  
   for (let i = 0; i < participateproducts.length; i++) {
     participateproducts[i].CountBids = await profileModel.countBids(
       participateproducts[i].prodID
@@ -26,12 +26,16 @@ router.get("/", auth, async function (req, res) {
 
   if (typeUser == "seller") {
     // thêm thông tin bên seller
+    const productsposted = await sellerProductModel.findBySelID(id);
+    let newpostedprod = productModel.getTimeRemain(productsposted);
     res.render("account/profile", {
       information: infor[0],
       type: typeUser[0],
       favorite: newlistfavorite,
       participate: newlistparticipate,
       win: winproducts,
+      postedproducts: newpostedprod,
+
       //thêm thông tin bên seller
     });
   } else {

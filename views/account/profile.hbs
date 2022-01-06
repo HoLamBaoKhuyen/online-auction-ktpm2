@@ -230,6 +230,11 @@
         <li class="nav-item font-weight-bold bg-transparent border">
             <a class="nav-link " data-toggle="tab" href="#productwin">Sản phẩm đã thắng</a>
         </li>
+           {{#if (isSeller authUser.userType)}}
+        <li class="nav-item font-weight-bold bg-transparent border">
+            <a class="nav-link " data-toggle="tab" href="#productposted">Sản phẩm đang đấu giá</a>
+        </li>
+        {{/if}}
     </ul>
 
     <!-- Tab panes -->
@@ -388,6 +393,73 @@
                                         NEW
                                         {{else}}
                                         HOT
+                                        {{/if}}
+                                    </span>
+                                    <small class="text-muted">Bids: {{CountBids}}</small>
+                                    <a href="#" class="product-name"> {{prodName}}</a>
+
+                                    <div class="price">
+                                        {{#if nameofUser}}
+                                        <div>{{nameofUser}}:
+                                            <span class="font-weight-bold">{{format_price curPrice}}</span>
+                                        </div>
+                                        {{else}}
+                                        <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price
+                                                curPrice}}</span></div>
+                                        {{/if}}
+                                    </div>
+                                    <div class="textPrice">
+                                        <div>Giá mua ngay:
+                                            <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                                        </div>
+                                    </div>
+                                    <div class="remain-time">
+                                        <i class="fa fa-clock-o"></i>
+                                        Còn lại:
+                                        {{#if remain}}
+                                        {{remain}}
+                                        {{else}}
+                                        {{formatTime timeEnd "DD/MM/YYYY"}}
+                                        {{/if}}
+                                    </div>
+
+                                    <br />
+                                    <div class="text-right">
+                                        <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                            {{formatTime timePosted "DD/MM/YYYY"}}
+                                        </small>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+       
+        <div id="productposted" class="container tab-pane fade"><br>
+            <div class="container ">
+                <div class="row">
+                    {{#each postedproducts}}
+                    <div class="col-4 col-md-4">
+                        <div class="ibox">
+                            <div class="ibox-content product-box">
+                                {{!-- <form action="/profile/deleteFavo/{{prodID" id="removeFavorite" method="post">
+                                <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i class="fa fa-minus favoriteIcon"
+                                        aria-hidden="true"></i>
+                                    <span class="textFavorite"> Xóa khỏi yêu thích</span>
+                                </a></form> --}}
+                                <div class="product-imitation">
+                                    <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                                </div>
+                                <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                                    <span class="product-label">
+                                        {{#if newpost}}
+                                            NEW
+                                        {{else}}
+                                            HOT
                                         {{/if}}
                                     </span>
                                     <small class="text-muted">Bids: {{CountBids}}</small>
