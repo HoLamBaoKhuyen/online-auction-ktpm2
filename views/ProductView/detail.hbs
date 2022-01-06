@@ -392,7 +392,11 @@
                     <th scope="col">Giá</th>
                     {{#if authUser}}
                     {{#if (isSeller authUser.userType)}}
+                    {{#each this.product}}
+                    {{#if isProdOfSeller}}
                     <th scope="col">Từ chối</th>
+                    {{/if}}
+                    {{/each}}
                     {{/if}}
                     {{/if}}
 
@@ -407,9 +411,14 @@
                     <td>{{format_price price}}</td>
                     {{#if ../authUser}}
                     {{#if (isSeller ../authUser.userType)}}
-                    <td><a data-uid="{{bidID}}" name="" id="" class="btn btn-outline-danger declineBid" role="button">
+
+                    {{#each ../this.product}}
+                    {{#if isProdOfSeller}}
+                    <td><a data-uid="{{../bidID}}" name="" id="" class="btn btn-outline-danger declineBid" role="button">
                             <i class="fa fa-ban" aria-hidden="true"></i>
                         </a></td>
+                    {{/if}}
+                    {{/each}}
                     {{/if}}
                     {{/if}}
 
@@ -418,7 +427,7 @@
                 {{else}}
                 <tr>
                     <td scope="row"></td>
-                    <th colspan="4" >Chưa có lịch sử đấu giá</th>
+                    <th colspan="4">Chưa có lịch sử đấu giá</th>
                 </tr>
                 {{/if}}
             </tbody>
