@@ -4,6 +4,8 @@ import productModel from "../models/product.model.js";
 import auth from "../middlewares/auth.mdw.js";
 import watchlistModel from "../models/watchlist.model.js";
 import sellerProductModel from "../models/seller-product.model.js";
+import userModel from "../models/user.model.js";
+
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
@@ -78,6 +80,30 @@ router.get("/", auth, async function (req, res) {
       can_go_prev: +page > 1,
     });
   }
+});
+
+router.post("/", async function (req, res) {
+  const uID = req.body.uID;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const dob = req.body.dob;
+  const hotline = req.body.hotline;
+  const address = req.body.address;
+  const userType = req.body.userType;
+
+  await userModel.editUser(
+    uID,
+    firstName,
+    lastName,
+    dob,
+    hotline,
+    address,
+    userType
+  );
+  const user = await userModel.findByID(uID);
+  // console.log(user);
+  req.session.authUser = user;
+  res.redirect(req.headers.referer);
 });
 
 router.get("/comment/:prodID", auth, async function (req, res) {

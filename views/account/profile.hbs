@@ -5,8 +5,8 @@
         </h4>
     </a>
 
-    <div class="container mt-3" style="width:90%;" id="InforTable">
-        <table class="table table-hover table-borderless">
+    <div class="container" style="width:90%;" id="InforTable">
+        {{!-- <table class="table table-hover table-borderless">
             <tbody>
                 <tr>
                     <th scope="row">Họ và tên</th>
@@ -24,7 +24,111 @@
                     <td><a href="javascript:/" data-toggle="modal" data-target="#dobmodal">Chỉnh sửa</a></td>
                 </tr>
             </tbody>
-        </table>
+        </table> --}}
+
+
+<form id="frmEditProfile" method="post" class="form">
+  <div class="row">
+       <input
+          class="input"
+          type="hidden"
+          placeholder=" "
+          value={{information.uID}}
+          name="uID"
+        />
+         <input
+          class="input"
+          type="hidden"
+          placeholder=" "
+          value={{information.userType}}
+          name="userType"
+        />
+    <div class="col-xs-12 col-sm-6">
+      <div class="input-container ic1">
+        <input
+          id="txtEmail"
+          class="input"
+          type="text"
+          placeholder=" "
+          value={{information.email}}
+          name="email"
+          readonly
+        />
+        <div class="cut"></div>
+        <label for="txtEmail" class="placeholder">Email</label>
+      </div>
+      <div class="input-container ic1">
+        <input
+          id="txtFirstName"
+          class="input"
+          type="text"
+          placeholder=" "
+          value="{{information.firstName}}"
+          name="firstName"
+        />
+        <div class="cut"></div>
+        <label for="txtFirstName" class="placeholder">Tên</label>
+      </div>
+      <div class="input-container ic1">
+        <input
+          id="txtAddress"
+          class="input"
+          type="text"
+          placeholder=" "
+          value={{information.address}}
+          name="address"
+        />
+        <div class="cut"></div>
+        <label for="txtAddress" class="placeholder">Địa chỉ</label>
+      </div>
+    </div>
+
+    <div class="col-xs-12 col-sm-6">
+
+      <div class="input-container ic2">
+        <!-- Date input -->
+        <input
+          class="form-control input"
+          id="txtDOB"
+          name="dob"
+          type="date"
+          placeholder=" "
+          value="{{formatTime information.dob "YYYY-MM-DD"}}"
+          name="dob"
+        />
+        <div class="cut"></div>
+        <label for="dob" class="placeholder">Ngày sinh</label>
+      </div>
+      <div class="input-container ic2">
+        <input
+          id="txtLastName"
+          class="input"
+          type="text"
+          placeholder=" "
+          value="{{information.lastName}}"
+          name="lastName"
+        />
+        <div class="cut"></div>
+        <label for="txtLastName" class="placeholder">Họ</label>
+      </div>
+      <div class="input-container ic2">
+        <input
+          id="txtHotline"
+          class="input"
+          type="text"
+          placeholder=" "
+          value={{information.hotline}}
+          name="hotline"
+        />
+        <div class="cut"></div>
+        <label for="txtHotline" class="placeholder">Điện thoại</label>
+      </div>
+
+    </div></div>
+    <div class="col-12 text-right p-0"><button type="text" class="submit updateProfile">CHỈNH SỬA</button></div>
+  
+</form>
+
     </div>
 </div>
 
