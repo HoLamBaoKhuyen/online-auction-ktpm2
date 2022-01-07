@@ -5,10 +5,11 @@
   });
 </script>
 {{/section}}
-<div class="form_contain">
-  <form id="frmCode" class="form" action="/account/forgetpassword/sendCode" method="post">
 
-    <h4 class="text-center font-weight-bold">Quên mật khẩu</h4>
+<div class="form_contain">
+  <form id="frmCode" class="form" action="/account/sendCode" method="post">
+
+    <h4 class="text-center font-weight-bold">TẠO TÀI KHOẢN</h4>
     <div class="form_textField">
       {{#if warn}}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -18,7 +19,7 @@
         </button>
       </div>
       {{/if}}
-      <div class="input-container ic1">
+      <div class="input-container ic1" >
         {{#if refil}}
         <input id="emailCode" class="input" type="text" placeholder=" " name="emailCode" required="true"
           value="{{refil}}" autofocus />
@@ -29,10 +30,12 @@
         <label for="emailCode" class="placeholder">Email</label>
       </div>
       <button class="submit" type="submit" href="javascript:$('#frmCode').submit();"> Gửi mã</button>
+
     </div>
   </form>
 
-  <form id="frmChange" class="form" action="/account/forgetpassword/update" method="post">
+
+  <form id="frmPre" class="form" action="/account/pre-signup" method="post">
     <div class="form_textField">
       <div class="input-container ic1" hidden>
         {{#if refil}}
@@ -41,8 +44,9 @@
         <input id="txtEmail"  type="text" placeholder=" " name="email" required="true" />
         {{/if}}
         {{#if code}}
-        <input id="code" type="text" placeholder=" " name="code" required="true" value="{{code}}" />
+          <input id="code" type="text" placeholder=" " name="code" required="true" value="{{code}}" />
         {{/if}}
+         
       </div>
 
       <div class="input-container ic1">
@@ -53,37 +57,23 @@
       <div class="input-container ic1">
         <input id="txtPassword" class="input" type="password" placeholder=" " name="psword" required=="true" />
         <div class="cut"></div>
-        <label for="txtPassword" class="placeholder">Mật khẩu mới</label>
-      </div>
-
-       <div class="input-container ic1">
-        <input id="confirm" class="input" type="password" placeholder=" " name="confirm" required=="true" />
-        <div class="cut"></div>
-        <label for="confirm" class="placeholder">Nhập lại mật khẩu mới</label>
+        <label for="txtPassword" class="placeholder">Mật khẩu</label>
       </div>
       <br>
       <div class="g-recaptcha d-flex justify-content-center" data-sitekey="6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL">
       </div>
 
-      <div> <button type="submit" class="submit mt-3" href="javascript:$('#frmChange').submit();">LƯU</button></div>
+      <div> <button type="submit" class="submit mt-3"href="javascript:$('#frmPre').submit();">TẠO</button></div>
 
     </div>
     <div class="d-flex justify-content-between ml-5 mt-3 mr-5">
       <a class="option" href="/" role="button">
         Về trang chủ
       </a>
-      {{#if authUser}}
-      {{else}}
-      <a class="option" href="/account/login" role="button">Đăng nhập</a>
-      {{/if}}
+      <a class="option" href="/account/forgetpassword" role="button">Quên mật khẩu</a>
     </div>
-    {{#if authUser}}
-    {{else}}
     <div class="text-center mt-3">
       <a class="option" href="/account/signup" role="button">Chưa có tài khoản?</a>
     </div>
-    {{/if}}
-
-
   </form>
 </div>

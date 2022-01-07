@@ -77,8 +77,10 @@ export default {
     const raw = await db.raw(sql);
     return raw[0];
   },
-  requestUpgrade(entity){
-    return db('upgrde').insert(entity).onConflict('bidID','reqTime')
-    .merge();
-  }
+  requestUpgrade(entity) {
+    return db("upgrde").insert(entity).onConflict("bidID", "reqTime").merge();
+  },
+  async updatepassword(id, psword) {
+    return await db("users").where("uID", id).update("psword", psword);
+  },
 };
