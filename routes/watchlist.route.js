@@ -71,10 +71,31 @@ router.get("/participating", auth, async function (req, res) {
   const page = req.query.page || 1;
   const offset = (page - 1) * limit;
 
-  const total = await mylistModel.countParticipatingProd(id);
+  const totalProd = await mylistModel.countParticipatingProd(id);
 
-  let nPages = Math.floor(total / limit);
-  if (total % limit > 0) nPages++;
+  const participateproducts = await mylistModel.getParticipatingProdPage(
+    limit,
+    offset,
+    id
+  );
+  let newlist = productModel.getTimeRemain(participateproducts);
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
+
+  let nPages = Math.floor(totalProd / limit);
+  if (totalProd % limit > 0) nPages++;
 
   const pageNumbers = [];
   for (let i = 1; i <= nPages; i++) {
@@ -84,11 +105,6 @@ router.get("/participating", auth, async function (req, res) {
     });
   }
 
-  const participateproducts = await mylistModel.getParticipatingProdPage(
-    limit,
-    offset,
-    id
-  );
   // console.log(participateproducts);
 
   res.render("mylist/participating", {
@@ -119,6 +135,22 @@ router.get("/winning", auth, async function (req, res) {
   const offset = (page - 1) * limit;
 
   const total = await mylistModel.countWinProd(id);
+  const winproducts = await mylistModel.getWinProdPage(limit, offset, id);
+  let newlist = productModel.getTimeRemain(winproducts);
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
 
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
@@ -131,8 +163,7 @@ router.get("/winning", auth, async function (req, res) {
     });
   }
 
-  const winproducts = await mylistModel.getWinProdPage(limit, offset, id);
-  console.log(winproducts);
+  // console.log(winproducts);
   res.render("mylist/winning", {
     products: winproducts,
     empty: winproducts.length === 0,
@@ -162,6 +193,23 @@ router.get("/myproducts", auth, async function (req, res) {
 
   const total = await mylistModel.countPostProd(id);
 
+  const myproducts = await mylistModel.getPostProdPage(limit, offset, id);
+  let newlist = productModel.getTimeRemain(myproducts);
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
+
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
 
@@ -173,11 +221,10 @@ router.get("/myproducts", auth, async function (req, res) {
     });
   }
 
-  const winproducts = await mylistModel.getPostProdPage(limit, offset, id);
-  console.log(winproducts);
+  // console.log(winproducts);
   res.render("mylist/myproducts", {
-    products: winproducts,
-    empty: winproducts.length === 0,
+    products: myproducts,
+    empty: myproducts.length === 0,
     pageNumbers,
   });
 });
