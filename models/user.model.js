@@ -77,4 +77,8 @@ export default {
     const raw = await db.raw(sql);
     return raw[0];
   },
+  requestUpgrade(entity){
+    return db('upgrde').insert(entity).onConflict('bidID','reqTime')
+    .merge();
+  }
 };
