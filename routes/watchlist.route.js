@@ -185,6 +185,10 @@ router.post("/winning/edit", async function (req, res) {
 });
 
 router.get("/myproducts", auth, async function (req, res) {
+  if (res.locals.authUser.userType == "bidder") {
+    res.redirect("/");
+    return;
+  }
   const id = res.locals.authUser.uID;
 
   const limit = 8;

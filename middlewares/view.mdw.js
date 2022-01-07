@@ -39,6 +39,10 @@ export default function (app) {
           var fullName = firstName + " " + lastName;
           return fullName;
         },
+        isAdmin(type) {
+          if (type === "admin") return true;
+          return false;
+        },
         isSeller(type) {
           if (type === "seller") return true;
           return false;
