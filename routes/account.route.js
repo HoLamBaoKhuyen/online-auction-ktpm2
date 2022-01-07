@@ -66,7 +66,7 @@ router.post("/login", recaptcha.middleware.verify, async function (req, res) {
     req.session.auth = true;
     req.session.authUser = user;
 
-    const url = req.session.retUrl || "/";
+    const url = "/";
     res.redirect(url);
   } else {
     res.render("Authentication/login", {

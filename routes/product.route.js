@@ -477,7 +477,7 @@ router.get("/detail/:prodid", async function (req, res) {
     }
     //Kiểm tra id có nằm trong danh sách bị decline k
     const checkDecline = await productModel.checkDeclined(uID, prodID);
-    if (checkDecline != null) {
+    if (checkDecline !== null) {
       newlist[0].isDeclined = 1;
     } else {
       const getBidLike = await profileModel.getLikeOfBidder(uID);
@@ -515,6 +515,7 @@ router.get("/detail/:prodid", async function (req, res) {
     description,
     similar: newsimilar,
     historytable,
+    proID: prodID,
   });
 });
 

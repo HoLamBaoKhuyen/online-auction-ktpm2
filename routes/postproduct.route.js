@@ -53,6 +53,7 @@ router.post("/postProduct", async function (req, res) {
         const product = {
           prodName: req.body.prodName,
           prodType: req.body.prodType,
+          originalPrice: req.body.curPrice,
           curPrice: req.body.curPrice,
           buyNowPrice: req.body.buyNowPrice,
           step: req.body.step,
