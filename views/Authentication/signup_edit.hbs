@@ -1,0 +1,155 @@
+{{#section "js"}}
+  <script>
+    $('#frmRegister').on('submit',function(e){ e.preventDefault(); const email =
+    $('#txtEmail').val(); const password = $('#txtPassword').val(); const
+    confirm= $('#txtConfirm').val(); if (password!==confirm){ alert(`Passwords
+    are not matching`); return; }
+    $.getJSON(`/account/is-available?email=${email}`,function(data){ if
+    (data===false){ alert('Email is not available'); return; } else {
+    $('#frmRegister').off('submit').submit(); } }); });
+  </script>
+{{/section}}
+<div class="form_contain">
+  <form id="frmRegister" method="post" class="form">
+    <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
+    {{#if err_message}}
+      <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>Sign-up failed!</strong>
+        {{err_message}}
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    {{/if}}
+    <div class="row">
+      <div class="col-xs-12 col-sm-6">
+        <div class="input-container ic1">
+          <input
+            id="txtEmail"
+            class="input"
+            type="text"
+            placeholder=" "
+            name="email"
+            required="true"
+          />
+          <div class="cut"></div>
+          <label for="txtEmail" class="placeholder">Email</label>
+        </div>
+        <div class="input-container ic1 mb-4">
+          <input
+            id="txtPassword"
+            class="input"
+            type="password"
+            placeholder=" "
+            name="psword"
+            required="true"
+          />
+          <div class="cut"></div>
+          <label for="txtPassword" class="placeholder">Mật khẩu</label>
+        </div>
+        <div class="input-container ic1">
+          <input
+            id="txtFirstName"
+            class="input"
+            type="text"
+            placeholder=" "
+            required="true"
+            name="firstName"
+          />
+          <div class="cut"></div>
+          <label for="txtFirstName" class="placeholder">Tên</label>
+        </div>
+        <div class="input-container ic1">
+          <input
+            id="txtAddress"
+            class="input"
+            type="text"
+            placeholder=" "
+            required="true"
+            name="address"
+          />
+          <div class="cut"></div>
+          <label for="txtAddress" class="placeholder">Địa chỉ</label>
+        </div>
+
+      </div>
+
+      <div class="col-xs-12 col-sm-6">
+
+        <div class="input-container ic2">
+          <!-- Date input -->
+          <input
+            class="form-control input"
+            id="txtDOB"
+            name="dob"
+            type="date"
+            placeholder=" "
+            required="true"
+            name="dob"
+          />
+          <div class="cut"></div>
+          <label for="dob" class="placeholder">Ngày sinh</label>
+        </div>
+
+        <div class="input-container ic1 mb-4">
+          <input
+            id="txtConfirm"
+            class="input"
+            type="password"
+            placeholder=" "
+            required="true"
+          />
+          <div class="cut"></div>
+          <label for="txtConfirm" class="placeholder">Nhập lại mật khẩu</label>
+          <div id="message"></div>
+        </div>
+        <div class="input-container ic2">
+          <input
+            id="txtLastName"
+            class="input"
+            type="text"
+            placeholder=" "
+            required="true"
+            name="lastName"
+          />
+          <div class="cut"></div>
+          <label for="txtLastName" class="placeholder">Họ</label>
+        </div>
+        <div class="input-container ic2">
+          <input
+            id="txtHotline"
+            class="input"
+            type="text"
+            placeholder=" "
+            required="true"
+            name="hotline"
+          />
+          <div class="cut"></div>
+          <label for="txtHotline" class="placeholder">Điện thoại</label>
+        </div>
+
+      </div>
+    </div>
+
+    <div
+      class="g-recaptcha d-flex justify-content-center my-3"
+      data-sitekey="6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL"
+    ></div>
+    <div> <button type="text" class="submit mt-3">ĐĂNG KÝ</button></div>
+
+    <div class="text-center mt-4 justify-content-between d-flex">
+      <a name="" id="" class="option" href="/" role="button">Về
+        <span class="text-center font-weight-bold">
+          Trang chủ</span></a>
+      <a name="" id="" class="option" href="/account/login" role="button">Đã có
+        tài khoản?
+        <span class="text-center font-weight-bold">
+          Đăng nhập</span></a>
+    </div>
+  </form>
+</div>

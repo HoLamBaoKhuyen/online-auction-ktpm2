@@ -1,3 +1,21 @@
+{{#section 'js'}}
+<script>
+   $('.addFavoriteBtn').on('click',function(e){
+     const id = $(this).data('id');
+     $('#id').val(id);
+     $('#watchlistForm').submit();
+   });
+
+</script>
+{{/section}}
+<form id="watchlistForm" action="/mylist/favorite/edit" method="post" hidden>
+  <div class="row form-group">
+    <div class="input-group">
+      <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
+      <input type="text" class="form-control" name="id" id="id">
+    </div>
+  </div>
+</form>
 {{! ---------------------------------Top 5 đấu giá nhiều nhất-------------------- }}
 <div class="container-fluid my-3">
   <div class="mx-5 d-flex justify-content-between my-3">
@@ -5,16 +23,27 @@
   </div>
 
   {{! --------------------------Khung để sản phẩm------------------------- }}
- 
+
   <div class="containItem">
     <div class="row justify-content-center">
       {{#each this.top5Bid}}
-      <div class="col-4 col-lg-2">
+       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
-            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+             {{#if ../authUser}}
+            {{!-- <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button> --}}
+           {{#if inWatchlist }}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus " aria-hidden="true"></i>
+              <span class="textFavorite"> Bỏ yêu thích</span>
+            </button>
+            {{else}}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn"id="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
               <span class="textFavorite"> Yêu thích</span>
             </button>
+            {{/if}}
+            {{/if}}
             <div class="product-imitation">
               <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
             </div>
@@ -25,35 +54,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name"> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 
@@ -68,9 +107,20 @@
       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
-            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+             {{#if ../authUser}}
+            {{!-- <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button> --}}
+           {{#if inWatchlist }}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus " aria-hidden="true"></i>
+              <span class="textFavorite"> Bỏ yêu thích</span>
+            </button>
+            {{else}}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn"id="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
               <span class="textFavorite"> Yêu thích</span>
             </button>
+            {{/if}}
+            {{/if}}
             <div class="product-imitation">
               <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
             </div>
@@ -81,35 +131,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name" style=" "> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 
@@ -125,9 +185,20 @@
       <div class="col-4 col-lg-2">
         <div class="ibox">
           <div class="ibox-content product-box">
-            <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+             {{#if ../authUser}}
+            {{!-- <button class="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+              <span class="textFavorite"> Yêu thích</span>
+            </button> --}}
+           {{#if inWatchlist }}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus " aria-hidden="true"></i>
+              <span class="textFavorite"> Bỏ yêu thích</span>
+            </button>
+            {{else}}
+            <button data-id="{{prodID}}"  class="addFavoriteBtn"id="addFavoriteBtn"><i class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
               <span class="textFavorite"> Yêu thích</span>
             </button>
+            {{/if}}
+            {{/if}}
             <div class="product-imitation">
               <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
             </div>
@@ -138,35 +209,45 @@
               <small class="text-muted">Bids: {{CountBids}}</small>
               <a href="#" class="product-name"> {{prodName}}</a>
 
-              <div class="price">
-                {{#if nameofUser}}
-                <div>{{nameofUser}}:
-                  <span class="font-weight-bold">{{format_price curPrice}}</span>
+                <div class="price">
+                  {{#if nameofUser}}
+                    <div>{{nameofUser}}:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span>
+                    </div>
+                  {{else}}
+                    <div>Current Price:
+                      <span class="font-weight-bold">{{format_price
+                          curPrice
+                        }}</span></div>
+                  {{/if}}
                 </div>
-                {{else}}
-                <div>Current Price: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
-                {{/if}}
-              </div>
-              <div class="textPrice">
-                <div>Giá mua ngay:
-                  <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                <div class="textPrice">
+                  <div>Giá mua ngay:
+                    <span class="font-weight-bold">{{format_price
+                        buyNowPrice
+                      }}</span>
+                  </div>
                 </div>
-              </div>
-              <div class="remain-time">
-                <i class="fa fa-clock-o"></i>
-                Còn lại: {{formatTime timeEnd "DD/MM/YYYY"}}
-              </div>
+                <div class="remain-time">
+                  <i class="fa fa-clock-o"></i>
+                  Còn lại:
+                  {{formatTime timeEnd "DD/MM/YYYY"}}
+                </div>
 
-              <br />
-              <div class="text-right">
-                <small class="text-muted text-right"><i class="fa fa-calendar"></i>
-                  {{formatTime timePosted "DD/MM/YYYY"}}
-                </small>
+                <br />
+                <div class="text-right">
+                  <small class="text-muted text-right"><i
+                      class="fa fa-calendar"
+                    ></i>
+                    {{formatTime timePosted "DD/MM/YYYY"}}
+                  </small>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
       {{/each}}
     </div>
 

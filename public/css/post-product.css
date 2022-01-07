@@ -1,17 +1,4 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-body {
-  background-color: rgba(255, 137, 0, 0.62);
-}
-/*header*/
-.headerAuth {
-  position: relative;
-  top: 0;
-  left: 0;
-}
+/* lấy từ authentication.css  */
 
 /*form*/
 .form_contain {
@@ -86,12 +73,6 @@ body {
   width: 100%;
 }
 
-.dob {
-  background-color: transparent;
-}
-.dob::placeholder {
-  color: #e27a00;
-}
 .cut {
   background-color: transparent;
   border-radius: 10px;
@@ -160,6 +141,20 @@ body {
 .submit:active {
   background-color: #e27a00;
 }
+/* ------------------------------------------ */
+.postPro-input {
+  border-color: rgb(199, 199, 199);
+  border-radius: 0;
+  height: 36px;
+}
+.postPro-label {
+  color: #6d6d6d;
+  top: 12px;
+}
+.postPro-input:focus ~ .postPro-label {
+  color: #6d6d6d;
+}
+
 /* ------------FORM POST PRODUCT------------- */
 .form_post_product {
   width: 75%;

@@ -50,6 +50,12 @@
 
       </form>
       {{#if authUser}}
+      {{!-- {{#if (isBidder authUser.userType)
+        <a name="" id="" class="btn btn-outline-danger" href="/watchlist" role="button">
+        <i class="fa fa-heart" aria-hidden="true"></i>
+        Watch List
+        </a>
+      {{/if--}}
       <ul class="navbar-nav">
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
@@ -64,12 +70,28 @@
                 <i class="fa fa-comment" aria-hidden="true"></i>
                 Đánh giá của bản thân
               </a>
-  {{#if (isSeller authUser.userType) }}
-          
-            <a class="dropdown-item" tabindex="-1" href="/profile">
+                <a class="dropdown-item" href="/mylist/favorite">
+               <i class="fa fa-heart" aria-hidden="true"></i>
+               Sản phẩm yêu thích
+              </a>
+                <a class="dropdown-item" href="/mylist/participating">
+                <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+                Sản phẩm đang tham gia
+              </a>
+                <a class="dropdown-item" href="/mylist/winning">
+                <i class="fa fa-trophy" aria-hidden="true"></i>
+                Sản phẩm đã thắng
+              </a>
+          {{#if (isSeller authUser.userType) }}
+          <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts">
+              <i class="fa fa-gavel" aria-hidden="true"></i>
+              Sản phẩm đang đấu giá
+            </a>
+            <a class="dropdown-item" tabindex="-1" href="/postProduct">
               <i class="fa fa-pencil-square" aria-hidden="true"></i>
               Đăng sản phẩm
             </a>
+            
        
           {{/if}}
          
@@ -92,11 +114,11 @@
       
 
       <div class="m-3">
-        <a class="btn btn-outline-dark me-2 signupBtn" href="/account/login" role="button">
+        <a class="btn btn-outline-warning me-2 signupBtn" href="/account/login" role="button">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
           Login
         </a>
-        <a class="btn btn-outline-dark me-2 signupBtn" href="/account/signup" role="button">
+        <a class="btn btn-outline-warning me-2 signupBtn" href="/account/signup" role="button">
           <i class="fa fa-user-plus" aria-hidden="true"></i>
           Sign-up
         </a>

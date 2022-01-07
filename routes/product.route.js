@@ -1,10 +1,10 @@
 import express from "express";
-import moment from "moment";
 import productModel from "../models/product.model.js";
 import profileModel from "../models/profile.model.js";
 
 import userModel from "../models/user.model.js";
 import prodDesModel from "../models/productdes.model.js";
+import watchlistModel from "../models/watchlist.model.js";
 const router = express.Router();
 
 router.get("/", async function (req, res) {
@@ -16,6 +16,46 @@ router.get("/", async function (req, res) {
   let newlist2 = productModel.getTimeRemain(top5End);
   let newlist3 = productModel.getTimeRemain(top5Bid);
 
+  if (req.session.authUser) {
+    if (newlist3) {
+      for (let i = 0; i < newlist3.length; i++) {
+        let proID = newlist3[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist3[i].inWatchlist = 1;
+        }
+      }
+    }
+    if (newlist1) {
+      for (let i = 0; i < newlist1.length; i++) {
+        let proID = newlist1[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist1[i].inWatchlist = 1;
+        }
+      }
+    }
+    if (newlist2) {
+      for (let i = 0; i < newlist2.length; i++) {
+        let proID = newlist2[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist2[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
+
+  console.log(newlist1);
   res.render("home", {
     top5Price: newlist1,
     top5End: newlist2,
@@ -44,6 +84,20 @@ router.get("/allproducts", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
 
   res.render("ProductView/byCat", {
     products: newlist,
@@ -81,7 +135,20 @@ router.get("/byCat/:catID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const categoryName = await productModel.getCategoryName(catID);
 
   res.render("ProductView/byCat", {
@@ -118,7 +185,20 @@ router.get("/byCat/sortDate/:catID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const categoryName = await productModel.getCategoryName(catID);
   categoryName[0].sortDate = 1;
 
@@ -156,7 +236,20 @@ router.get("/byCat/sortPrice/:catID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const categoryName = await productModel.getCategoryName(catID);
   categoryName[0].sortPrice = 1;
 
@@ -198,7 +291,20 @@ router.get("/byCat2/:typeID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const productName = await productModel.getProductName(typeID);
 
   res.render("ProductView/byCat", {
@@ -235,7 +341,20 @@ router.get("/byCat2/sortDate/:typeID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const productName = await productModel.getProductName(typeID);
   productName[0].sortDate = 1;
 
@@ -273,7 +392,20 @@ router.get("/byCat2/sortPrice/:typeID", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const productName = await productModel.getProductName(typeID);
 
   productName[0].sortPrice = 1;
@@ -305,6 +437,16 @@ router.get("/detail/:prodid", async function (req, res) {
   //Kiểm tra thời gian sản phẩm còn hiệu lực hay không
   if (new Date() < product[0].timeEnd) {
     product[0].isAvailable = 1;
+  }
+
+  if (req.session.authUser) {
+    const wlist = await watchlistModel.findByUidProID(
+      req.session.authUser.uID,
+      prodID
+    );
+    if (wlist !== null) {
+      product[0].inWatchlist = 1;
+    }
   }
 
   if (newlist[0].highestBidID != null) {
@@ -500,7 +642,20 @@ router.get("/product/search", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const searchName = [{ search: "", cate: "" }];
 
   searchName[0].search = text;
@@ -542,7 +697,20 @@ router.get("/product/sortPrice/search", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const searchName = [{ search: "", cate: "" }];
 
   searchName[0].search = text;
@@ -584,7 +752,20 @@ router.get("/product/sortDate/search", async function (req, res) {
   }
 
   let newlist = productModel.getTimeRemain(list);
-
+  if (req.session.authUser) {
+    if (newlist) {
+      for (let i = 0; i < newlist.length; i++) {
+        let proID = newlist[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          newlist[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
   const searchName = [{ search: "", cate: "" }];
 
   searchName[0].search = text;
@@ -602,44 +783,5 @@ router.get("/product/sortDate/search", async function (req, res) {
     can_go_prev: +page > 1,
   });
 });
-//------------------------------------ Post-----------------------------------------------
 
-router.get("/post", function (req, res) {
-  if (
-    typeof req.session.auth === "undefined" ||
-    req.session.auth === false ||
-    req.session.authUser.userType !== "seller"
-  ) {
-    res.redirect("/");
-  }
-  res.render("ProductView/postProduct");
-});
-router.post("/post", async function (req, res) {
-  const timeEnd = moment(req.body.date + " " + req.body.time).format(
-    "YYYY-MM-DD hh:mm:ss"
-  );
-  const timePosted = moment().format("YYYY-MM-DD hh:mm:ss");
-  const user = await userModel.findByEmail(req.session.authUser.email);
-  const product = {
-    prodName: req.body.prodName,
-    prodType: req.body.prodType,
-    curPrice: req.body.curPrice,
-    buyNowPrice: req.body.buyNowPrice,
-    step: req.body.step,
-    timeEnd: timeEnd,
-    timePosted: timePosted,
-    selID: user.uID,
-  };
-  console.log(product);
-  await productModel.addProduct(product);
-  const prod = await productModel.searchForDes(user.uID, req.body.prodName);
-  const productdes = {
-    prodID: prod.prodID,
-    des: req.body.des,
-    modifyTime: timePosted,
-  };
-  console.log(productdes);
-  await prodDesModel.add(productdes);
-  res.render("ProductView/postProduct");
-});
 export default router;

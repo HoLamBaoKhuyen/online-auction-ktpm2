@@ -2,16 +2,37 @@ import express from "express";
 import profileModel from "../models/profile.model.js";
 import productModel from "../models/product.model.js";
 import auth from "../middlewares/auth.mdw.js";
-import e from "express";
+import watchlistModel from "../models/watchlist.model.js";
+import sellerProductModel from "../models/seller-product.model.js";
+import userModel from "../models/user.model.js";
 
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
-  
+  const limit = 3;
+  const page = req.query.page || 1;
+  const offset = (page - 1) * limit;
+  const [list, total] = await Promise.all([
+    watchlistModel.findPageAll(limit, offset, req.session.authUser.uID),
+    watchlistModel.countAll(req.session.authUser.uID),
+  ]);
+
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+  let newlist = productModel.getTimeRemain(list);
   const id = res.locals.authUser.uID;
   const infor = await profileModel.getInforByID(id);
   const typeUser = await profileModel.checkUserType(id);
-  const favoriteproducts = await profileModel.getFavoriteProd(id);
+  //const favoriteproducts = await profileModel.getFavoriteProd(id);
+  const favoriteproducts = productModel.getTimeRemain(list);
   const participateproducts = await profileModel.getParticipatingProd(id);
   const winproducts = await profileModel.getWinProd(id);
 
@@ -26,25 +47,64 @@ router.get("/", auth, async function (req, res) {
 
   if (typeUser == "seller") {
     // thêm thông tin bên seller
+    const productsposted = await sellerProductModel.findBySelID(id);
+    let newpostedprod = productModel.getTimeRemain(productsposted);
     res.render("account/profile", {
       information: infor[0],
       type: typeUser[0],
+      non_empty: list.length !== 0,
       favorite: newlistfavorite,
       participate: newlistparticipate,
       win: winproducts,
+      pageNumbers,
+      prev_page: +page - 1,
+      next_page: +page + 1,
+      can_go_next: +page < nPages,
+      can_go_prev: +page > 1,
+      postedproducts: newpostedprod,
+
       //thêm thông tin bên seller
     });
   } else {
     res.render("account/profile", {
       information: infor[0],
       type: typeUser[0],
+      non_empty: list.length !== 0,
       favorite: newlistfavorite,
       participate: newlistparticipate,
       win: winproducts,
+      pageNumbers,
+      prev_page: +page - 1,
+      next_page: +page + 1,
+      can_go_next: +page < nPages,
+      can_go_prev: +page > 1,
     });
   }
 });
 
+router.post("/", async function (req, res) {
+  const uID = req.body.uID;
+  const firstName = req.body.firstName;
+  const lastName = req.body.lastName;
+  const dob = req.body.dob;
+  const hotline = req.body.hotline;
+  const address = req.body.address;
+  const userType = req.body.userType;
+
+  await userModel.editUser(
+    uID,
+    firstName,
+    lastName,
+    dob,
+    hotline,
+    address,
+    userType
+  );
+  const user = await userModel.findByID(uID);
+  // console.log(user);
+  req.session.authUser = user;
+  res.redirect(req.headers.referer);
+});
 
 router.get("/comment/:prodID", auth, async function (req, res) {
   //const userID = req.params.uID || 0;

@@ -43,6 +43,10 @@ export default function (app) {
           if (type === "seller") return true;
           return false;
         },
+        isBidder(type) {
+          if (type === "bidder") return true;
+          return false;
+        },
       },
     })
   );
