@@ -166,9 +166,18 @@ export default {
         const sql=`insert into rating values (`+uid+`,`+idseller+`,`+prodID +`, false, false,'`+comment+`')`;
         const raw = await db.raw(sql);
     },
+    async sellerAddGoodRate(uid, idseller , prodID, comment){
+        const sql=`insert into rating values (`+uid+`,`+idseller+`,`+prodID +`, true, true,'`+comment+`')`;
+        const raw = await db.raw(sql);
+    },
 
+    async sellerAddBadRate(uid, idseller , prodID, comment){
+        const sql=`insert into rating values (`+uid+`,`+idseller+`,`+prodID +`, false, true,'`+comment+`')`;
+        const raw = await db.raw(sql);
+    },
     async deleteFavoriteProd(uid, prodID){
         const sql=`delete from favoriteproducts where bidID=${uid} and prodID = ${prodID}`;
         const raw = await db.raw(sql);
     },
+    
 }

@@ -51,6 +51,25 @@ export default function (app) {
           if (type === "bidder") return true;
           return false;
         },
+        Ended(time) {
+          console.log("time:" + time);
+          if (moment(time).isBefore(moment()))
+            return true;
+          return false;
+        },
+        isWinner(user, bidID) {
+          if (user === bidID)
+            return true;
+          return false;
+        },
+        isLiked(flag){
+          return flag;
+        },
+        haveWinner(id){
+          if (id!==null)
+            return true;
+            return false;
+        }
       },
     })
   );
