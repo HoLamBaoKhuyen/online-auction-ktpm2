@@ -64,61 +64,94 @@
             {{authUser.userType}}, <b>{{authUser.lastName}}!</b>
           </a>
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+            <ul class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+              <li>
               <a class="dropdown-item" href="/profile">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Thông tin cá nhân
-              </a>
+              </a></li>
+              <li>
               <a class="dropdown-item" href="/profile/profile-comment">
                 <i class="fa fa-comment" aria-hidden="true"></i>
                 Đánh giá của bản thân
               </a>
+              <li class="dropdown-submenu ">
+                <a class="dropdown-item" tabindex="-1" href="">Danh sách sản phẩm</a>
+                <ul  class="dropdown-menu">
+                    <li>
                 <a class="dropdown-item" href="/mylist/favorite">
                <i class="fa fa-heart" aria-hidden="true"></i>
                Sản phẩm yêu thích
-              </a>
+              </a></li>
+              <li>
                 <a class="dropdown-item" href="/mylist/participating">
                 <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                 Sản phẩm đang tham gia
-              </a>
+              </a></li>
+              <li>
                 <a class="dropdown-item" href="/mylist/winning">
                 <i class="fa fa-trophy" aria-hidden="true"></i>
                 Sản phẩm đã thắng
-              </a>
-          {{#if (isSeller authUser.userType) }}
+              </a></li>
+            {{#if (isSeller authUser.userType) }}
+          <li>
           <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts">
               <i class="fa fa-gavel" aria-hidden="true"></i>
               Sản phẩm đang đấu giá
-            </a>
+            </a></li>
+            {{/if}}
+             {{#if (isAdmin authUser.userType) }}
+          <li>
+          <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts">
+              <i class="fa fa-gavel" aria-hidden="true"></i>
+              Sản phẩm đang đấu giá
+            </a></li>
+            {{/if}}
+
+                </ul>
+              </li>
+              </li>
+            
+          {{#if (isSeller authUser.userType) }}
+            <li>
             <a class="dropdown-item" tabindex="-1" href="/postProduct">
               <i class="fa fa-pencil-square" aria-hidden="true"></i>
               Đăng sản phẩm
-            </a>
+            </a></li>
+
+            {{/if}}
+             {{#if (isAdmin authUser.userType) }}
+            <li>
+            <a class="dropdown-item" tabindex="-1" href="/postProduct">
+              <i class="fa fa-pencil-square" aria-hidden="true"></i>
+              Đăng sản phẩm
+            </a></li>
 
             {{/if}}
             {{#if (isBidder authUser.userType) }}
-
+            <li>
             <a class="dropdown-item" tabindex="-1" data-toggle="modal" data-target="#exampleModal">
               <i class="fa fa-level-up" aria-hidden="true"></i>
               Nâng cấp thành seller
-            </a>
+            </a></li>
             
             
             {{/if}}
-         
+         <li>
             <a class="dropdown-item" tabindex="-1" href="/account/updatepassword/{{authUser.uID}}">
               <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
               Đổi mật khẩu
-            </a>
+            </a></li>
 
 
             <div class="dropdown-divider"></div>
             <form id="frmLogout" action="/account/logout" method="post"></form>
+            <li>
             <a class="dropdown-item" href="javascript: $('#frmLogout').submit();">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
               Đăng xuất
-            </a>
-          </div>
+            </a></li>
+          </ul>
         </li>
       </ul>
       {{else}}
