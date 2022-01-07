@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcryptjs";
 import Recaptcha from "express-recaptcha";
 import userModel from "../models/user.model.js";
-
+import auth from "../middlewares/auth.mdw.js"
 const router = express.Router();
 var recaptcha = new Recaptcha.RecaptchaV2(
   "6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL",
@@ -91,7 +91,48 @@ router.get("/is-available", async function (req, res) {
 router.get("/forgetpassword", function (req, res) {
   res.render("Authentication/forgetpassword", { layout: "authentication" });
 });
-router.get("/updatepassword", function (req, res) {
+router.get("/updatepassword/:id", auth, function (req, res) {
+  const id = req.params.id;
+  if (id != req.session.authUser.uID){
+    res.redirect("/");
+  }
   res.render("Authentication/updatepassword", { layout: "authentication" });
 });
+router.post('/updatepassword/:id', async function (req, res) {
+  if (req.body.psword!== req.body.confirm) {
+    res.render("Authentication/updatepassword", { layout: "authentication" , err_message:"Password not matching"})
+    return;
+    ;
+  }
+  const id = req.params.id;
+  const user = await userModel.findByID(id);
+  const rawPassword = req.body.psword;
+  const ret = bcrypt.compareSync(rawPassword, user.psword);
+  if (ret===true){
+    res.render("Authentication/updatepassword", { layout: "authentication" , err_message:"Reset password failed"});
+    return;
+  }
+  else{
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(rawPassword, salt);
+    await userModel.updatepassword(id,hash);
+    res.render("Authentication/updatepassword", { layout: "authentication" , message:"Password Reseted"});
+  }
+
+});
+function generateOTP(){
+          
+  // Declare a string variable 
+  // which stores all string
+  var string = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  let OTP = '';
+  // Find the length of string
+  var len = string.length;
+  for (let i = 0; i < 6; i++ ) {
+      OTP += string[Math.floor(Math.random() * len)];
+  }
+  return OTP;
+}
+
+
 export default router;
