@@ -18,11 +18,11 @@ router.get("/login", function (req, res) {
 router.get("/signup", function (req, res) {
   res.render("Authentication/pre_signup", { layout: "authentication" });
 });
-
 router.get("/pre-signup", function (req, res) {
   res.render("Authentication/pre_signup", { layout: "authentication" });
 });
-router.post("/pre-signup", function (req, res) {
+router.post("/pre-signup",recaptcha.middleware.verify, function (req, res) {
+  if (!req.recaptcha.error){
   console.log(req.body);
   if (req.body.code !== req.body.otp) {
     res.render("Authentication/pre_signup", {
@@ -35,7 +35,13 @@ router.post("/pre-signup", function (req, res) {
     layout: "authentication",
     email: req.body.email,
     pass: req.body.psword,
-  });
+  });}
+  else{
+    res.render("Authentication/pre_signup", {
+      layout: "authentication",
+      warn: "You forgot to check reCaptcha box",
+    });
+  }
 });
 router.post("/sendCode", async function (req, res) {
 
@@ -68,7 +74,7 @@ router.post("/sendCode", async function (req, res) {
     });
   }
   else {
-    res.render("Authentication/pre_signup", {
+    res.render("Authentication/login", {
       layout: "authentication",
       warn: "Email đã tồn tại",
     });
@@ -171,6 +177,83 @@ router.get("/is-available", async function (req, res) {
 router.get("/forgetpassword", function (req, res) {
   res.render("Authentication/forgetpassword", { layout: "authentication" });
 });
+router.post("/forgetpassword/sendCode", async function (req, res){
+  const mail = req.body.emailCode;
+  console.log(mail);
+  const user = await userModel.findByEmail(mail);
+
+  if (user !== null) {
+    const OTP = generateOTP();
+    const data = {
+      from: fromMail,
+      to: mail,
+      subject: "Verify OTP",
+      html: "<h3>Mã OTP của bạn là </h3>" + "<h1 style='font-weight:bold;'>" + OTP + "</h1>",
+    };
+    try {
+      let err = await transporter.sendMail(data);
+    }
+    catch {
+      res.render("Authentication/forgetpassword", {
+        layout: "authentication",
+        warn: "Có lỗi xảy ra",
+      });
+      return;
+    }
+    res.render("Authentication/forgetpassword", {
+      layout: "authentication",
+      refil: mail,
+      code: OTP,
+    });
+  }
+  else {
+    res.render("Authentication/forgetpassword", {
+      layout: "authentication",
+      warn: "Tài khoản không tồn tại",
+    });
+  }
+});
+router.post('/forgetpassword/update', recaptcha.middleware.verify,async function (req, res) {
+  if (!req.recaptcha.error){
+  if (req.body.psword !== req.body.confirm) {
+    res.render("Authentication/forgetpassword", { layout: "authentication", warn: "Password không khớp" })
+    return;
+    ;
+  }
+  if (req.body.code!== req.body.otp)
+  {
+    res.render("Authentication/forgetpassword", { layout: "authentication", warn: "Sai mã" })
+    return;
+    ;
+  }
+  const mail = req.body.email;
+  const user = await userModel.findByEmail(mail);
+  const rawPassword = req.body.psword;
+  const ret = bcrypt.compareSync(rawPassword, user.psword);
+  if (ret === true) {
+    res.render("Authentication/forgetpassword", { layout: "authentication", warn: "Reset password failed" });
+    return;
+  }
+  else {
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(rawPassword, salt);
+    try{
+      await userModel.updatepassword(user.uID, hash);
+    }catch{
+      res.render("Authentication/forgetpassword", { layout: "authentication", warn: "Reset password failed" });
+      return;
+    }
+    req.session.auth = false;
+    req.session.authUser = null;
+    res.redirect('/account/login');
+  }
+  }
+  else{
+    res.render("Authentication/forgetpassword", { layout: "authentication", warn: "You forgot to check reCaptcha box" });
+      return;
+  }
+
+});
 router.get("/updatepassword/:id", auth, function (req, res) {
   const id = req.params.id;
   if (id != req.session.authUser.uID) {
@@ -195,10 +278,16 @@ router.post('/updatepassword/:id', async function (req, res) {
   else {
     const salt = bcrypt.genSaltSync(10);
     const hash = bcrypt.hashSync(rawPassword, salt);
-    await userModel.updatepassword(id, hash);
-    res.render("Authentication/updatepassword", { layout: "authentication", message: "Password Reseted" });
+    try{
+      await userModel.updatepassword(id, hash);
+    }catch{
+      res.render("Authentication/updatepassword", { layout: "authentication", err_message: "Reset password failed" });
+      return;
+    }
+    req.session.auth = false;
+    req.session.authUser = null;
+    res.redirect('/account/login');
   }
-
 });
 function generateOTP() {
 
