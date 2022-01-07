@@ -77,4 +77,7 @@ export default {
     const raw = await db.raw(sql);
     return raw[0];
   },
+  async updatepassword(id,psword){
+      return await db('users').where('uID',id).update('psword',psword);
+  }
 };
