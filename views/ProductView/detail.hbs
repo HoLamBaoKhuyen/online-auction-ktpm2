@@ -17,12 +17,33 @@
     $('.declineBid').on('click', function (e) {
         const id = $(this).data('uid');
         $('#decUID').val(id);
+        $('#confirmModal').modal();
+        //$('#declineForm').submit();
+    });
+    $('.ConfirmBtn').on('click', function (e) {
         $('#declineForm').submit();
     });
-
 </script>
 {{/section}}
-
+<div class="modal" id="confirmModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Bạn chắc chứ?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Bạn sắp từ chối tất cả các đợt ra giá từ người mua này trong phạm vi sản phẩm này</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary ConfirmBtn">Chắc chắn</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Không</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <form id="declineForm" action="/declineBid" method="post" hidden>
     <div class="row form-group">
@@ -468,10 +489,11 @@
 
                     {{#each ../this.product}}
                     {{#if isProdOfSeller}}
-                    <td><a data-uid="{{../bidID}}" name="" id="" class="btn btn-outline-danger declineBid"
+                    <td>
+                            <a data-uid="{{../bidID}}"  name="" id="" class="btn btn-outline-danger declineBid"
                             role="button">
-                            <i class="fa fa-ban" aria-hidden="true"></i>
-                        </a></td>
+                            <i class="fa fa-ban" aria-hidden="true"></i></a>
+                        </td>
                     {{/if}}
                     {{/each}}
                     {{/if}}
