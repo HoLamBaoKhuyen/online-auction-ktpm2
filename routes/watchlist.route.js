@@ -245,4 +245,49 @@ router.post("/myproducts/edit", async function (req, res) {
   }
   res.redirect(req.headers.referer);
 });
+
+router.get("/myproducts/ended",auth,async function(req,res){
+  
+  const id = res.locals.authUser.uID;
+
+  const limit = 8;
+  const page = req.query.page || 1;
+  const offset = (page - 1) * limit;
+
+  const total = await mylistModel.countEndedProd(id);
+
+  const myproducts = await mylistModel.getEndedProdPage(limit,offset,id);
+
+  if (req.session.authUser) {
+    if (myproducts) {
+      for (let i = 0; i < myproducts.length; i++) {
+        let proID = myproducts[i].prodID;
+        let wlist = await watchlistModel.findByUidProID(
+          req.session.authUser.uID,
+          proID
+        );
+        if (wlist !== null) {
+          myproducts[i].inWatchlist = 1;
+        }
+      }
+    }
+  }
+
+  let nPages = Math.floor(total / limit);
+  if (total % limit > 0) nPages++;
+
+  const pageNumbers = [];
+  for (let i = 1; i <= nPages; i++) {
+    pageNumbers.push({
+      value: i,
+      isCurrent: +page === i,
+    });
+  }
+
+    res.render('mylist/ended',{
+      products: myproducts,
+      empty: myproducts.length === 0,
+      pageNumbers,
+    });
+});
 export default router;

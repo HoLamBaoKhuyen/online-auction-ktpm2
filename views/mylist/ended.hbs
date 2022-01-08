@@ -1,0 +1,130 @@
+{{#section 'js'}}
+<script>
+    $('.addFavoriteBtn').on('click', function (e) {
+        const id = $(this).data('id');
+        $('#id').val(id);
+        $('#watchlistForm').submit();
+    });
+
+</script>
+{{/section}}
+<form id="watchlistForm" action="/mylist/participating/edit" method="post" hidden>
+    <div class="row form-group">
+        <div class="input-group">
+            <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
+            <input type="text" class="form-control" name="id" id="id">
+        </div>
+    </div>
+</form>
+<h3 class="row d-flex justify-content-center mt-5"><b>Sản phẩm đang đấu giá</b></h3>
+<div class="container-fluid mt-2" style="min-height: 100%;">
+    {{#if this.empty}}
+    <h5 class="card-title text-center">Không có sản phẩm</h5>
+    <br>
+    <div class="col-md-4 text-center d-flex justify-content-center" style="visibility: hidden;">
+        <div class="ibox">
+            <div class="ibox-content product-box">
+                <div class="product-imitation">
+                    <img src="/public/images/samsung-galaxy-a52s-5g-mint-600x600.jpg" class="responsive-img">
+                </div>
+                <div class="product-desc">
+                    <a href="#" class="product-name"> No Infor</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{else}}
+        <div class="container">
+    <div class="row d-flex justify-content-center ">
+        {{#each this.products}}
+        <div class="col-lg-3 col-md-4 col-sm-6 col-6">
+            <div class="ibox">
+                <div class="ibox-content product-box">
+                    {{#if ../authUser}}
+                    {{#if inWatchlist }}
+                    <button data-id="{{prodID}}" class="addFavoriteBtn" id="addFavoriteBtn"><i class="fa fa-minus "
+                            aria-hidden="true"></i>
+                        <span class="textFavorite"> Bỏ yêu thích</span>
+                    </button>
+                    {{else}}
+                    <button data-id="{{prodID}}" class="addFavoriteBtn" id="addFavoriteBtn"><i
+                            class="fa fa-plus favoriteIcon" aria-hidden="true"></i>
+                        <span class="textFavorite"> Yêu thích</span>
+                    </button>
+                    {{/if}}
+                    {{/if}}
+                    <div class="product-imitation">
+                        <img src="/public/images/{{prodID}}/main.jpg" class="responsive-img" />
+                    </div>
+                    <div class="product-desc" onclick="location.href='/detail/{{prodID}}'">
+                        <span class="product-label">
+                            {{#if newpost}}
+                            NEW
+                            {{else}}
+                            HOT
+                            {{/if}}
+                        </span>
+                        <small class="text-muted">Bids: {{CountBids}}</small>
+                        <a href="#" class="product-name"> {{prodName}}</a>
+
+                        <div class="price">
+                            {{#if nameofUser}}
+                            <div>{{nameofUser}}:
+                                <span class="font-weight-bold">{{format_price curPrice}}</span>
+                            </div>
+                            {{else}}
+                            <div>Giá khởi điểm: <span class="font-weight-bold">{{format_price curPrice}}</span></div>
+                            {{/if}}
+                        </div>
+                        <div class="textPrice">
+                            <div>Giá mua ngay:
+                                <span class="font-weight-bold">{{format_price buyNowPrice}}</span>
+                            </div>
+                        </div>
+                        <div class="remain-time">
+                            <i class="fa fa-clock-o"></i>
+                            Còn lại:
+                            {{#if remain}}
+                            {{remain}}
+                            {{else}}
+                            {{formatTime timeEnd "DD/MM/YYYY"}}
+                            {{/if}}
+                        </div>
+
+                        <br />
+                        <div class="text-right">
+                            <small class="text-muted text-right"><i class="fa fa-calendar"></i>
+                                {{formatTime timePosted "DD/MM/YYYY"}}
+                            </small>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+</div>
+{{!-- pagination  --}}
+    <nav class="my-3" aria-label="...">
+  <ul class="pagination pagination-sm justify-content-center">
+    {{#each this.pageNumbers}}
+      {{#if isCurrent}}
+        <li class="pagi_btn active"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{else}}
+        <li class="pagi_btn"><a
+            class="pagi_btn_text"
+            href="?page={{value}}"
+          >{{value}}</a></li>
+      {{/if}}
+
+    {{/each}}
+
+  </ul>
+</nav>
+    {{/if}}
+</div>

@@ -99,12 +99,22 @@
               <i class="fa fa-gavel" aria-hidden="true"></i>
               Sản phẩm đang đấu giá
             </a></li>
+            <li></a>
+             <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts/ended">
+              <i class="fa fa-hourglass-end" aria-hidden="true"></i>
+              Sản phẩm có người thắng
+            </a></li>
             {{/if}}
              {{#if (isAdmin authUser.userType) }}
           <li>
           <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts">
               <i class="fa fa-gavel" aria-hidden="true"></i>
               Sản phẩm đang đấu giá
+            </a></li>
+            <li></a>
+             <a class="dropdown-item" tabindex="-1" href="/mylist/myproducts/ended">
+              <i class="fa fa-hourglass-end" aria-hidden="true"></i>
+              Sản phẩm có người thắng
             </a></li>
             {{/if}}
 
