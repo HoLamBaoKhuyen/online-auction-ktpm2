@@ -16,10 +16,5 @@ export default {
         const raw = await db.raw(sql);
         return raw[0];
     },
-    autoSendBadRate(id, prodid) {
-        const userID = res.locals.authUser.uID;
-        const content = "Người thắng không thanh toán";
-        ratingModel.sellerAddBadRate(id, userID, prodid, content);
-
-    }
+  
 }
