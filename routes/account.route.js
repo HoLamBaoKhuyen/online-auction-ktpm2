@@ -121,7 +121,7 @@ router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
       address: req.body.address,
       userType: "bidder",
     };
-    console.log(user);
+    // console.log(user);
     await userModel.add(user);
     res.redirect("/account/login");
     //res.render("Authentication/login", { layout: "authentication" });

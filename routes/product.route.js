@@ -1,4 +1,6 @@
 import express from "express";
+import moment from "moment";
+import numeral from "numeral";
 import productModel from "../models/product.model.js";
 import profileModel from "../models/profile.model.js";
 
@@ -553,19 +555,21 @@ router.post("/detail/:prodID/makeBid", async function (req, res) {
           productModel.sendAuctionEmail(
             getMail[0].sellerMail,
             "Update giá của sản phẩm " + product[0].prodName,
-            "Giá mới được bid là: " + bidValue
+            `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
           );
           if (getMail[0].currentHighestMail != null)
             productModel.sendAuctionEmail(
               getMail[0].currentHighestMail,
               "Update giá của sản phẩm " + product[0].prodName,
-              "Giá mới được bid là: " + bidValue
+              `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
             );
           if (getMailBid[0].email != getMail[0].currentHighestMail)
             productModel.sendAuctionEmail(
               getMailBid[0].email,
               "Update giá của sản phẩm " + product[0].prodName,
-              "Bạn vừa mới đấu giá thành công. Giá mới được bid là: " + bidValue
+              `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(
+                bidValue
+              ).format("0,0")} VND`
             );
         }
       }
@@ -591,19 +595,21 @@ router.post("/detail/:prodID/buyNow", async function (req, res) {
   productModel.sendAuctionEmail(
     getMail[0].sellerMail,
     "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-    "Giá mua ngay là: " + product[0].buyNowPrice
+    `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
   );
   if (getMail[0].currentHighestMail != null)
     productModel.sendAuctionEmail(
       getMail[0].currentHighestMail,
       "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-      "Giá mua ngay là: " + product[0].buyNowPrice
+      `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
     );
   if (getMailBid[0].email != getMail[0].currentHighestMail)
     productModel.sendAuctionEmail(
       getMailBid[0].email,
       "Sản phẩm " + product[0].prodName,
-      "Bạn vừa mua ngay thành công. Giá mua ngay là: " + product[0].buyNowPrice
+      `Bạn vừa mua ngay thành công. Giá mua ngay là: ${numeral(
+        product[0].buyNowPrice
+      ).format("0,0")} VND`
     );
   res.redirect("/detail/" + prodID);
 });

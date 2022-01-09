@@ -507,7 +507,7 @@ export default {
 
   sendAuctionEmail(recvEmail, subject, text) {
     console.log(recvEmail + " " + subject + " " + text);
-    let transporter = transporter;
+    let transporterNodemailer = transporter;
 
     var mailOptions = {
       from: fromMail,
@@ -515,7 +515,13 @@ export default {
       subject: subject,
       text: text,
     };
-    transporter.sendMail(mailOptions);
+    transporterNodemailer.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log(error);
+      } else {
+        console.log("Email sent: " + info.response);
+      }
+    });
   },
 
   async getEmailinProduct(prodID) {
