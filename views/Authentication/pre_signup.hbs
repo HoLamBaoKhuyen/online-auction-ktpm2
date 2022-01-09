@@ -1,0 +1,179 @@
+{{#section "js"}}
+  <script>
+    $('#emailCode').keyup(function () { $('#txtEmail').val($(this).val()); });
+  </script>
+{{/section}}
+
+<div class="form_contain">
+  <form id="frmCode" class="form" action="/account/sendCode" method="post">
+
+    <h4 class="text-center font-weight-bold mb-4">TẠO TÀI KHOẢN</h4>
+    <div class="form_textField">
+      {{#if warn}}
+        <div
+          class="alert alert-warning alert-dismissible fade show"
+          role="alert"
+        >
+          <strong>{{warn}}</strong>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="alert"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {{/if}}
+      {{!-- 
+      <div class="input-container ic1">
+        {{#if refil}}
+          <input
+            id="emailCode"
+            class="input"
+            type="text"
+            placeholder=" "
+            name="emailCode"
+            required="true"
+            value="{{refil}}"
+            autofocus
+          />
+
+        {{else}}
+          <input
+            id="emailCode"
+            class="input"
+            type="text"
+            placeholder=" "
+            name="emailCode"
+            required="true"
+            autofocus
+          />
+        {{/if}}
+
+        <label for="emailCode" class="placeholder">Email</label>
+      </div>
+
+      <div class="input-container ic1">
+        <button
+          class="btn btn-success"
+          type="submit"
+          href="javascript:$('#frmCode').submit();"
+        > Gửi mã</button></div> --}}
+
+      <div class="input-group mb-3">
+
+        {{#if refil}}
+          <input
+            id="emailCode"
+            class="form-control"
+            type="text"
+            placeholder="Email"
+            name="emailCode"
+            required="true"
+            value="{{refil}}"
+            autofocus
+          />
+
+        {{else}}
+          <input
+            id="emailCode"
+            class="form-control"
+            type="text"
+            placeholder="Email"
+            name="emailCode"
+            required="true"
+            autofocus
+          />
+        {{/if}}
+
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary"
+            type="submit"
+            href="javascript:$('#frmCode').submit();"
+          >Gửi mã</button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <form
+    id="frmPre"
+    class="form mt-4"
+    action="/account/pre-signup"
+    method="post"
+  >
+    <div class="form_textField">
+      <div class="input-container ic1" hidden>
+        {{#if refil}}
+          <input
+            id="txtEmail"
+            type="text"
+            placeholder=" "
+            name="email"
+            required="true"
+            value="{{refil}}"
+          />
+        {{else}}
+          <input
+            id="txtEmail"
+            type="text"
+            placeholder=" "
+            name="email"
+            required="true"
+          />
+        {{/if}}
+        {{#if code}}
+          <input
+            id="code"
+            type="text"
+            placeholder=" "
+            name="code"
+            required="true"
+            value="{{code}}"
+          />
+        {{/if}}
+
+      </div>
+
+      <div class="input-container ic1">
+        <input
+          id="txtToken"
+          class="form-control"
+          type="text"
+          placeholder="Mã xác nhận"
+          name="otp"
+          required="true"
+        />
+        <div class="cut"></div>
+        {{! <label for="txtToken" class="placeholder">Mã xác nhận</label> }}
+      </div>
+      <br />
+      <div
+        class="g-recaptcha d-flex justify-content-center"
+        data-sitekey="6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL"
+      >
+      </div>
+
+      <div>
+        <button
+          type="submit"
+          class="submit mt-3"
+          href="javascript:$('#frmPre').submit();"
+        >TẠO</button></div>
+
+    </div>
+    <div class="d-flex justify-content-between ml-5 mt-3 mr-5">
+      <a class="option" href="/" role="button">
+        Về trang chủ
+      </a>
+      <a class="option" href="/account/forgetpassword" role="button">Quên mật
+        khẩu</a>
+    </div>
+    <div class="text-center mt-3">
+      <a class="option" href="/account/signup" role="button">Chưa có tài khoản?</a>
+    </div>
+  </form>
+</div>

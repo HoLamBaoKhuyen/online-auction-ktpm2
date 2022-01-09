@@ -5,6 +5,7 @@ import profileModel from "../models/profile.model.js";
 import userModel from "../models/user.model.js";
 import prodDesModel from "../models/productdes.model.js";
 import watchlistModel from "../models/watchlist.model.js";
+import ratingModel from "../models/rating.model.js";
 const router = express.Router();
 
 router.get("/", async function (req, res) {
@@ -431,7 +432,7 @@ router.get("/detail/:prodid", async function (req, res) {
   if (product == null) {
     return res.redirect("/");
   }
-
+  const rate = await ratingModel.getBidProdRate(prodID);
   let newlist = productModel.getTimeRemain(product);
 
   //Kiểm tra thời gian sản phẩm còn hiệu lực hay không
@@ -477,7 +478,7 @@ router.get("/detail/:prodid", async function (req, res) {
     }
     //Kiểm tra id có nằm trong danh sách bị decline k
     const checkDecline = await productModel.checkDeclined(uID, prodID);
-    if (checkDecline != null) {
+    if (checkDecline !== null) {
       newlist[0].isDeclined = 1;
     } else {
       const getBidLike = await profileModel.getLikeOfBidder(uID);
@@ -515,6 +516,9 @@ router.get("/detail/:prodid", async function (req, res) {
     description,
     similar: newsimilar,
     historytable,
+    proID: prodID,
+    comment: rate,
+    countCmt: rate.length,
   });
 });
 

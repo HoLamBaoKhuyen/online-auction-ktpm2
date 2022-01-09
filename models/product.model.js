@@ -1,6 +1,7 @@
 import e from "express";
 import db from "../utils/db.js";
 import nodemailer from "nodemailer";
+import { fromMail, transporter } from "../utils/transporter.js";
 
 export default {
   findAll() {
@@ -258,7 +259,11 @@ export default {
                     left join users u on u.uID = pt.bidID
                     where pt.prodID = ` +
       prodID +
-      ` order by ptime asc`;
+      ` 
+                    and pt.bidID not in (select d.bidID
+                                        from declined d 
+                                        where d.prodID=pt.prodID)
+                    order by ptime asc`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -502,16 +507,10 @@ export default {
 
   sendAuctionEmail(recvEmail, subject, text) {
     console.log(recvEmail + " " + subject + " " + text);
-    let transporter = nodemailer.createTransport({
-      service: "Gmail",
-      auth: {
-        user: "auctiononline213@gmail.com",
-        pass: "p12345678@",
-      },
-    });
+    let transporter = transporter;
 
     var mailOptions = {
-      from: "auctiononline213@gmail.com",
+      from: fromMail,
       to: recvEmail,
       subject: subject,
       text: text,

@@ -39,6 +39,10 @@ export default function (app) {
           var fullName = firstName + " " + lastName;
           return fullName;
         },
+        isAdmin(type) {
+          if (type === "admin") return true;
+          return false;
+        },
         isSeller(type) {
           if (type === "seller") return true;
           return false;
@@ -47,6 +51,25 @@ export default function (app) {
           if (type === "bidder") return true;
           return false;
         },
+        Ended(time) {
+          console.log("time:" + time);
+          if (moment(time).isBefore(moment()))
+            return true;
+          return false;
+        },
+        isWinner(user, bidID) {
+          if (user === bidID)
+            return true;
+          return false;
+        },
+        isLiked(flag){
+          return flag;
+        },
+        haveWinner(id){
+          if (id!==null)
+            return true;
+            return false;
+        }
       },
     })
   );

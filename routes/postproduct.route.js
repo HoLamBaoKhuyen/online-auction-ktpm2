@@ -53,13 +53,14 @@ router.post("/postProduct", async function (req, res) {
         const product = {
           prodName: req.body.prodName,
           prodType: req.body.prodType,
+          originalPrice: req.body.curPrice,
           curPrice: req.body.curPrice,
           buyNowPrice: req.body.buyNowPrice,
           step: req.body.step,
           timeEnd: timeEnd,
           timePosted: timePosted,
           selID: user.uID,
-          approve: 0,
+          approve: 1,
         };
         console.log(product);
         await productModel.addProduct(product);

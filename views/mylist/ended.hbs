@@ -8,7 +8,7 @@
 
 </script>
 {{/section}}
-<form id="watchlistForm" action="/mylist/favorite/edit" method="post" hidden>
+<form id="watchlistForm" action="/mylist/participating/edit" method="post" hidden>
     <div class="row form-group">
         <div class="input-group">
             <input type="text" class="form-control" name="uid" id="uid" value="{{authUser.uID}}">
@@ -16,7 +16,7 @@
         </div>
     </div>
 </form>
-<h3 class="row d-flex justify-content-center mt-5"><b>Danh sách yêu thích</b></h3>
+<h3 class="row d-flex justify-content-center mt-5"><b>Sản phẩm có người thắng</b></h3>
 <div class="container-fluid mt-2" style="min-height: 100%;">
     {{#if this.empty}}
     <h5 class="card-title text-center">Không có sản phẩm</h5>

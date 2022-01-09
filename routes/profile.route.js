@@ -5,81 +5,18 @@ import auth from "../middlewares/auth.mdw.js";
 import watchlistModel from "../models/watchlist.model.js";
 import sellerProductModel from "../models/seller-product.model.js";
 import userModel from "../models/user.model.js";
+import bcrypt from "bcryptjs";
 
 const router = express.Router();
 
 router.get("/", auth, async function (req, res) {
-  const limit = 3;
-  const page = req.query.page || 1;
-  const offset = (page - 1) * limit;
-  const [list, total] = await Promise.all([
-    watchlistModel.findPageAll(limit, offset, req.session.authUser.uID),
-    watchlistModel.countAll(req.session.authUser.uID),
-  ]);
-
-  let nPages = Math.floor(total / limit);
-  if (total % limit > 0) nPages++;
-
-  const pageNumbers = [];
-  for (let i = 1; i <= nPages; i++) {
-    pageNumbers.push({
-      value: i,
-      isCurrent: +page === i,
-    });
-  }
-  let newlist = productModel.getTimeRemain(list);
   const id = res.locals.authUser.uID;
   const infor = await profileModel.getInforByID(id);
-  const typeUser = await profileModel.checkUserType(id);
-  //const favoriteproducts = await profileModel.getFavoriteProd(id);
-  const favoriteproducts = productModel.getTimeRemain(list);
-  const participateproducts = await profileModel.getParticipatingProd(id);
-  const winproducts = await profileModel.getWinProd(id);
-
-  for (let i = 0; i < participateproducts.length; i++) {
-    participateproducts[i].CountBids = await profileModel.countBids(
-      participateproducts[i].prodID
-    );
-  }
-
-  let newlistfavorite = productModel.getTimeRemain(favoriteproducts);
-  let newlistparticipate = productModel.getTimeRemain(participateproducts);
-
-  if (typeUser == "seller") {
-    // thêm thông tin bên seller
-    const productsposted = await sellerProductModel.findBySelID(id);
-    let newpostedprod = productModel.getTimeRemain(productsposted);
-    res.render("account/profile", {
-      information: infor[0],
-      type: typeUser[0],
-      non_empty: list.length !== 0,
-      favorite: newlistfavorite,
-      participate: newlistparticipate,
-      win: winproducts,
-      pageNumbers,
-      prev_page: +page - 1,
-      next_page: +page + 1,
-      can_go_next: +page < nPages,
-      can_go_prev: +page > 1,
-      postedproducts: newpostedprod,
-
-      //thêm thông tin bên seller
-    });
-  } else {
-    res.render("account/profile", {
-      information: infor[0],
-      type: typeUser[0],
-      non_empty: list.length !== 0,
-      favorite: newlistfavorite,
-      participate: newlistparticipate,
-      win: winproducts,
-      pageNumbers,
-      prev_page: +page - 1,
-      next_page: +page + 1,
-      can_go_next: +page < nPages,
-      can_go_prev: +page > 1,
-    });
-  }
+  console.log(infor);
+  res.render("account/profile", {
+    information: infor[0],
+    isCorrectPwd: true,
+  });
 });
 
 router.post("/", async function (req, res) {
@@ -91,6 +28,20 @@ router.post("/", async function (req, res) {
   const address = req.body.address;
   const userType = req.body.userType;
 
+  let user = await userModel.findByID(uID);
+  const ret = bcrypt.compareSync(req.body.psword, user.psword);
+  if (ret === false) {
+    const id = res.locals.authUser.uID;
+    const infor = await profileModel.getInforByID(id);
+
+    res.render("account/profile", {
+      information: infor[0],
+      warn: "Mật khẩu không đúng",
+    });
+
+    return;
+  }
+
   await userModel.editUser(
     uID,
     firstName,
@@ -100,10 +51,13 @@ router.post("/", async function (req, res) {
     address,
     userType
   );
-  const user = await userModel.findByID(uID);
   // console.log(user);
+  user = await userModel.findByID(uID);
   req.session.authUser = user;
-  res.redirect(req.headers.referer);
+  res.render("account/profile", {
+    information: user,
+    mes: "Cập nhật thông tin thành công",
+  });
 });
 
 router.get("/comment/:prodID", auth, async function (req, res) {

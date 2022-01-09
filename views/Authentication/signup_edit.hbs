@@ -10,7 +10,7 @@
   </script>
 {{/section}}
 <div class="form_contain">
-  <form id="frmRegister" method="post" class="form">
+  <form id="frmRegister"  action="/account/signup"method="post" class="form">
     <h4 class="text-center font-weight-bold mb-4">ĐĂNG KÝ</h4>
     {{#if err_message}}
       <div class="alert alert-warning alert-dismissible fade show" role="alert">
@@ -36,6 +36,7 @@
             placeholder=" "
             name="email"
             required="true"
+            value="{{email}}"
           />
           <div class="cut"></div>
           <label for="txtEmail" class="placeholder">Email</label>
@@ -48,6 +49,7 @@
             placeholder=" "
             name="psword"
             required="true"
+            value="{{pass}}"  
           />
           <div class="cut"></div>
           <label for="txtPassword" class="placeholder">Mật khẩu</label>
@@ -60,6 +62,7 @@
             placeholder=" "
             required="true"
             name="firstName"
+              
           />
           <div class="cut"></div>
           <label for="txtFirstName" class="placeholder">Tên</label>
@@ -101,6 +104,7 @@
             id="txtConfirm"
             class="input"
             type="password"
+            name="confirm"
             placeholder=" "
             required="true"
           />
@@ -140,7 +144,7 @@
       class="g-recaptcha d-flex justify-content-center my-3"
       data-sitekey="6LeOKdsdAAAAAO1tRxxSCIoufTKvDLRmuC8Cq7BL"
     ></div>
-    <div> <button type="text" class="submit mt-3">ĐĂNG KÝ</button></div>
+    <div> <button type="submit" class="submit mt-3"href="javascript:$('#frmRegister').submit();">ĐĂNG KÝ</button></div>
 
     <div class="text-center mt-4 justify-content-between d-flex">
       <a name="" id="" class="option" href="/" role="button">Về

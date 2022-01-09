@@ -1,31 +1,36 @@
 <div class="container my-4">
+  {{#if mes}}
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      {{mes}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {{/if}}
+  {{#if warn}}
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+      {{warn}}
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+  {{/if}}
   <a class="btn">
     <h4>Thông tin cá nhân
-      {{! <span><i class="fa fa-chevron-down" id="chevron-sight"></i></span> }}
     </h4>
   </a>
 
   <div class="container" style="width:90%;" id="InforTable">
-    {{!-- <table class="table table-hover table-borderless">
-            <tbody>
-                <tr>
-                    <th scope="row">Họ và tên</th>
-                    <td colspan="2">{{concatName information.firstName information.lastName}}</td>
-                    <td><a href="javascript:/" data-toggle="modal" data-target="#namemodal">Chỉnh sửa</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">Email</th>
-                    <td colspan="2">{{information.email}}</td>
-                    <td><a href="javascript:/" data-toggle="modal" data-target="#emailmodal">Chỉnh sửa</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">Ngày sinh</th>
-                    <td colspan="2">{{formatTime information.dob "DD/MM/YYYY"}}</td>
-                    <td><a href="javascript:/" data-toggle="modal" data-target="#dobmodal">Chỉnh sửa</a></td>
-                </tr>
-            </tbody>
-        </table> --}}
-
     <form id="frmEditProfile" method="post" class="form">
       <div class="row">
         <input
@@ -49,8 +54,9 @@
               class="input"
               type="text"
               placeholder=" "
-              value={{information.email}}
+              value="{{information.email}}"
               name="email"
+              required
               readonly
             />
             <div class="cut"></div>
@@ -64,6 +70,7 @@
               placeholder=" "
               value="{{information.firstName}}"
               name="firstName"
+              required
             />
             <div class="cut"></div>
             <label for="txtFirstName" class="placeholder">Tên</label>
@@ -76,6 +83,7 @@
               placeholder=" "
               value="{{information.lastName}}"
               name="lastName"
+              required
             />
             <div class="cut"></div>
             <label for="txtLastName" class="placeholder">Họ</label>
@@ -89,8 +97,9 @@
               class="input"
               type="text"
               placeholder=" "
-              value={{information.address}}
+              value="{{information.address}}"
               name="address"
+              required
             />
             <div class="cut"></div>
             <label for="txtAddress" class="placeholder">Địa chỉ</label>
@@ -105,6 +114,7 @@
               placeholder=" "
               value="{{formatTime information.dob 'YYYY-MM-DD'}}"
               name="dob"
+              required
             />
             <div class="cut"></div>
             <label for="dob" class="placeholder">Ngày sinh</label>
@@ -116,461 +126,36 @@
               class="input"
               type="text"
               placeholder=" "
-              value={{information.hotline}}
+              value="{{information.hotline}}"
               name="hotline"
+              required
             />
             <div class="cut"></div>
             <label for="txtHotline" class="placeholder">Điện thoại</label>
+          </div>
+
+          <div class="input-container ic2">
+            <input
+              id="txtPassword"
+              class="input"
+              type="password"
+              placeholder=" "
+              name="psword"
+              required
+            />
+            <div class="cut"></div>
+            <label for="txtPassword" class="placeholder">Xác nhận password</label>
           </div>
 
         </div></div>
       <div class="col-12 text-right p-0"><button
           type="text"
           class="submit updateProfile"
+          data-toggle="modal"
+          data-target="#confirmEditModal"
         >CHỈNH SỬA</button></div>
 
     </form>
 
   </div>
 </div>
-{{!-- 
-<div class="container mt-3 mb-5 navbar-custom">
-  <!-- Nav tabs -->
-  <ul class="nav nav-tabs nav-justified">
-    <li class="nav-item font-weight-bold bg-transparent border rounded-0">
-      <a class="nav-link active" data-toggle="tab" href="#productlike">Sản phẩm
-        yêu thích</a>
-    </li>
-    <li
-      class="nav-item font-weight-bold bg-transparent border rounded-0 border-right-0 border-left-0"
-    >
-      <a class="nav-link" data-toggle="tab" href="#productjoin">Sản phẩm đang
-        tham gia</a>
-    </li>
-    <li class="nav-item font-weight-bold bg-transparent border">
-      <a class="nav-link" data-toggle="tab" href="#productwin">Sản phẩm đã thắng</a>
-    </li>
-    {{#if (isSeller authUser.userType)}}
-      <li class="nav-item font-weight-bold bg-transparent border">
-        <a class="nav-link" data-toggle="tab" href="#productposted">Sản phẩm
-          đang đấu giá</a>
-      </li>
-    {{/if}}
-  </ul>
-
-  <!-- Tab panes -->
-  <div class="tab-content">
-    <div id="productlike" class="container tab-pane active"><br />
-      <div class="container">
-        <div class="row">
-          {{#each favorite}}
-            <div class="col-4 col-md-4">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  <form
-                    action="/profile/deleteFavo/{{prodID}}"
-                    id="removeFavorite"
-                    method="post"
-                  >
-                    <a
-                      class="btn addFavoriteBtn"
-                      href="javascript: $('#removeFavorite').submit()"
-                    ><i class="fa fa-minus favoriteIcon" aria-hidden="true"></i>
-                      <span class="textFavorite"> Xóa khỏi yêu thích</span>
-                    </a>
-                  </form>
-                  <div class="product-imitation">
-                    <img
-                      src="/public/images/{{prodID}}/main.jpg"
-                      class="responsive-img"
-                    />
-                  </div>
-                  <div
-                    class="product-desc"
-                    onclick="location.href='/detail/{{prodID}}'"
-                  >
-                    <span class="product-label">
-                      {{#if newpost}}
-                        NEW
-                      {{else}}
-                        HOT
-                      {{/if}}
-                    </span>
-                    <small class="text-muted">Bids: {{CountBids}}</small>
-                    <a href="#" class="product-name"> {{prodName}}</a>
-
-                    <div class="price">
-                      {{#if nameofUser}}
-                        <div>{{nameofUser}}:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span>
-                        </div>
-                      {{else}}
-                        <div>Giá khởi điểm:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span></div>
-                      {{/if}}
-                    </div>
-                    <div class="textPrice">
-                      <div>Giá mua ngay:
-                        <span class="font-weight-bold">{{format_price
-                            buyNowPrice
-                          }}</span>
-                      </div>
-                    </div>
-                    <div class="remain-time">
-                      <i class="fa fa-clock-o"></i>
-                      Còn lại:
-                      {{#if remain}}
-                        {{remain}}
-                      {{else}}
-                        {{formatTime timeEnd "DD/MM/YYYY"}}
-                      {{/if}}
-                    </div>
-
-                    <br />
-                    <div class="text-right">
-                      <small class="text-muted text-right"><i
-                          class="fa fa-calendar"
-                        ></i>
-                        {{formatTime timePosted "DD/MM/YYYY"}}
-                      </small>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-        {{#if non_empty}}
-          <div class="d-flex justify-content-center">
-            {{! pagination  }}
-            <nav class="my-3" aria-label="...">
-              <ul class="pagination pagination-sm justify-content-center">
-                {{#each this.pageNumbers}}
-                  {{#if isCurrent}}
-                    <li class="pagi_btn active"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{else}}
-                    <li class="pagi_btn"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{/if}}
-
-                {{/each}}
-
-              </ul>
-            </nav>
-          </div>
-        {{/if}}
-
-      </div>
-    </div>
-
-    <div id="productjoin" class="container tab-pane fade"><br />
-      <div class="container">
-        <div class="row">
-          {{#each participate}}
-            <div class="col-4 col-md-4">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  <button class="addFavoriteBtn"><i
-                      class="fa fa-plus favoriteIcon"
-                      aria-hidden="true"
-                    ></i>
-                    <span class="textFavorite"> Yêu thích</span>
-                  </button>
-                  <div class="product-imitation">
-                    <img
-                      src="/public/images/{{prodID}}/main.jpg"
-                      class="responsive-img"
-                    />
-                  </div>
-                  <div
-                    class="product-desc"
-                    onclick="location.href='/detail/{{prodID}}'"
-                  >
-                    <span class="product-label">
-                      {{#if newpost}}
-                        NEW
-                      {{else}}
-                        HOT
-                      {{/if}}
-                    </span>
-                    <small class="text-muted">Bids: {{CountBids}}</small>
-                    <a href="#" class="product-name"> {{prodName}}</a>
-
-                    <div class="price">
-                      {{#if nameofUser}}
-                        <div>{{nameofUser}}:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span>
-                        </div>
-                      {{else}}
-                        <div>Giá khởi điểm:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span></div>
-                      {{/if}}
-                    </div>
-                    <div class="textPrice">
-                      <div>Giá mua ngay:
-                        <span class="font-weight-bold">{{format_price
-                            buyNowPrice
-                          }}</span>
-                      </div>
-                    </div>
-                    <div class="remain-time">
-                      <i class="fa fa-clock-o"></i>
-                      Còn lại:
-                      {{#if remain}}
-                        {{remain}}
-                      {{else}}
-                        {{formatTime timeEnd "DD/MM/YYYY"}}
-                      {{/if}}
-                    </div>
-
-                    <br />
-                    <div class="text-right">
-                      <small class="text-muted text-right"><i
-                          class="fa fa-calendar"
-                        ></i>
-                        {{formatTime timePosted "DD/MM/YYYY"}}
-                      </small>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-        {{#if non_empty}}
-          <div class="d-flex justify-content-center">
-            {{! pagination  }}
-            <nav class="my-3" aria-label="...">
-              <ul class="pagination pagination-sm justify-content-center">
-                {{#each this.pageNumbers}}
-                  {{#if isCurrent}}
-                    <li class="pagi_btn active"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{else}}
-                    <li class="pagi_btn"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{/if}}
-
-                {{/each}}
-
-              </ul>
-            </nav>
-          </div>
-        {{/if}}
-
-      </div>
-    </div>
-
-    <div id="productwin" class="container tab-pane fade"><br />
-      <div class="container">
-        <div class="row">
-          {{#each win}}
-            <div class="col-4 col-md-4">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  <a
-                    class="btn addFavoriteBtn"
-                    href="/profile/comment/{{prodID}}"
-                  ><i
-                      class="fa fa-plus favoriteIcon"
-                      aria-hidden="true"
-                      href="/"
-                    ></i>
-                    <span class="textFavorite"> Đánh giá </span>
-                  </a>
-                  <div class="product-imitation">
-                    <img
-                      src="/public/images/{{prodID}}/main.jpg"
-                      class="responsive-img"
-                    />
-                  </div>
-                  <div
-                    class="product-desc"
-                    onclick="location.href='/detail/{{prodID}}'"
-                  >
-                    <span class="product-label">
-                      {{#if newpost}}
-                        NEW
-                      {{else}}
-                        HOT
-                      {{/if}}
-                    </span>
-                    <small class="text-muted">Bids: {{CountBids}}</small>
-                    <a href="#" class="product-name"> {{prodName}}</a>
-
-                    <div class="price">
-                      {{#if nameofUser}}
-                        <div>{{nameofUser}}:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span>
-                        </div>
-                      {{else}}
-                        <div>Giá khởi điểm:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span></div>
-                      {{/if}}
-                    </div>
-                    <div class="textPrice">
-                      <div>Giá mua ngay:
-                        <span class="font-weight-bold">{{format_price
-                            buyNowPrice
-                          }}</span>
-                      </div>
-                    </div>
-                    <div class="remain-time">
-                      <i class="fa fa-clock-o"></i>
-                      Còn lại:
-                      {{#if remain}}
-                        {{remain}}
-                      {{else}}
-                        {{formatTime timeEnd "DD/MM/YYYY"}}
-                      {{/if}}
-                    </div>
-
-                    <br />
-                    <div class="text-right">
-                      <small class="text-muted text-right"><i
-                          class="fa fa-calendar"
-                        ></i>
-                        {{formatTime timePosted "DD/MM/YYYY"}}
-                      </small>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-        {{#if non_empty}}
-          <div class="d-flex justify-content-center">
-            {{! pagination  }}
-            <nav class="my-3" aria-label="...">
-              <ul class="pagination pagination-sm justify-content-center">
-                {{#each this.pageNumbers}}
-                  {{#if isCurrent}}
-                    <li class="pagi_btn active"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{else}}
-                    <li class="pagi_btn"><a
-                        class="pagi_btn_text"
-                        href="?page={{value}}"
-                      >{{value}}</a></li>
-                  {{/if}}
-
-                {{/each}}
-
-              </ul>
-            </nav>
-          </div>
-        {{/if}}
-      </div>
-    </div>
-
-    <div id="productposted" class="container tab-pane fade"><br />
-      <div class="container">
-        <div class="row">
-          {{#each postedproducts}}
-            <div class="col-4 col-md-4">
-              <div class="ibox">
-                <div class="ibox-content product-box">
-                  {{! <form action="/profile/deleteFavo/{{prodID" id="removeFavorite" method="post">
-                                <a class="btn addFavoriteBtn" href="javascript: $('#removeFavorite').submit()"><i class="fa fa-minus favoriteIcon"
-                                        aria-hidden="true"></i>
-                                    <span class="textFavorite"> Xóa khỏi yêu thích</span>
-                                </a></form> }}
-                  <div class="product-imitation">
-                    <img
-                      src="/public/images/{{prodID}}/main.jpg"
-                      class="responsive-img"
-                    />
-                  </div>
-                  <div
-                    class="product-desc"
-                    onclick="location.href='/detail/{{prodID}}'"
-                  >
-                    <span class="product-label">
-                      {{#if newpost}}
-                        NEW
-                      {{else}}
-                        HOT
-                      {{/if}}
-                    </span>
-                    <small class="text-muted">Bids: {{CountBids}}</small>
-                    <a href="#" class="product-name"> {{prodName}}</a>
-
-                    <div class="price">
-                      {{#if nameofUser}}
-                        <div>{{nameofUser}}:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span>
-                        </div>
-                      {{else}}
-                        <div>Giá khởi điểm:
-                          <span class="font-weight-bold">{{format_price
-                              curPrice
-                            }}</span></div>
-                      {{/if}}
-                    </div>
-                    <div class="textPrice">
-                      <div>Giá mua ngay:
-                        <span class="font-weight-bold">{{format_price
-                            buyNowPrice
-                          }}</span>
-                      </div>
-                    </div>
-                    <div class="remain-time">
-                      <i class="fa fa-clock-o"></i>
-                      Còn lại:
-                      {{#if remain}}
-                        {{remain}}
-                      {{else}}
-                        {{formatTime timeEnd "DD/MM/YYYY"}}
-                      {{/if}}
-                    </div>
-
-                    <br />
-                    <div class="text-right">
-                      <small class="text-muted text-right"><i
-                          class="fa fa-calendar"
-                        ></i>
-                        {{formatTime timePosted "DD/MM/YYYY"}}
-                      </small>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-            </div>
-          {{/each}}
-        </div>
-        
-      </div>
-    </div>
-  </div>
-  <div class="mb-5"></div>
-</div> --}}

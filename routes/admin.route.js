@@ -7,10 +7,16 @@ import categoryModel from "../models/category.model.js";
 import adminProductModel from "../models/admin-product.model.js";
 import searchModel from "../models/search.model.js";
 
+import auth from "../middlewares/auth.mdw.js";
+
 const router = express.Router();
 
-router.get("/", async function (req, res) {
+router.get("/", auth, async function (req, res) {
   // console.log(userList);
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
 
   const limit = 6;
   const page = +req.query.page || 1;
@@ -64,7 +70,12 @@ router.post("/delete-user", async function (req, res) {
 
   res.redirect(req.headers.referer);
 });
-router.get("/edit-user", async function (req, res) {
+router.get("/edit-user", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const uID = req.query.uID || 0;
   const user = await userModel.findByID(uID);
   // console.log(user);
@@ -104,7 +115,12 @@ router.post("/edit-user", async function (req, res) {
   });
 });
 
-router.get("/user-update", async function (req, res) {
+router.get("/user-update", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
@@ -150,7 +166,12 @@ router.post("/user-update/decline", async function (req, res) {
 
   res.redirect(req.headers.referer);
 });
-router.get("/categories", async function (req, res) {
+router.get("/categories", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
@@ -188,7 +209,12 @@ router.post("/categories", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/categories/edit", async function (req, res) {
+router.get("/categories/edit", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const catID = req.query.catID || 0;
   const cat = await categoryModel.findByCatID(catID);
   // console.log(user);
@@ -209,7 +235,12 @@ router.post("/categories/edit", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/categories/is-available", async function (req, res) {
+router.get("/categories/is-available", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const catName = await categoryModel.findByCatName(req.query.catName);
   // console.log(catName);
   if (catName.length === 0) {
@@ -226,7 +257,12 @@ router.post("/categories/delete", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/categories/has-products", async function (req, res) {
+router.get("/categories/has-products", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   // console.log(req.query.catID);
   const catName = await adminProductModel.findProductByCatID(req.query.catID);
   // console.log(catName);
@@ -236,7 +272,12 @@ router.get("/categories/has-products", async function (req, res) {
   res.json(false);
 });
 
-router.get("/categories/detail/edit", async function (req, res) {
+router.get("/categories/detail/edit", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const catID = req.query.catID || 0;
   const type = await categoryModel.findByTypeID(catID);
   const cat = { catID: type.typeID, catName: type.typeName };
@@ -259,7 +300,12 @@ router.post("/categories/detail/edit", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/categories/detail/is-available", async function (req, res) {
+router.get("/categories/detail/is-available", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const typeName = await categoryModel.findByTypeName(req.query.typeName);
   console.log(typeName);
   if (typeName.length === 0) {
@@ -267,7 +313,12 @@ router.get("/categories/detail/is-available", async function (req, res) {
   }
   res.json(false);
 });
-router.get("/categories/detail/has-products", async function (req, res) {
+router.get("/categories/detail/has-products", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   // console.log(req.query.catID);
   const prodList = await adminProductModel.findProductByTypeID(
     req.query.typeID
@@ -284,7 +335,12 @@ router.post("/categories/detail/delete", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/categories/detail/byCat/:catID", async function (req, res) {
+router.get("/categories/detail/byCat/:catID", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const catID = req.params.catID || 0;
 
   const limit = 6;
@@ -329,7 +385,12 @@ router.post("/categories/detail/byCat/:catID", async function (req, res) {
   res.redirect(req.headers.referer);
 });
 
-router.get("/products", async function (req, res) {
+router.get("/products", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
@@ -374,7 +435,11 @@ router.post("/products/delete", async function (req, res) {
 });
 
 //-----------search--------------
-router.get("/search", async function (req, res) {
+router.get("/search", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
   // console.log(userList);
 
   const limit = 6;
@@ -407,7 +472,12 @@ router.get("/search", async function (req, res) {
   });
 });
 
-router.get("/user-update/search", async function (req, res) {
+router.get("/user-update/search", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
@@ -443,7 +513,12 @@ router.get("/user-update/search", async function (req, res) {
     pageNumbers,
   });
 });
-router.get("/categories/search", async function (req, res) {
+router.get("/categories/search", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
@@ -474,50 +549,63 @@ router.get("/categories/search", async function (req, res) {
     categoryList,
   });
 });
-router.get("/categories/detail/byCat/:catID/search", async function (req, res) {
-  const catID = req.params.catID || 0;
+router.get(
+  "/categories/detail/byCat/:catID/search",
+  auth,
+  async function (req, res) {
+    if (res.locals.authUser.userType != "admin") {
+      res.redirect("/");
+      return;
+    }
+    const catID = req.params.catID || 0;
 
-  const limit = 6;
-  const page = +req.query.page || 1;
-  const offset = (page - 1) * limit;
+    const limit = 6;
+    const page = +req.query.page || 1;
+    const offset = (page - 1) * limit;
 
-  const name = req.query.search || "";
-  // console.log(name);
+    const name = req.query.search || "";
+    // console.log(name);
 
-  const total = await searchModel.countAllLevel2InLevel1(name, catID);
-  // console.log(total);
-  let nPages = Math.floor(total / limit);
-  if (total % limit > 0) nPages++;
+    const total = await searchModel.countAllLevel2InLevel1(name, catID);
+    // console.log(total);
+    let nPages = Math.floor(total / limit);
+    if (total % limit > 0) nPages++;
 
-  const pageNumbers = [];
-  for (let i = 1; i <= nPages; i++) {
-    pageNumbers.push({
-      value: i,
-      isCurrent: +page === i,
+    const pageNumbers = [];
+    for (let i = 1; i <= nPages; i++) {
+      pageNumbers.push({
+        value: i,
+        isCurrent: +page === i,
+      });
+    }
+    const level1 = await categoryModel.findByCatID(catID);
+    const level2List = await searchModel.findPageLevel2(
+      name,
+      catID,
+      limit,
+      offset
+    );
+    // console.log(level2List);
+
+    res.render("admin/cate-lv2", {
+      layout: "admin",
+      isAtAdminUser: false,
+      isAtUserUpdate: false,
+      isAtCategories: true,
+      isAtProducts: false,
+      pageNumbers,
+      level1,
+      level2List,
     });
   }
-  const level1 = await categoryModel.findByCatID(catID);
-  const level2List = await searchModel.findPageLevel2(
-    name,
-    catID,
-    limit,
-    offset
-  );
-  // console.log(level2List);
+);
 
-  res.render("admin/cate-lv2", {
-    layout: "admin",
-    isAtAdminUser: false,
-    isAtUserUpdate: false,
-    isAtCategories: true,
-    isAtProducts: false,
-    pageNumbers,
-    level1,
-    level2List,
-  });
-});
+router.get("/products/search", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
 
-router.get("/products/search", async function (req, res) {
   const limit = 6;
   const page = +req.query.page || 1;
   const offset = (page - 1) * limit;
