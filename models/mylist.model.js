@@ -25,7 +25,7 @@ export default {
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
-                    where p.highestBidID= ${id} and p.timeEnd < curdate()
+                    where p.highestBidID= ${id} and p.timeEnd < now()
                     group by p.prodID;`;
     const raw = await db.raw(sql);
     return raw[0].length;
@@ -35,7 +35,7 @@ export default {
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
-                        where p.highestBidID= ${id} and p.timeEnd < curdate()
+                        where p.highestBidID= ${id} and p.timeEnd < now()
                         group by p.prodID  limit ${limit} offset ${offset};`;
     const raw = await db.raw(sql);
     return raw[0];
