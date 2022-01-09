@@ -12,7 +12,7 @@ const router = express.Router();
 router.get("/", auth, async function (req, res) {
   const id = res.locals.authUser.uID;
   const infor = await profileModel.getInforByID(id);
-
+  console.log(infor);
   res.render("account/profile", {
     information: infor[0],
     isCorrectPwd: true,
@@ -53,7 +53,6 @@ router.post("/", async function (req, res) {
   );
   // console.log(user);
   user = await userModel.findByID(uID);
-
   req.session.authUser = user;
   res.render("account/profile", {
     information: user,

@@ -60,7 +60,7 @@ router.post("/postProduct", async function (req, res) {
           timeEnd: timeEnd,
           timePosted: timePosted,
           selID: user.uID,
-          approve: 0,
+          approve: 1,
         };
         console.log(product);
         await productModel.addProduct(product);
