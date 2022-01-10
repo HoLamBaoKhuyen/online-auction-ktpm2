@@ -114,10 +114,17 @@ router.get("/profile-comment/:id", auth, async function (req, res) {
   const likeRate = await profileModel.getLikeOfBidder(id);
   const dislikeRate = await profileModel.getDislikeOfBidder(id);
 
+  let point = 0;
+  console.log(likeRate+" "+dislikeRate);
+  if (likeRate != 0 || dislikeRate != 0)
+    point = ((likeRate / (likeRate + dislikeRate)) * 100);
+  console.log("Điểm: " + point);
+
   res.render("account/profile-comment", {
     comment,
     likeRate,
     dislikeRate,
+    point,
     infor: information[0],
   });
 });

@@ -485,9 +485,9 @@ router.get("/detail/:prodid", async function (req, res) {
     } else {
       const getBidLike = await profileModel.getLikeOfBidder(uID);
       const getBidDisLike = await profileModel.getDislikeOfBidder(uID);
-      const point = 0;
-      if (getBidLike != 0 && getBidDisLike != 0)
-        point = Math.round((getBidLike / (getBidLike + getBidDisLike)) * 10);
+      let point = 0;
+      if (getBidLike != 0 || getBidDisLike != 0)
+        point = (getBidLike / (getBidLike + getBidDisLike)) * 10;
       console.log("Điểm: " + point);
       if (newlist[0].approve == 0 && point < 8) newlist[0].isDeclined = 1;
     }
