@@ -86,6 +86,54 @@ router.get("/edit-user", auth, async function (req, res) {
     user,
   });
 });
+
+router.post("/edit-user-password/:id", auth, async function (req, res) {
+  if (res.locals.authUser.userType != "admin") {
+    res.redirect("/");
+    return;
+  }
+
+  const id = req.params.id;
+  const user = await userModel.findByID(id);
+  console.log(user);
+
+  if (req.body.psword !== req.body.confirm) {
+    res.render("admin/edit-user", {
+      layout: "admin",
+      isAtAdminUser: true,
+      isAtUserUpdate: false,
+      user,
+      err_message: "Mật khẩu không trùng khớp",
+    });
+    return;
+  }
+
+  const rawPassword = req.body.psword;
+
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(rawPassword, salt);
+
+  try {
+    await userModel.updatepassword(id, hash);
+  } catch {
+    res.render("admin/edit-user", {
+      layout: "admin",
+      isAtAdminUser: true,
+      isAtUserUpdate: false,
+      user,
+      err_message: "Reset password failed",
+    });
+    return;
+  }
+  res.render("admin/edit-user", {
+    layout: "admin",
+    isAtAdminUser: true,
+    isAtUserUpdate: false,
+    user,
+    message: "Cập nhật mật khẩu thành công",
+  });
+});
+
 router.post("/edit-user", async function (req, res) {
   const uID = req.query.uID || 0;
 
