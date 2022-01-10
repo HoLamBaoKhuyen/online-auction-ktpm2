@@ -482,7 +482,13 @@
                 {{#each this.historytable}}
                 <tr>
                     <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:mm:ss'}}</td>
-                    <th colspan="2">{{userName}}</th>
+                    {{#each ../this.product}}
+                    {{#if isProdOfSeller}}
+                    <th colspan="2"><a href="/profile/profile-comment/{{../bidID}}">{{../userName}}</a></th>
+                    {{else}}
+                    <th colspan="2">{{../userName}}</th>
+                    {{/if}}
+                    {{/each}}
                     <td>{{format_price price}}</td>
                     {{#if ../authUser}}
                     {{#if (isSeller ../authUser.userType)}}

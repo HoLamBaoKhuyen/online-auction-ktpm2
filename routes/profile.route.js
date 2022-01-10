@@ -105,9 +105,9 @@ router.post("/comment/:prodID", async function (req, res) {
   }
 });
 
-router.get("/profile-comment", auth, async function (req, res) {
-  //const id = req.params.id || 0;
-  const id = res.locals.authUser.uID;
+router.get("/profile-comment/:id", auth, async function (req, res) {
+  const id = req.params.id || 0;
+  //const id = res.locals.authUser.uID;
 
   const information = await profileModel.getInforByID(id);
   const comment = await profileModel.getComment(id);
