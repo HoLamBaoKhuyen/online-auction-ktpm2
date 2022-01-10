@@ -122,6 +122,23 @@ router.get("/profile-comment/:id", auth, async function (req, res) {
   });
 });
 
+router.get("/profile-comment/seller/:id", auth, async function (req, res) {
+  const id = req.params.id || 0;
+  //const id = res.locals.authUser.uID;
+
+  const information = await profileModel.getInforByID(id);
+  const comment = await profileModel.getCommentToSeller(id);
+  const likeRate = await profileModel.getLikeOfSeller(id);
+  const dislikeRate = await profileModel.getDislikeOfSeller(id);
+
+  res.render("account/profile-comment", {
+    comment,
+    likeRate,
+    dislikeRate,
+    infor: information[0],
+  });
+});
+
 router.post("/deleteFavo/:delID", async function (req, res) {
   const delID = req.params.delID;
   profileModel.deleteFavoriteProd(res.locals.authUser.uID, delID);

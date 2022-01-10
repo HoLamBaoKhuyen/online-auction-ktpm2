@@ -116,6 +116,18 @@ export default {
         return raw[0];
     },
 
+    async getCommentToSeller(id){
+        const sql = `select r.*, concat(u.lastname,' ',u.firstname) AS nameofSeller
+                    from rating r
+                    left join users u on r.bidID = u.UID 
+                    where r.rateToBidder = false and r.selID = `+ id;
+        const raw = await db.raw(sql);
+        
+        if(raw.length===0)
+            return null;
+        return raw[0];
+    },
+
     async getLikeOfBidder(id){
         const sql = `select count(liked) as likerate
                     from rating r
