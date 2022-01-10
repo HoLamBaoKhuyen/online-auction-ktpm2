@@ -298,14 +298,15 @@ export default {
   },
 
   async getTop5End() {
-    const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select*  from (select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
                     group by par.prodID
                     order by p.timeEnd ASC
-                    limit 5 offset 0`;
+                    limit 5 offset 0) as tab
+                  order by tab.timeEnd DESC`;
     const raw = await db.raw(sql);
     return raw[0];
   },
