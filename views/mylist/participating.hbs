@@ -62,7 +62,11 @@
                             {{#if newpost}}
                             NEW
                             {{else}}
+                            {{#if isHighestBidder}}
+                            Đang giữ giá
+                            {{else}}
                             HOT
+                            {{/if}}
                             {{/if}}
                         </span>
                         <small class="text-muted">Bids: {{CountBids}}</small>
