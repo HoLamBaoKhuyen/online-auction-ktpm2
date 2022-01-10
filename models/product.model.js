@@ -263,7 +263,7 @@ export default {
                     and pt.bidID not in (select d.bidID
                                         from declined d 
                                         where d.prodID=pt.prodID)
-                    order by ptime asc`;
+                    order by price asc`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -298,14 +298,15 @@ export default {
   },
 
   async getTop5End() {
-    const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select*  from (select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
                     group by par.prodID
                     order by p.timeEnd ASC
-                    limit 5 offset 0`;
+                    limit 5 offset 0) as tab
+                  order by tab.timeEnd DESC`;
     const raw = await db.raw(sql);
     return raw[0];
   },
@@ -502,6 +503,39 @@ export default {
                     where prodID = ${prodID}`;
     const raw2 = await db.raw(sql2);
   },
+
+  async checkAutoAuction(prodID){
+    const list = await db("autoauction").where('prodID',prodID);
+    if(list.length === 0)
+      return null;
+    return list[0];
+  },
+
+  deletefromAutoAuction(prodID){
+    return db('autoauction').where('prodID',prodID).del();
+  },
+
+  deleteUserFromAutoAuction(prodID, uID){
+    return db('autoauction').where('prodID',prodID).andWhere('bidID',uID).del();
+  },
+
+  async addAutoAuction(bidID,prodID, price){
+    const sql = `insert into autoauction values (${bidID}, ${prodID}, ${price}, now())`;
+    const raw = await db.raw(sql);
+  },
+
+  async getInforAutoAuction(prodID){
+    const sql = `select * 
+                from autoauction a
+                left join users u on a.bidID = u.uID
+                where prodID = ${prodID}`;
+    const raw = await db.raw(sql);
+    return raw[0];
+  },
+
+
+
+
 
   //-----------------Hàm cho Mail-------------------
 

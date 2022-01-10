@@ -124,7 +124,7 @@
 
             <h2><span class="mr-1"><strong>{{prodName}}</strong></span></h2>
             <p class="pt-2">Người bán:
-                <a class="font-weight-bold text-muted pl-5">{{nameofSeller}}</a>
+                <a class="font-weight-bold text-muted pl-5" href="/profile/profile-comment/seller/{{selID}}">{{nameofSeller}}</a>
             </p>
             <small class="pt-0">Điểm đánh giá:
                 <span class="text-info font-weight-bold pl-5">{{likeSel}} <i class="fa fa-thumbs-up"></i>&nbsp</span>
@@ -174,7 +174,7 @@
             {{#if noHighestBid}}
             {{else}}
             <p class="pt-2">Đặt giá cao nhất:
-                <a class="font-weight-bold text-danger pl-5">{{nameofUser}}</a>
+                <a class="font-weight-bold text-danger pl-5" href="/profile/profile-comment/{{highestBidID}}">{{nameofUser}}</a>
             </p>
 
 
@@ -482,7 +482,13 @@
                 {{#each this.historytable}}
                 <tr>
                     <td scope="row">{{formatTime ptime 'DD/MM/YYYY HH:mm:ss'}}</td>
-                    <th colspan="2">{{userName}}</th>
+                    {{#each ../this.product}}
+                    {{#if isProdOfSeller}}
+                    <th colspan="2"><a href="/profile/profile-comment/{{../bidID}}">{{../userName}}</a></th>
+                    {{else}}
+                    <th colspan="2">{{../userName}}</th>
+                    {{/if}}
+                    {{/each}}
                     <td>{{format_price price}}</td>
                     {{#if ../authUser}}
                     {{#if (isSeller ../authUser.userType)}}

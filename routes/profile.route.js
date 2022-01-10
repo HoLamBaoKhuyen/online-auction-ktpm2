@@ -105,14 +105,38 @@ router.post("/comment/:prodID", async function (req, res) {
   }
 });
 
-router.get("/profile-comment", auth, async function (req, res) {
-  //const id = req.params.id || 0;
-  const id = res.locals.authUser.uID;
+router.get("/profile-comment/:id", auth, async function (req, res) {
+  const id = req.params.id || 0;
+  //const id = res.locals.authUser.uID;
 
   const information = await profileModel.getInforByID(id);
   const comment = await profileModel.getComment(id);
   const likeRate = await profileModel.getLikeOfBidder(id);
   const dislikeRate = await profileModel.getDislikeOfBidder(id);
+
+  let point = 0;
+  console.log(likeRate+" "+dislikeRate);
+  if (likeRate != 0 || dislikeRate != 0)
+    point = ((likeRate / (likeRate + dislikeRate)) * 100);
+  console.log("Điểm: " + point);
+
+  res.render("account/profile-comment", {
+    comment,
+    likeRate,
+    dislikeRate,
+    point,
+    infor: information[0],
+  });
+});
+
+router.get("/profile-comment/seller/:id", auth, async function (req, res) {
+  const id = req.params.id || 0;
+  //const id = res.locals.authUser.uID;
+
+  const information = await profileModel.getInforByID(id);
+  const comment = await profileModel.getCommentToSeller(id);
+  const likeRate = await profileModel.getLikeOfSeller(id);
+  const dislikeRate = await profileModel.getDislikeOfSeller(id);
 
   res.render("account/profile-comment", {
     comment,

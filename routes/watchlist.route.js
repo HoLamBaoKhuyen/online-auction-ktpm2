@@ -90,6 +90,8 @@ router.get("/participating", auth, async function (req, res) {
         if (wlist !== null) {
           newlist[i].inWatchlist = 1;
         }
+        if(req.session.authUser.uID == newlist[i].highestBidID)
+          newlist[i].isHighestBidder = 1;
       }
     }
   }

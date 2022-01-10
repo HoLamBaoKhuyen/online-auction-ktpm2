@@ -38,6 +38,7 @@ router.post("/declineBid", async function (req, res) {
   const highest = await declineBidModel.getHighesBidder(proID);
   await declineBidModel.add(entity);
   const tmp = await declineBidModel.highestAfterDec(proID);
+  await productModel.deleteUserFromAutoAuction(proID, req.body.decUID);
 
   if (
     moment(prodItem[0].timeEnd).isBefore(moment()) &&
