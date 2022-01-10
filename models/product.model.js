@@ -543,4 +543,7 @@ export default {
       .andWhere("selID", sellerID);
     return ret[0];
   },
+  async removeProduct(id){
+    return await db('products').where('prodID',id).del();
+  }
 };
