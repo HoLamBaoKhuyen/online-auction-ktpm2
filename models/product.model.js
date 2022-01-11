@@ -298,7 +298,7 @@ export default {
   },
 
   async getTop5End() {
-    const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve  from (select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select * from (select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
