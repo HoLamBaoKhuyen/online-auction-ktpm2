@@ -10,7 +10,7 @@ import fn from "knex";
 
 export const connectionInfo = {
   host: process.env.DB_HOST,
-  username: process.env.DB_USER,
+  user: process.env.DB_USER,
   password: process.env.DB_PASS,
   port: 3306,
   database: process.env.DB_DATABASE,
