@@ -6,6 +6,7 @@ import productModel from "../models/product.model.js";
 import categoryModel from "../models/category.model.js";
 import adminProductModel from "../models/admin-product.model.js";
 import searchModel from "../models/search.model.js";
+import mailModel from "../models/mail.model.js";
 
 import auth from "../middlewares/auth.mdw.js";
 
@@ -121,10 +122,17 @@ router.post("/edit-user-password/:id", auth, async function (req, res) {
       isAtAdminUser: true,
       isAtUserUpdate: false,
       user,
-      err_message: "Reset password failed",
+      err_message: "Cập nhật mật khẩu thất bại",
     });
     return;
   }
+
+  mailModel.sendAuctionEmail(
+    req.body.email,
+    "Reset lại mật khẩu",
+    `Mật khẩu mới của bạn là ${rawPassword}`
+  );
+
   res.render("admin/edit-user", {
     layout: "admin",
     isAtAdminUser: true,

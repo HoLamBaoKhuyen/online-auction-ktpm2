@@ -1,4 +1,5 @@
 import db from "../utils/db.js";
+import { fromMail, transporter } from "../utils/transporter.js";
 export default {
   //-----------------Hàm cho Mail-------------------
   sendAuctionEmail(recvEmail, subject, text) {
