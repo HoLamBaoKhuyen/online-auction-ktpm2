@@ -18,6 +18,7 @@ router.get("/postProduct", function (req, res) {
     req.session.authUser.userType !== "seller"
   ) {
     res.redirect("/");
+    return;
   }
   res.render("seller/postProduct");
 });
@@ -30,7 +31,7 @@ router.post("/postProduct", auth, async function (req, res) {
       console.error(err);
       fs.remove(filepath);
       res.render("seller/postProduct", {
-        err_mes: "Đã xảy ra lỗi. Mời thử lại sau"
+        err_mes: "Đã xảy ra lỗi. Mời thử lại sau",
       });
       return;
     } else {
@@ -54,7 +55,7 @@ router.post("/postProduct", auth, async function (req, res) {
         if (req.files.length < 3) {
           fs.remove(filepath);
           res.render("seller/postProduct", {
-            err_mes: "Số file upload phải từ 3 trở lên"
+            err_mes: "Số file upload phải từ 3 trở lên",
           });
           return;
         }
@@ -79,11 +80,10 @@ router.post("/postProduct", auth, async function (req, res) {
         // console.log(product);
         try {
           await productModel.addProduct(product);
-        }
-        catch {
+        } catch {
           fs.remove(filepath);
           res.render("seller/postProduct", {
-            err_mes: "Đã xảy ra lỗi. Mời thử lại sau"
+            err_mes: "Đã xảy ra lỗi. Mời thử lại sau",
           });
           return;
         }
@@ -91,7 +91,7 @@ router.post("/postProduct", auth, async function (req, res) {
           req.session.authUser.uID,
           req.body.prodName
         );
-        if (typeof (prod) !== 'undefined' || prod !== null) {
+        if (typeof prod !== "undefined" || prod !== null) {
           const productdes = {
             prodID: prod.prodID,
             des: req.body.des,
@@ -100,12 +100,11 @@ router.post("/postProduct", auth, async function (req, res) {
 
           try {
             await prodDesModel.add(productdes);
-          }
-          catch {
+          } catch {
             await productModel.removeProduct(prod.prodID);
             fs.remove(filepath);
             res.render("seller/postProduct", {
-              err_mes: "Đã xảy ra lỗi. Mời thử lại sau"
+              err_mes: "Đã xảy ra lỗi. Mời thử lại sau",
             });
             return;
           }
@@ -115,7 +114,7 @@ router.post("/postProduct", auth, async function (req, res) {
               await productModel.removeProduct(prod.prodID);
               fs.remove(filepath);
               res.render("seller/postProduct", {
-                err_mes: "Đã xảy ra lỗi. Mời thử lại sau"
+                err_mes: "Đã xảy ra lỗi. Mời thử lại sau",
               });
               return;
             } else {
@@ -125,8 +124,6 @@ router.post("/postProduct", auth, async function (req, res) {
             }
           });
         }
-
-
       });
     }
   });
