@@ -14,6 +14,8 @@ import nodecronMdw from "./middlewares/nodecron.mdw.js";
 
 import dotenv from "dotenv";
 
+import db from "./utils/db.js";
+
 dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -29,12 +31,14 @@ app.use(
 
 app.use("/public", express.static("public"));
 
-nodecronMdw;
-sessionMdw(app);
-activate_locals_middleware(app);
-viewMdw(app);
-routesMdw(app);
+// nodecronMdw;
+// sessionMdw(app);
+// activate_locals_middleware(app);
+// viewMdw(app);
+// routesMdw(app);
 
 app.listen(port, function () {
   console.log(`Example app listening at http://localhost:${port}`);
+  const temp = db.select().table("users");
+  console.log(temp);
 });
