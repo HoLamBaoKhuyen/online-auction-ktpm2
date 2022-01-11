@@ -15,7 +15,8 @@ router.get("/postProduct", function (req, res) {
   if (
     typeof req.session.auth === "undefined" ||
     req.session.auth === false ||
-    req.session.authUser.userType !== "seller"
+    req.session.authUser.userType !== "seller" ||
+    req.session.authUser.userType !== "admin"
   ) {
     res.redirect("/");
     return;
