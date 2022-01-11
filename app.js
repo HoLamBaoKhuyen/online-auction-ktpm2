@@ -38,7 +38,7 @@ activate_locals_middleware(app);
 viewMdw(app);
 routesMdw(app);
 
-app.listen(port, async function () {
+app.listen(port, function () {
   console.log("Database_URL", process.env.DATABASE);
   console.log(`Example app listening at http://localhost:${port}`);
   // const temp = await db.select().table("users");
