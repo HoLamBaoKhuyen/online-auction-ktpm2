@@ -19,11 +19,11 @@ export const connectionInfo = {
   password: process.env.DB_PASS,
   port: 3306,
   database: process.env.DB_DATABASE,
-  // ssl: {
-  //   // Force unsecured connection to PlanetScale
-  //   // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
-  //   rejectUnauthorized: false,
-  // },
+  ssl: {
+    // Force unsecured connection to PlanetScale
+    // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
+    rejectUnauthorized: false,
+  },
 };
 
 const knex = fn({
