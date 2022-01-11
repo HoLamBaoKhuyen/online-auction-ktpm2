@@ -54,7 +54,7 @@ export default {
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
-                        group by p.prodID, , p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timePosted desc
                         limit ` +
       limit +
