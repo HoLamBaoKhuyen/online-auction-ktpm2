@@ -39,14 +39,8 @@ viewMdw(app);
 routesMdw(app);
 
 app.listen(port, async function () {
+  console.log("Database_URL", process.env.DATABASE);
   console.log(`Example app listening at http://localhost:${port}`);
   // const temp = await db.select().table("users");
   // console.log(temp);
 });
-
-async function test() {
-  const temp = await db.select().table("users");
-  console.log(temp);
-}
-
-test();
