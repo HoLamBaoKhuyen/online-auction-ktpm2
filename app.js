@@ -40,6 +40,13 @@ app.use("/public", express.static("public"));
 
 app.listen(port, async function () {
   console.log(`Example app listening at http://localhost:${port}`);
+  // const temp = await db.select().table("users");
+  // console.log(temp);
+});
+
+async function test() {
   const temp = await db.select().table("users");
   console.log(temp);
-});
+}
+
+test();

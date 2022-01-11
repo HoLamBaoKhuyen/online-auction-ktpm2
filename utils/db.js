@@ -8,17 +8,22 @@ import fn from "knex";
 //   database: "onlauction",
 // };
 
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASS);
+console.log(process.env.DB_DATABASE);
+
 export const connectionInfo = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
   password: process.env.DB_PASS,
   port: 3306,
   database: process.env.DB_DATABASE,
-  ssl: {
-    // Force unsecured connection to PlanetScale
-    // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
-    rejectUnauthorized: false,
-  },
+  // ssl: {
+  //   // Force unsecured connection to PlanetScale
+  //   // https://www.w3resource.com/node.js/nodejs-mysql.php#SSL_options
+  //   rejectUnauthorized: false,
+  // },
 };
 
 const knex = fn({
