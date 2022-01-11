@@ -96,7 +96,7 @@ router.post("/edit-user-password/:id", auth, async function (req, res) {
 
   const id = req.params.id;
   const user = await userModel.findByID(id);
-  console.log(user);
+  // console.log(user);
 
   if (req.body.psword !== req.body.confirm) {
     res.render("admin/edit-user", {
@@ -208,7 +208,7 @@ router.get("/user-update", auth, async function (req, res) {
 });
 router.post("/user-update/approve", async function (req, res) {
   const uID = req.body.uID || 0;
-  console.log(uID);
+  // console.log(uID);
 
   await userModel.approveUpgrade(uID);
   await upgrdeModel.delUpgrade(uID);

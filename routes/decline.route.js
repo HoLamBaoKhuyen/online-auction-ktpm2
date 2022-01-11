@@ -18,7 +18,7 @@ router.post("/declineBid", async function (req, res) {
   const prodItem = await productModel.findByProdID(proID);
 
   const user = await userModel.findByID(req.body.decUID);
-  console.log(user);
+  // console.log(user);
   // productModel.sendAuctionEmail(
   //   user.email,
   //   "Từ chối ra giá",
