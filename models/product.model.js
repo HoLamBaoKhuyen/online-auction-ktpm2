@@ -489,7 +489,7 @@ export default {
   },
 
   async addAuction(uID, prodID, bidPrice) {
-    const sql = `insert into participate value(${uID},${prodID},${bidPrice},now())`;
+    const sql = `insert into participate values(${uID},${prodID},${bidPrice},now())`;
     const raw = await db.raw(sql);
     const sql2 = `update products set highestBidID = ${uID}, curPrice = ${bidPrice} 
                     where prodID = ${prodID}`;
@@ -497,7 +497,7 @@ export default {
   },
 
   async buyNowAuction(uID, prodID, buyNowPrice) {
-    const sql = `insert into participate value(${uID},${prodID},${buyNowPrice}, now())`;
+    const sql = `insert into participate values(${uID},${prodID},${buyNowPrice}, now())`;
     const raw = await db.raw(sql);
     const sql2 = `update products set highestBidID = ${uID}, curPrice = ${buyNowPrice}, timeEnd = now()
                     where prodID = ${prodID}`;
