@@ -1,5 +1,5 @@
 import session from "express-session";
-import mySqlSessionStore from "express-mysql-session";
+import MySQLStore from "express-mysql-session";
 import { connectionInfo } from "../utils/db.js";
 export default function (app) {
   // app.set("trust proxy", 1); // trust first proxy
@@ -15,7 +15,7 @@ export default function (app) {
   //   })
   // );
 
-  var sessionStore = new MySQLStore(connectionInfo);
+  const sessionStore = new MySQLStore(connectionInfo);
   app.set("trust proxy", 1);
   app.use(
     session({
