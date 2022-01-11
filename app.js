@@ -32,11 +32,11 @@ app.use(
 
 app.use("/public", express.static("public"));
 
-// nodecronMdw;
-// sessionMdw(app);
-// activate_locals_middleware(app);
-// viewMdw(app);
-// routesMdw(app);
+nodecronMdw;
+sessionMdw(app);
+activate_locals_middleware(app);
+viewMdw(app);
+routesMdw(app);
 
 app.listen(port, async function () {
   console.log(`Example app listening at http://localhost:${port}`);
