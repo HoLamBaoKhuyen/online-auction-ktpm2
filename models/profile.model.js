@@ -22,25 +22,25 @@ export default {
     },
 
     async getFavoriteProd(id) {
-        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
                         left join favoriteproducts fp on fp.prodID = p.prodID 
                         where fp.bidID= `+id+`
-                        group by p.prodID`;
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname`;
                         
         const raw = await db.raw(sql);
         return raw[0];
     },
 
     async getParticipatingProd(id) {
-        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, par.*
+        const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, par.*
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
                     where par.bidID = `+id+
-                    ` group by p.prodID`;
+                    ` group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname`;
         const raw = await db.raw(sql);
         return raw[0];
     },
@@ -57,12 +57,12 @@ export default {
     },
 
     async getWinProd(id) {
-        const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
                     where p.highestBidID= `+id+` and p.timeEnd < curdate()
-                    group by p.prodID;`
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname;`
         const raw = await db.raw(sql);
         return raw[0];
     },
