@@ -276,7 +276,7 @@ export default {
                         left join products p on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
                         where p.timeEnd > now()
-                        group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.curPrice DESC
                         limit 5 offset 0`;
     const raw = await db.raw(sql);
@@ -289,7 +289,7 @@ export default {
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
-                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                     order by count(par.prodID) desc
                     limit 5 offset 0`;
 
@@ -303,7 +303,7 @@ export default {
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
-                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                     order by p.timeEnd ASC
                     limit 5 offset 0) as tab
                   order by tab.timeEnd DESC`;
@@ -324,7 +324,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.timePosted desc
                         limit ` +
         limit +
@@ -343,7 +343,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.timePosted desc
                         limit ` +
         limit +
@@ -393,7 +393,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.curPrice asc
                         limit ` +
         limit +
@@ -412,7 +412,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.curPrice asc
                         limit ` +
         limit +
@@ -436,7 +436,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.timeEnd desc
                         limit ` +
         limit +
@@ -455,7 +455,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                         order by p.timeEnd desc
                         limit ` +
         limit +
