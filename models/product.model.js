@@ -50,11 +50,11 @@ export default {
 
   async findPageAll(limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
-                        group by p.prodID
+                        group by p.prodID, , p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timePosted desc
                         limit ` +
       limit +
@@ -73,7 +73,7 @@ export default {
 
   async findPageByCatID(catID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
@@ -81,7 +81,7 @@ export default {
                     where pt.category = ` +
       catID +
       `
-                    group by p.prodID
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by p.timePosted desc
                     limit ` +
       limit +
@@ -103,7 +103,7 @@ export default {
 
   async findPageByCatIDSortDate(catID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
@@ -111,7 +111,7 @@ export default {
                     where pt.category = ` +
       catID +
       `
-                    group by p.prodID
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by p.timeEnd desc
                     limit ` +
       limit +
@@ -123,7 +123,7 @@ export default {
 
   async findPageByCatIDSortPrice(catID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
                     left join users u on p.highestBidID = u.UID
                     left join participate par on par.prodID = p.prodID
@@ -131,7 +131,7 @@ export default {
                     where pt.category = ` +
       catID +
       `
-                    group by p.prodID
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by p.curPrice asc
                     limit ` +
       limit +
@@ -152,14 +152,14 @@ export default {
 
   async findPageByTypeID(typeID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
                         where p.prodType = ` +
       typeID +
       `
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timePosted desc
                         limit ` +
       limit +
@@ -171,14 +171,14 @@ export default {
 
   async findPageByTypeIDSortDate(typeID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
                         where p.prodType = ` +
       typeID +
       `
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timeEnd desc
                         limit ` +
       limit +
@@ -190,14 +190,14 @@ export default {
 
   async findPageByTypeIDSortPrice(typeID, limit, offset) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join users u on p.highestBidID = u.UID
                         left join participate par on par.prodID = p.prodID
                         where p.prodType = ` +
       typeID +
       `
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.curPrice asc
                         limit ` +
       limit +
@@ -233,7 +233,7 @@ export default {
 
   async getSimilarProduct(prodID) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
                     from products p
                     left join participate par on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
@@ -246,7 +246,7 @@ export default {
                                                         where p2.prodID = ` +
       prodID +
       `) 
-                    group by p.prodID
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by RAND() limit 3`;
     const raw = await db.raw(sql);
     return raw[0];
@@ -271,12 +271,12 @@ export default {
   //----------------------------------------------------------------------
 
   async getTop5HighestPrice() {
-    const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from participate par
                         left join products p on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
                         where p.timeEnd > now()
-                        group by par.prodID
+                        group by parp.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.curPrice DESC
                         limit 5 offset 0`;
     const raw = await db.raw(sql);
@@ -284,12 +284,12 @@ export default {
   },
 
   async getTop5HighestBids() {
-    const sql = `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
-                    group by par.prodID
+                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by count(par.prodID) desc
                     limit 5 offset 0`;
 
@@ -298,12 +298,12 @@ export default {
   },
 
   async getTop5End() {
-    const sql = `select*  from (select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+    const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve  from (select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from participate par
                     left join products p on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
                     where p.timeEnd > now()
-                    group by par.prodID
+                    group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                     order by p.timeEnd ASC
                     limit 5 offset 0) as tab
                   order by tab.timeEnd DESC`;
@@ -315,7 +315,7 @@ export default {
     let sql = "";
     if (category_search == "0") {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -324,7 +324,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timePosted desc
                         limit ` +
         limit +
@@ -332,7 +332,7 @@ export default {
         offset;
     } else {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -343,7 +343,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timePosted desc
                         limit ` +
         limit +
@@ -384,7 +384,7 @@ export default {
     let sql = "";
     if (category_search == "0") {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -393,7 +393,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.curPrice asc
                         limit ` +
         limit +
@@ -401,7 +401,7 @@ export default {
         offset;
     } else {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -412,7 +412,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.curPrice asc
                         limit ` +
         limit +
@@ -427,7 +427,7 @@ export default {
     let sql = "";
     if (category_search == "0") {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -436,7 +436,7 @@ export default {
                             match(p.prodName) AGAINST('` +
         text +
         `')
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timeEnd desc
                         limit ` +
         limit +
@@ -444,7 +444,7 @@ export default {
         offset;
     } else {
       sql =
-        `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+        `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                         from products p
                         left join participate par on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
@@ -455,7 +455,7 @@ export default {
         `') AND p.prodtype=` +
         category_search +
         ` 
-                        group by p.prodID
+                        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.timeEnd desc
                         limit ` +
         limit +
@@ -504,27 +504,29 @@ export default {
     const raw2 = await db.raw(sql2);
   },
 
-  async checkAutoAuction(prodID){
-    const list = await db("autoauction").where('prodID',prodID);
-    if(list.length === 0)
-      return null;
+  async checkAutoAuction(prodID) {
+    const list = await db("autoauction").where("prodID", prodID);
+    if (list.length === 0) return null;
     return list[0];
   },
 
-  deletefromAutoAuction(prodID){
-    return db('autoauction').where('prodID',prodID).del();
+  deletefromAutoAuction(prodID) {
+    return db("autoauction").where("prodID", prodID).del();
   },
 
-  deleteUserFromAutoAuction(prodID, uID){
-    return db('autoauction').where('prodID',prodID).andWhere('bidID',uID).del();
+  deleteUserFromAutoAuction(prodID, uID) {
+    return db("autoauction")
+      .where("prodID", prodID)
+      .andWhere("bidID", uID)
+      .del();
   },
 
-  async addAutoAuction(bidID,prodID, price){
+  async addAutoAuction(bidID, prodID, price) {
     const sql = `insert into autoauction values (${bidID}, ${prodID}, ${price}, now())`;
     const raw = await db.raw(sql);
   },
 
-  async getInforAutoAuction(prodID){
+  async getInforAutoAuction(prodID) {
     const sql = `select * 
                 from autoauction a
                 left join users u on a.bidID = u.uID
@@ -532,10 +534,6 @@ export default {
     const raw = await db.raw(sql);
     return raw[0];
   },
-
-
-
-
 
   //-----------------Hàm cho Mail-------------------
 
@@ -577,7 +575,7 @@ export default {
       .andWhere("selID", sellerID);
     return ret[0];
   },
-  async removeProduct(id){
-    return await db('products').where('prodID',id).del();
-  }
+  async removeProduct(id) {
+    return await db("products").where("prodID", id).del();
+  },
 };
