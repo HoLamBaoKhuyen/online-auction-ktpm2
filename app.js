@@ -37,8 +37,8 @@ app.use("/public", express.static("public"));
 // viewMdw(app);
 // routesMdw(app);
 
-app.listen(port, function () {
+app.listen(port, async function () {
   console.log(`Example app listening at http://localhost:${port}`);
-  const temp = db.select().table("users");
+  const temp = await db.select().table("users");
   console.log(temp);
 });
