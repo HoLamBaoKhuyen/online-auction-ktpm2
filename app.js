@@ -33,7 +33,7 @@ app.use(
 app.use("/public", express.static("public"));
 
 nodecronMdw;
-// sessionMdw(app);
+sessionMdw(app);
 activate_locals_middleware(app);
 viewMdw(app);
 routesMdw(app);
