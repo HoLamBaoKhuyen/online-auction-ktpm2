@@ -10,10 +10,11 @@ import viewMdw from "./middlewares/view.mdw.js";
 import routesMdw from "./middlewares/routes.mdw.js";
 import sessionMdw from "./middlewares/session.mdw.js";
 
-import * as path from "path";
-
-import { create } from "express-handlebars";
 import nodecronMdw from "./middlewares/nodecron.mdw.js";
+
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
