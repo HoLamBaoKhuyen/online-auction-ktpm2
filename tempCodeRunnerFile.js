@@ -14,10 +14,12 @@ var new_minute =
   Math.floor(currentleft2 / oneDay) * 24 * 60 +
   Math.floor((currentleft2 % oneDay) / 3600000) * 60;
 if (dayleft >= 1 && dayleft <= 3) {
-  console.log("Day " + dayleft);
+  // console.log("Day " + dayleft);
 } else if (dayleft == 0) {
   if (hourleft > 0) console.log("Hour " + hourleft);
   else {
-    console.log("minute" + minuteleft);
+    // console.log("minute" + minuteleft);
   }
-} else console.log(timeleft);
+} else {
+  // console.log(timeleft);
+}

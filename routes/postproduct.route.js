@@ -76,7 +76,7 @@ router.post("/postProduct", auth, async function (req, res) {
           selID: req.session.authUser.uID,
           approve: req.body.approve,
         };
-        console.log(product);
+        // console.log(product);
         try {
           await productModel.addProduct(product);
         }

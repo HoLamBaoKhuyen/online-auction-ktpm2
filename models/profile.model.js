@@ -15,7 +15,7 @@ export default {
 
     async checkUserType(id) {
         const role = await db.select('userType').from('users').where('UID', id);
-        console.log(role);
+        // console.log(role);
         if (role.length == 0)
             return null;
         return role[0].userType;

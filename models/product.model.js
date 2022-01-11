@@ -30,14 +30,14 @@ export default {
         if (postedMinute < 60) list[i].newpost = 1;
 
         if (dayleft >= 1 && dayleft <= 3) {
-          console.log("Day: " + dayleft);
+          // console.log("Day: " + dayleft);
           list[i].remain = dayleft + " ngày";
         } else if (dayleft == 0) {
           if (hourleft > 0) {
-            console.log("Hour: " + hourleft);
+            // console.log("Hour: " + hourleft);
             list[i].remain = hourleft + " giờ";
           } else {
-            console.log("minute:" + minuteleft);
+            // console.log("minute:" + minuteleft);
             list[i].remain = minuteleft + " phút";
           }
         } else {
@@ -540,7 +540,7 @@ export default {
   //-----------------Hàm cho Mail-------------------
 
   sendAuctionEmail(recvEmail, subject, text) {
-    console.log(recvEmail + " " + subject + " " + text);
+    // console.log(recvEmail + " " + subject + " " + text);
     let transporterNodemailer = transporter;
 
     var mailOptions = {
@@ -551,9 +551,9 @@ export default {
     };
     transporterNodemailer.sendMail(mailOptions, function (error, info) {
       if (error) {
-        console.log(error);
+        // console.log(error);
       } else {
-        console.log("Email sent: " + info.response);
+        // console.log("Email sent: " + info.response);
       }
     });
   },
