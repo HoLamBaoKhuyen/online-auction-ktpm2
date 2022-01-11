@@ -246,7 +246,7 @@ export default {
                                                         where p2.prodID = ` +
       prodID +
       `) 
-                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname, u2.firstname
                     order by RAND() limit 3`;
     const raw = await db.raw(sql);
     return raw[0];
