@@ -121,7 +121,7 @@ router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
       address: req.body.address,
       userType: "bidder",
     };
-    console.log(user);
+    // console.log(user);
     await userModel.add(user);
     res.redirect("/account/login");
     //res.render("Authentication/login", { layout: "authentication" });
@@ -408,18 +408,27 @@ router.post("/updatepassword/:id", async function (req, res) {
   if (req.body.psword !== req.body.confirm) {
     res.render("Authentication/updatepassword", {
       layout: "authentication",
-      err_message: "Password not matching",
+      err_message: "Mật khẩu nhập lại không khớp",
     });
     return;
   }
   const id = req.params.id;
   const user = await userModel.findByID(id);
   const rawPassword = req.body.psword;
+  const oldPw = req.body.old;
+  const cond = bcrypt.compareSync(oldPw,user.psword);
+  if(cond ===false){
+    res.render("Authentication/updatepassword", {
+          layout: "authentication",
+          err_message: "Mật khẩu xác nhận không hợp lệ",
+        });
+        return;
+  }
   const ret = bcrypt.compareSync(rawPassword, user.psword);
   if (ret === true) {
     res.render("Authentication/updatepassword", {
       layout: "authentication",
-      err_message: "Reset password failed",
+      err_message: "Mật khẩu mới không hợp lệ",
     });
     return;
   } else {
@@ -430,7 +439,7 @@ router.post("/updatepassword/:id", async function (req, res) {
     } catch {
       res.render("Authentication/updatepassword", {
         layout: "authentication",
-        err_message: "Reset password failed",
+        err_message: "Thay đổi mật khẩu không thành công. Xin thử lại sau",
       });
       return;
     }

@@ -1,4 +1,6 @@
 import express from "express";
+import moment from "moment";
+import numeral from "numeral";
 import productModel from "../models/product.model.js";
 import profileModel from "../models/profile.model.js";
 
@@ -483,9 +485,9 @@ router.get("/detail/:prodid", async function (req, res) {
     } else {
       const getBidLike = await profileModel.getLikeOfBidder(uID);
       const getBidDisLike = await profileModel.getDislikeOfBidder(uID);
-      const point = 0;
-      if (getBidLike != 0 && getBidDisLike != 0)
-        point = Math.round((getBidLike / (getBidLike + getBidDisLike)) * 10);
+      let point = 0;
+      if (getBidLike != 0 || getBidDisLike != 0)
+        point = (getBidLike / (getBidLike + getBidDisLike)) * 10;
       console.log("Điểm: " + point);
       if (newlist[0].approve == 0 && point < 8) newlist[0].isDeclined = 1;
     }
@@ -543,30 +545,204 @@ router.post("/detail/:prodID/makeBid", async function (req, res) {
         if (Number.isInteger(different / product[0].step) == false) {
           req.session.bidUnsuccess =
             "Vui lòng nhập giá tăng thêm là bội của bước giá";
-        } else {
-          req.session.bidSuccess = "Bạn đã đấu giá thành công";
-          productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
-          const getMail = await productModel.getEmailinProduct(prodID);
-          const getMailBid = await profileModel.getInforByID(
-            res.locals.authUser.uID
-          );
-          productModel.sendAuctionEmail(
-            getMail[0].sellerMail,
-            "Update giá của sản phẩm " + product[0].prodName,
-            "Giá mới được bid là: " + bidValue
-          );
-          if (getMail[0].currentHighestMail != null)
-            productModel.sendAuctionEmail(
-              getMail[0].currentHighestMail,
-              "Update giá của sản phẩm " + product[0].prodName,
-              "Giá mới được bid là: " + bidValue
+        }
+
+        else {
+          // GIÁ HỢP LỆ
+          const checkAutoAuction = await productModel.checkAutoAuction(prodID);// Lấy thông tin của người đang đặt giá cao nhất hiện tại 
+
+          if (checkAutoAuction == null) //Không có autoauction
+          {
+            const getMail = await productModel.getEmailinProduct(prodID);//Lấy thông tin sản phẩm hiện tại
+
+            if (product[0].curPrice + product[0].step != bidValue) //Trường hợp == thì tức là đang đặt giá thấp nhất có thể đặt --> k cần auto --> != mới có auto
+              productModel.addAutoAuction(res.locals.authUser.uID, prodID, bidValue);
+
+            const newbidValue = product[0].curPrice + product[0].step;
+            productModel.addAuction(res.locals.authUser.uID, prodID, newbidValue);
+
+            const getMailBid = await profileModel.getInforByID(
+              res.locals.authUser.uID
             );
-          if (getMailBid[0].email != getMail[0].currentHighestMail)
+
             productModel.sendAuctionEmail(
-              getMailBid[0].email,
+              getMail[0].sellerMail,
               "Update giá của sản phẩm " + product[0].prodName,
-              "Bạn vừa mới đấu giá thành công. Giá mới được bid là: " + bidValue
+              `Giá mới được bid là: ${numeral(newbidValue).format("0,0")} VND`
             );
+            if (getMail[0].currentHighestMail != null)
+              productModel.sendAuctionEmail(
+                getMail[0].currentHighestMail,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Giá mới được bid là: ${numeral(newbidValue).format("0,0")} VND`
+              );
+            if (getMailBid[0].email != getMail[0].currentHighestMail)
+              productModel.sendAuctionEmail(
+                getMailBid[0].email,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(
+                  newbidValue
+                ).format("0,0")} VND`
+              );
+            req.session.bidSuccess = "Bạn đã đấu giá thành công";
+
+          }
+          else {
+            // Trường hợp giá mới cao hơn giá lớn nhất của người đang đặt tự động
+            if (bidValue > checkAutoAuction.maxprice) {
+              const curAutoBid = await productModel.getInforAutoAuction(prodID);
+              const getMail = await productModel.getEmailinProduct(prodID);//Lấy thông tin sản phẩm hiện tại để lấy email 
+
+
+              //Xóa auto auction của người hiện tại và thêm người mới
+              await productModel.deletefromAutoAuction(prodID);
+              productModel.addAutoAuction(res.locals.authUser.uID, prodID, bidValue);
+
+              // if(curAutoBid[0].maxprice != product[0].curPrice)
+              //   productModel.addAuction(curAutoBid[0].bidID, prodID, curAutoBid[0].maxprice); // lấy giá max của người giá cao nhất trong auto cũ
+
+              const newbidValue = curAutoBid[0].maxprice + product[0].step;
+              productModel.addAuction(res.locals.authUser.uID, prodID, newbidValue); // thêm vào giá max của người cũ + step để ra giá bid mới nhỏ nhất
+
+              if (curAutoBid[0].maxprice + product[0].step == bidValue)
+                await productModel.deletefromAutoAuction(prodID); //Xóa autoauction của bidder hiện tại nếu curPrice đã bằng giá max của bidder này
+
+              const getMailBid = await profileModel.getInforByID(
+                res.locals.authUser.uID
+              );
+
+              productModel.sendAuctionEmail(
+                getMail[0].sellerMail,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Giá mới được bid là: ${numeral(newbidValue).format("0,0")} VND`
+              );
+              if (getMail[0].currentHighestMail != null)
+                productModel.sendAuctionEmail(
+                  getMail[0].currentHighestMail,
+                  "Update giá của sản phẩm " + product[0].prodName,
+                  `Giá mới được bid là: ${numeral(newbidValue).format("0,0")} VND`
+                );
+              productModel.sendAuctionEmail(
+                getMailBid[0].email,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(newbidValue).format("0,0")} VND`
+              );
+              req.session.bidSuccess = "Bạn đã đấu giá thành công";
+
+            }
+
+            if (bidValue < checkAutoAuction.maxprice) {
+              const curAutoBid = await productModel.getInforAutoAuction(prodID);
+              const getMail = await productModel.getEmailinProduct(prodID);//Lấy thông tin sản phẩm hiện tại để lấy email 
+              const getMailBid = await profileModel.getInforByID(
+                res.locals.authUser.uID
+              );
+
+              //Lấy giá cao nhất của người hiện tại để đấu và gửi thông tin qua email
+              productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
+
+              productModel.sendAuctionEmail(
+                getMail[0].sellerMail,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
+              );
+              if (getMail[0].currentHighestMail != null)
+                productModel.sendAuctionEmail(
+                  getMail[0].currentHighestMail,
+                  "Update giá của sản phẩm " + product[0].prodName,
+                  `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
+                );
+              productModel.sendAuctionEmail(
+                getMailBid[0].email,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
+              );
+
+              //Auto auction được thực thi
+              const newprice = (+bidValue) + (+product[0].step);
+
+              productModel.addAuction(curAutoBid[0].bidID, prodID, newprice);// tự động đấu giá mới 
+
+              if (newprice == checkAutoAuction.maxprice)
+                await productModel.deletefromAutoAuction(prodID); //Xóa autoauction của bidder hiện tại nếu curPrice đã bằng giá max của bidder này
+
+              const getMail2 = await productModel.getEmailinProduct(prodID);//Lấy thông tin sản phẩm hiện tại để lấy email 
+              const getMailBid2 = await profileModel.getInforByID(
+                curAutoBid[0].bidID
+              );
+
+              //Gửi mail
+              productModel.sendAuctionEmail(
+                getMail2[0].sellerMail,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Giá mới được bid là: ${numeral(newprice).format("0,0")} VND`
+              );
+              if (getMail2[0].currentHighestMail != null)
+                productModel.sendAuctionEmail(
+                  getMailBid[0].email,
+                  "Update giá của sản phẩm " + product[0].prodName,
+                  `Giá mới được bid là: ${numeral(newprice).format("0,0")} VND`
+                );
+              productModel.sendAuctionEmail(
+                getMailBid2[0].email,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(newprice).format("0,0")} VND`
+              );
+              req.session.bidSuccess = "Bạn đã đấu giá thành công";
+            }
+
+            if (bidValue == checkAutoAuction.maxprice) {
+              const curAutoBid = await productModel.getInforAutoAuction(prodID);
+              const getMail = await productModel.getEmailinProduct(prodID);//Lấy thông tin sản phẩm hiện tại để lấy email 
+              const getMailBid = await profileModel.getInforByID(
+                res.locals.authUser.uID
+              );
+
+              productModel.addAuction(curAutoBid[0].bidID, prodID, curAutoBid[0].maxprice);
+              await productModel.deletefromAutoAuction(curAutoBid[0].bidID); //Xóa autoauction của bidder hiện tại do curPrice đã bằng giá max của bidder này
+              req.session.bidUnsuccess = "Giá cao nhất của bạn đã bị người khác đặt mất. Vui lòng đặt lại giá khác.";// Nếu bằng giá thì chọn người đặt trước
+
+              await productModel.deletefromAutoAuction(prodID); //Xóa autoauction của bidder hiện tại do curPrice đã bằng giá max của bidder này
+
+
+              productModel.sendAuctionEmail(
+                getMail[0].sellerMail,
+                "Update giá của sản phẩm " + product[0].prodName,
+                `Giá mới được bid là: ${numeral(curAutoBid[0].maxprice).format("0,0")} VND`
+              );
+              if (getMail[0].currentHighestMail != null)
+                productModel.sendAuctionEmail(
+                  getMail[0].currentHighestMail,
+                  "Bạn vừa mới update giá của sản phẩm " + product[0].prodName,
+                  `Giá mới được bid là: ${numeral(curAutoBid[0].maxprice).format("0,0")} VND`
+                );
+            }
+
+          }
+          // productModel.addAuction(res.locals.authUser.uID, prodID, bidValue);
+          // const getMail = await productModel.getEmailinProduct(prodID);
+          // const getMailBid = await profileModel.getInforByID(
+          //   res.locals.authUser.uID
+          // );
+          // productModel.sendAuctionEmail(
+          //   getMail[0].sellerMail,
+          //   "Update giá của sản phẩm " + product[0].prodName,
+          //   `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
+          // );
+          // if (getMail[0].currentHighestMail != null)
+          //   productModel.sendAuctionEmail(
+          //     getMail[0].currentHighestMail,
+          //     "Update giá của sản phẩm " + product[0].prodName,
+          //     `Giá mới được bid là: ${numeral(bidValue).format("0,0")} VND`
+          //   );
+          // if (getMailBid[0].email != getMail[0].currentHighestMail)
+          //   productModel.sendAuctionEmail(
+          //     getMailBid[0].email,
+          //     "Update giá của sản phẩm " + product[0].prodName,
+          //     `Bạn vừa mới đấu giá thành công. Giá mới được bid là: ${numeral(
+          //       bidValue
+          //     ).format("0,0")} VND`
+          //   );
         }
       }
     }
@@ -591,19 +767,21 @@ router.post("/detail/:prodID/buyNow", async function (req, res) {
   productModel.sendAuctionEmail(
     getMail[0].sellerMail,
     "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-    "Giá mua ngay là: " + product[0].buyNowPrice
+    `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
   );
   if (getMail[0].currentHighestMail != null)
     productModel.sendAuctionEmail(
       getMail[0].currentHighestMail,
       "Sản phẩm " + product[0].prodName + " đã được mua ngay",
-      "Giá mua ngay là: " + product[0].buyNowPrice
+      `Giá mua ngay là: ${numeral(product[0].buyNowPrice).format("0,0")} VND`
     );
   if (getMailBid[0].email != getMail[0].currentHighestMail)
     productModel.sendAuctionEmail(
       getMailBid[0].email,
       "Sản phẩm " + product[0].prodName,
-      "Bạn vừa mua ngay thành công. Giá mua ngay là: " + product[0].buyNowPrice
+      `Bạn vừa mua ngay thành công. Giá mua ngay là: ${numeral(
+        product[0].buyNowPrice
+      ).format("0,0")} VND`
     );
   res.redirect("/detail/" + prodID);
 });
