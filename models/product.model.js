@@ -276,7 +276,7 @@ export default {
                         left join products p on par.prodID = p.prodID
                         left join users u on p.highestBidID = u.UID
                         where p.timeEnd > now()
-                        group by parp.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
+                        group by par.prodID, p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve
                         order by p.curPrice DESC
                         limit 5 offset 0`;
     const raw = await db.raw(sql);
