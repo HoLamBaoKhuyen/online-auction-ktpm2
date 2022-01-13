@@ -1,13 +1,17 @@
-<header class="bg-light text-white">
-  <div class="container-fluid">
-    <div class="d-flex flex-wrap align-items-center justify-content-between">
-
-      <h4 class="nav col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <h4 class="nav me-lg-auto mb-2 justify-content-left mb-md-0">
         <img src="/public/images/icondaugia.png" alt="icondaugia" class="logo" height="45" />
         <a href="/" class="nav-link px-2 text-secondary header__title">AUCTION
           ONLINE</a>
       </h4>
-      <div class="nav-item dropdown m-3">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item">
+        <div class="nav-item dropdown m-3">
         <button class="dropdown-toggle border-0 categoryBtn" type="button" id="dropdownMenu2" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false">
           Danh mục
@@ -32,8 +36,9 @@
           </li>
         </ul>
       </div>
-
-      <form class="col-lg-4 input-group mb-2 mb-lg-0 me-lg-3" action="/product/search">
+      </li>
+      <li class="nav-item my-auto">
+         <form class="input-group" action="/product/search">
         <select class="form-select border-right-0 rounded-0 active categoryBtn" name="categorySearch"
           aria-label="Default select example"
           style="font-weight: 400; font-size: 16px; border: solid 1px #ced4da; border-radius: 20px 0 0 20px !important;padding-left: 1em;">
@@ -50,13 +55,18 @@
         </button>
 
       </form>
+      </li>
       {{#if authUser}}
+      <li class="nav-item">
+        
       {{#if (isAdmin authUser.userType)}}
       <a name="" id="" class="btn btn-outline-danger" href="/admin" role="button">
         <i class="fa fa-user-circle-o fa-lg" aria-hidden="true"></i>
        Admin
       </a>
       {{/if}}
+       </li>
+     
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle active" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -164,10 +174,11 @@
           </ul>
         </li>
       </ul>
+      
       {{else}}
-
-
-      <div class="m-3">
+</ul>
+ <div class="nav-item">
+      <div class="">
         <a class="btn btn-outline-warning me-2 signupBtn" href="/account/login" role="button">
           <i class="fa fa-sign-in" aria-hidden="true"></i>
           Login
@@ -183,6 +194,8 @@
           Sign-up</button> --}}
       </div>
       {{/if}}
-    </div>
+      </div>
+
   </div>
-</header>
+</nav>
+
