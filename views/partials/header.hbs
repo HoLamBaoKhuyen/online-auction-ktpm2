@@ -56,8 +56,9 @@
 
       </form>
       </li>
-      {{#if authUser}}
-      <li class="nav-item">
+    
+</ul>  {{#if authUser}}
+      <span class="nav-item">
         
       {{#if (isAdmin authUser.userType)}}
       <a name="" id="" class="btn btn-outline-danger" href="/admin" role="button">
@@ -65,7 +66,7 @@
        Admin
       </a>
       {{/if}}
-       </li>
+       </span>
      
       <ul class="navbar-nav">
         <li class="nav-item dropdown">
@@ -176,7 +177,6 @@
       </ul>
       
       {{else}}
-</ul>
  <div class="nav-item">
       <div class="">
         <a class="btn btn-outline-warning me-2 signupBtn" href="/account/login" role="button">
