@@ -25,7 +25,7 @@ function sendMailWinner() {
 }
 
 export default cron.schedule("*/5 * * * *", () => {
-  console.log("running a task every minute");
+  // console.log("running a task every minute");
   sendMailSeller();
   sendMailWinner();
 });

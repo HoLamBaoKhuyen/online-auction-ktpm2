@@ -5,8 +5,7 @@
     = $('#txtCatName').val(); if (!catName){ alert(`Vui lòng điền tên danh
     mục!`); return; }
     $.getJSON(`/admin/categories/is-available?catName=${catName}`,function(data){
-    if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã
-    thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
+    if (data===false){ alert('Danh mục đã tồn tại'); return; } else { alert(`Đã thêm danh mục ${catName}`); $('#frmAddCate').off('submit').submit(); } });
     });
   </script>
 

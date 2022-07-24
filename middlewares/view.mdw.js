@@ -52,7 +52,7 @@ export default function (app) {
           return false;
         },
         Ended(time) {
-          console.log("time:" + time);
+          // console.log("time:" + time);
           if (moment(time).isBefore(moment()))
             return true;
           return false;

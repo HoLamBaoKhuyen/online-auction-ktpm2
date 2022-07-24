@@ -16,12 +16,13 @@ import dotenv from "dotenv";
 
 import db from "./utils/db.js";
 
-dotenv.config();
+// dotenv.config();
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 const app = express();
+// app.set('trust proxy', 1);
 app.use(morgan("dev"));
 app.use(
   express.urlencoded({
@@ -31,14 +32,15 @@ app.use(
 
 app.use("/public", express.static("public"));
 
-// nodecronMdw;
-// sessionMdw(app);
-// activate_locals_middleware(app);
-// viewMdw(app);
-// routesMdw(app);
+nodecronMdw;
+sessionMdw(app);
+activate_locals_middleware(app);
+viewMdw(app);
+routesMdw(app);
 
-app.listen(port, async function () {
+app.listen(port, function () {
+  console.log("Database_URL", process.env.DATABASE);
   console.log(`Example app listening at http://localhost:${port}`);
-  const temp = await db.select().table("users");
-  console.log(temp);
+  // const temp = await db.select().table("users");
+  // console.log(temp);
 });

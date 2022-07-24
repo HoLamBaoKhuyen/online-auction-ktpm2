@@ -8,6 +8,11 @@ import fn from "knex";
 //   database: "onlauction",
 // };
 
+console.log(process.env.DB_HOST);
+console.log(process.env.DB_USER);
+console.log(process.env.DB_PASS);
+console.log(process.env.DB_DATABASE);
+
 export const connectionInfo = {
   host: process.env.DB_HOST,
   user: process.env.DB_USER,
@@ -24,7 +29,11 @@ export const connectionInfo = {
 const knex = fn({
   client: "mysql2",
   connection: connectionInfo,
-  pool: { min: 0, max: 10 },
+  pool: {
+    min: 0,
+    max: 10,
+  },
+  debug: true,
 });
 
 export default knex;

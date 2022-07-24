@@ -1,14 +1,28 @@
-import session from 'express-session';
-export default function (app){
-    
-app.set('trust proxy', 1) // trust first proxy
-app.use(session({
-  secret: process.env.SESSION_SECRET,
-  resave: false,
-  saveUninitialized: false,
-  cookie: { 
-    //secure: true 
-  }
-}));
+import session from "express-session";
+import MySQLStore from "express-mysql-session";
+import { connectionInfo } from "../utils/db.js";
+export default function (app) {
+  // app.set("trust proxy", 1); // trust first proxy
+  // app.use(
+  //   session({
+  //     secret: process.env.SESSION_SECRET,
+  //     resave: false,
+  //     saveUninitialized: false,
+  //     store: new MySqlSession({
+  //       ...connectionInfo,
+  //       expiration: COOKIE_MAX_AGE,
+  //     }),
+  //   })
+  // );
 
+  const sessionStore = new MySQLStore(connectionInfo);
+  app.set("trust proxy", 1);
+  app.use(
+    session({
+      secret: process.env.SESSION_SECRET,
+      store: sessionStore,
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
 }

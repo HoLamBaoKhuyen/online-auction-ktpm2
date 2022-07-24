@@ -96,7 +96,7 @@ router.post("/edit-user-password/:id", auth, async function (req, res) {
 
   const id = req.params.id;
   const user = await userModel.findByID(id);
-  console.log(user);
+  // console.log(user);
 
   if (req.body.psword !== req.body.confirm) {
     res.render("admin/edit-user", {
@@ -208,7 +208,7 @@ router.get("/user-update", auth, async function (req, res) {
 });
 router.post("/user-update/approve", async function (req, res) {
   const uID = req.body.uID || 0;
-  console.log(uID);
+  // console.log(uID);
 
   await userModel.approveUpgrade(uID);
   await upgrdeModel.delUpgrade(uID);
@@ -338,7 +338,7 @@ router.get("/categories/detail/edit", auth, async function (req, res) {
   const type = await categoryModel.findByTypeID(catID);
   const cat = { catID: type.typeID, catName: type.typeName };
 
-  console.log(cat);
+  // console.log(cat);
   res.render("admin/edit-cat", {
     layout: "admin",
     isAtCategories: true,
@@ -363,7 +363,7 @@ router.get("/categories/detail/is-available", auth, async function (req, res) {
   }
 
   const typeName = await categoryModel.findByTypeName(req.query.typeName);
-  console.log(typeName);
+  // console.log(typeName);
   if (typeName.length === 0) {
     return res.json(true);
   }
@@ -434,8 +434,8 @@ router.get("/categories/detail/byCat/:catID", auth, async function (req, res) {
 router.post("/categories/detail/byCat/:catID", async function (req, res) {
   const catID = req.params.catID;
   const typeName = req.body.typeName;
-  console.log(catID);
-  console.log(typeName);
+  // console.log(catID);
+  // console.log(typeName);
   await categoryModel.addLevel2(typeName, catID);
 
   res.redirect(req.headers.referer);
@@ -541,7 +541,7 @@ router.get("/user-update/search", auth, async function (req, res) {
   const name = req.query.search || "";
 
   const total = await searchModel.countAllUserUpdate(name);
-  console.log(total);
+  // console.log(total);
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
 
@@ -581,7 +581,7 @@ router.get("/categories/search", auth, async function (req, res) {
 
   const name = req.query.search || "";
   const total = await searchModel.countAllLevel1(name);
-  console.log(total);
+  // console.log(total);
   let nPages = Math.floor(total / limit);
   if (total % limit > 0) nPages++;
 

@@ -22,4 +22,4 @@
 //         console.log(timeleft);
 
 var a = 100/25;
-console.log(Number.isInteger(a));
+// console.log(Number.isInteger(a));

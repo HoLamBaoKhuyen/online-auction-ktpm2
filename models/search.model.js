@@ -74,8 +74,7 @@ export default {
   //product
 
   async countAllProducts(name) {
-    const sql = `select p.*, pType.typeName, concat('***** ',u.firstname) AS nameofUser,concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
-        from products p
+    const sql = `select p.prodID from products p
         left join users u on p.highestBidID = u.UID
         left join participate par on par.prodID = p.prodID
         left join producttype pType on p.prodType = pType.typeID
@@ -87,14 +86,14 @@ export default {
   },
 
   async findPageAll(name, limit, offset) {
-    const sql = `select p.*, pType.typeName, concat('***** ',u.firstname) AS nameofUser,concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
+    const sql = `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, pType.typeName, concat('***** ',u.firstname) AS nameofUser,concat('***** ',u2.firstname) AS nameofSeller, count(par.prodID) AS CountBids
         from products p
         left join users u on p.highestBidID = u.UID
         left join participate par on par.prodID = p.prodID
         left join producttype pType on p.prodType = pType.typeID
         left join users u2 on p.selID = u2.UID
         where match(p.prodName) against ('${name}') or match(pType.typeName) against('${name}')
-        group by p.prodID limit ${limit} offset ${offset}`;
+        group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, pType.typeName limit ${limit} offset ${offset}`;
     const raw = await db.raw(sql);
     return raw[0];
   },

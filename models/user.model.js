@@ -56,7 +56,7 @@ export default {
 
   async fullTextSearchUser(name) {
     const sql =
-      `select p.*, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
+      `select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, concat('***** ',u.firstname) AS nameofUser, count(par.prodID) AS CountBids
                     from products p
                     left join participate par on par.prodID = p.prodID
                     left join users u on p.highestBidID = u.UID
@@ -68,7 +68,7 @@ export default {
                         match(pd.des) AGAINST('` +
       text +
       `')
-                    group by p.prodID
+                    group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
                     limit ` +
       limit +
       ` offset ` +

@@ -25,7 +25,7 @@ router.get("/pre-signup", function (req, res) {
 });
 router.post("/pre-signup", recaptcha.middleware.verify, function (req, res) {
   if (!req.recaptcha.error) {
-    console.log(req.body);
+    // console.log(req.body);
     if (req.body.code !== req.body.otp) {
       res.render("Authentication/pre_signup", {
         layout: "authentication",
@@ -47,7 +47,7 @@ router.post("/pre-signup", recaptcha.middleware.verify, function (req, res) {
 });
 router.post("/sendCode", async function (req, res) {
   const mail = req.body.emailCode;
-  console.log(mail);
+  // console.log(mail);
   const user = await userModel.findByEmail(mail);
 
   if (user === null) {
@@ -86,7 +86,7 @@ router.post("/sendCode", async function (req, res) {
 router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
   if (!req.recaptcha.error) {
     // success code
-    console.log(req.body);
+    // console.log(req.body);
     const rawPassword = req.body.psword;
     if (rawPassword !== req.body.confirm) {
       res.render("Authentication/signup_edit", {
@@ -136,7 +136,7 @@ router.post("/signup", recaptcha.middleware.verify, async function (req, res) {
 router.post("/login", recaptcha.middleware.verify, async function (req, res) {
   if (!req.recaptcha.error) {
     const user = await userModel.findByEmail(req.body.email);
-    console.log(user);
+    // console.log(user);
     if (user === null) {
       res.render("Authentication/login", {
         layout: "authentication",
@@ -183,7 +183,7 @@ router.get("/forgetpassword", function (req, res) {
 });
 router.post("/forgetpassword/sendCode", async function (req, res) {
   const mail = req.body.emailCode;
-  console.log(mail);
+  // console.log(mail);
   const user = await userModel.findByEmail(mail);
 
   if (user !== null) {
@@ -416,13 +416,13 @@ router.post("/updatepassword/:id", async function (req, res) {
   const user = await userModel.findByID(id);
   const rawPassword = req.body.psword;
   const oldPw = req.body.old;
-  const cond = bcrypt.compareSync(oldPw,user.psword);
-  if(cond ===false){
+  const cond = bcrypt.compareSync(oldPw, user.psword);
+  if (cond === false) {
     res.render("Authentication/updatepassword", {
-          layout: "authentication",
-          err_message: "Mật khẩu xác nhận không hợp lệ",
-        });
-        return;
+      layout: "authentication",
+      err_message: "Mật khẩu xác nhận không hợp lệ",
+    });
+    return;
   }
   const ret = bcrypt.compareSync(rawPassword, user.psword);
   if (ret === true) {

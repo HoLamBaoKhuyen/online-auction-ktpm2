@@ -29,12 +29,12 @@ export default {
         //   limit +
         //   ` offset ` +
         //   offset;
-          const sql =`select p.*,  concat('***** ',u.firstname) AS nameofUser, count(pa.prodID) as CountBids
+          const sql =`select p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve,  concat('***** ',u.firstname) AS nameofUser, count(pa.prodID) as CountBids
           from products p right join favoriteproducts f on p.prodID = f.prodID
                   left join users u on p.highestBidID = u.uID
                   left join participate pa on p.prodID = pa.prodID
           where f.bidID= `+uid+`  
-          group by p.prodID
+          group by p.prodID, p.prodName, p.prodType, p.originalPrice, p.curPrice, p.step, p.highestBidID, p.buyNowPrice, p.timePosted, p.timeEnd, p.selID, p.approve, u.firstname
           limit `+limit+`
            offset `+offset+``;
         const raw = await db.raw(sql);
